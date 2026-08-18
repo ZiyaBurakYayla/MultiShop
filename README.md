@@ -41,6 +41,10 @@ Kullanıcı satıcı başvurusu yapar, yönetici onaylar, kullanıcıya otomatik
 rolü atanır. Satıcı kendi ürünlerini, siparişlerini ve cirosunu yönetir; başka bir
 satıcının ürününe erişemez.
 
+ ### 🐳 Docker ile 6+ Veritabanı Konteynerizasyonu
+Projede kullanılan tüm veri depoları (MongoDB, SQL Server veritabanları, PostgreSQL, Redis vb.) Docker
+konteynerleri üzerinde izole şekilde çalışmaktadır. 6'dan fazla veritabanı Docker ortamında ayağa kaldırılarak her mikroservisin tamamen bağımsız bir veri katmanına sahip olması sağlanmıştır.
+
 ### 📦 Barkodlu kargo takip sistemi
 Ödeme tamamlandığı anda `MS + yyyyMMdd + siparişNo` formatında barkod üretilir ve
 kargo kaydı açılır. Kargo firması yetkilisi kendi panelinden durumu günceller
