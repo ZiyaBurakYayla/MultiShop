@@ -1,0 +1,68 @@
+@model List<ResultProductDto>
+@{
+    ViewData["Title"] = "Ürünlerim";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["MyProducts"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["MyProductsSub"]</p>
+
+<div class="ms-panel">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="ms-panel-title mb-0 flex items-center gap-2">
+            <span class="material-symbols-outlined">inventory_2</span> @Shared["ProductList"]
+        </h2>
+        <a class="ms-btn ms-btn-primary" href="/Seller/Product/CreateProduct">
+            <span class="material-symbols-outlined text-[20px]">add</span> @Shared["NewProduct"]
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">inventory_2</span>
+            @Shared["NoProductsYet"]
+        </div>
+    }
+    else
+    {
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>@Shared["ProductImage"]</th>
+                        <th>@Shared["ProductName"]</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th class="text-right">@Shared["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody data-ms-pager="10">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><img class="w-12 h-12 object-cover rounded-lg bg-surface-container-low" src="@item.ProductImageUrl" alt="@item.ProductName" /></td>
+                            <td>@item.ProductName</td>
+                            <td>@item.ProductPrice.ToString("N2") ₺</td>
+                            <td>
+                                <div class="flex flex-wrap gap-2 justify-end">
+                                    <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/Product/UpdateProduct/@item.ProductId">
+                                        <span class="material-symbols-outlined text-[16px]">edit</span> @Shared["Update"]
+                                    </a>
+                                    <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/ProductImage/UpdateProductImage/@item.ProductId">
+                                        <span class="material-symbols-outlined text-[16px]">image</span> @Shared["ProductImagesPage"]
+                                    </a>
+                                    <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/ProductDetail/UpdateProductDetail/@item.ProductId">
+                                        <span class="material-symbols-outlined text-[16px]">description</span> @Shared["ProductDetailPage"]
+                                    </a>
+                                    <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Seller/Product/DeleteProduct/@item.ProductId">
+                                        <span class="material-symbols-outlined text-[16px]">delete</span> @Shared["Delete"]
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

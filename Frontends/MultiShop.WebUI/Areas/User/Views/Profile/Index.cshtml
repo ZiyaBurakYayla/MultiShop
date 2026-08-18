@@ -1,0 +1,124 @@
+@model UserDetailViewModel
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    var photo = string.IsNullOrWhiteSpace(Model.ImageUrl)
+        ? "https://ui-avatars.com/api/?size=200&background=ffc107&color=261a00&name=" + Uri.EscapeDataString((Model.Name ?? "") + " " + (Model.Surname ?? ""))
+        : Model.ImageUrl;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["MyProfile"]</h1>
+<p class="text-body-md text-secondary mb-6">Hesap bilgilerinizi buradan görüntüleyip güncelleyebilirsiniz.</p>
+
+@if (TempData["ProfileSuccess"] != null)
+{
+    <div class="mb-6 bg-primary-fixed/40 text-on-primary-fixed border border-primary-container rounded-lg px-4 py-3 text-label-sm">
+        @TempData["ProfileSuccess"]
+    </div>
+}
+
+@if (TempData["ProfileError"] != null)
+{
+    <div class="mb-6 bg-error-container text-on-error-container border border-error/30 rounded-lg px-4 py-3 text-label-sm break-words">
+        @TempData["ProfileError"]
+    </div>
+}
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <div class="lg:col-span-1">
+        <div class="ms-panel text-center">
+            <img class="w-36 h-36 rounded-full object-cover mx-auto border-4 border-primary-container" id="profile-preview" src="@photo" alt="@Model.Name" />
+            <h3 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mt-4">@Model.Name @Model.Surname</h3>
+            <p class="text-label-sm text-secondary mt-1">@Model.Username</p>
+            <p class="text-label-sm text-secondary break-all">@Model.Email</p>
+
+            <div class="mt-6 pt-6 border-t border-surface-variant flex flex-col gap-3">
+                <a class="ms-btn ms-btn-ghost w-full" href="/User/MyOrder/MyOrderList">
+                    <span class="material-symbols-outlined text-[20px]">receipt_long</span> @Shared["MyOrders"]
+                </a>
+                <a class="ms-btn ms-btn-ghost w-full" href="/User/Message/Inbox">
+                    <span class="material-symbols-outlined text-[20px]">inbox</span> @Shared["IncomingMessages"]
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-2">
+        <div class="ms-panel">
+            <h2 class="ms-panel-title flex items-center gap-2">
+                <span class="material-symbols-outlined">manage_accounts</span> Bilgilerimi Güncelle
+            </h2>
+
+            <form method="post">
+                <div class="ms-field">
+                    <label class="ms-label">Profil Fotoğrafı Adresi</label>
+                    <input class="ms-input" id="profile-image-input" name="ImageUrl" value="@Model.ImageUrl" placeholder="https://..." type="text" />
+                    <p class="text-label-sm text-secondary mt-1">Boş bırakırsanız adınızın baş harflerinden otomatik bir avatar oluşturulur.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                    <div class="ms-field">
+                        <label class="ms-label">@Shared["FirstName"]</label>
+                        <input class="ms-input" name="Name" value="@Model.Name" type="text" required />
+                    </div>
+                    <div class="ms-field">
+                        <label class="ms-label">@Shared["LastName"]</label>
+                        <input class="ms-input" name="Surname" value="@Model.Surname" type="text" required />
+                    </div>
+                </div>
+
+                <div class="ms-field">
+                    <label class="ms-label">@Shared["EmailAddress"]</label>
+                    <input class="ms-input" name="Email" value="@Model.Email" type="email" required />
+                </div>
+
+                <div class="ms-field">
+                    <label class="ms-label">@Shared["Username"]</label>
+                    <input class="ms-input bg-surface-container-low" value="@Model.Username" type="text" readonly />
+                    <p class="text-label-sm text-secondary mt-1">Kullanıcı adı değiştirilemez.</p>
+                </div>
+
+                <hr class="border-t border-surface-variant my-8" />
+
+                <h2 class="ms-panel-title flex items-center gap-2">
+                    <span class="material-symbols-outlined">lock</span> Şifre Değiştir
+                </h2>
+                <p class="text-body-md text-secondary mb-4">Şifrenizi değiştirmek istemiyorsanız bu alanları boş bırakın.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+                    <div class="ms-field">
+                        <label class="ms-label">Mevcut Şifre</label>
+                        <input class="ms-input" name="CurrentPassword" type="password" autocomplete="current-password" />
+                    </div>
+                    <div class="ms-field">
+                        <label class="ms-label">Yeni Şifre</label>
+                        <input class="ms-input" name="NewPassword" type="password" autocomplete="new-password" />
+                    </div>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button class="ms-btn ms-btn-primary" type="submit">
+                        <span class="material-symbols-outlined text-[20px]">save</span> @Shared["Save"]
+                    </button>
+                    <a class="ms-btn ms-btn-ghost" href="/Default/Index/">@Shared["GoToSite"]</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var input = document.getElementById('profile-image-input');
+            var preview = document.getElementById('profile-preview');
+            input.addEventListener('input', function () {
+                if (input.value.trim() !== '') {
+                    preview.src = input.value.trim();
+                }
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,29 @@
+@model List<ResultFeatureSliderDto>
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-[500px]">
+        <div class="lg:col-span-2 relative rounded-xl overflow-hidden group shadow-sm" id="ms-hero-slider">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <div class="ms-slide absolute inset-0 @(i == 0 ? "is-active" : "")">
+                    <div class="absolute inset-0 bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" style="background-image: url('@item.ImageUrl')"></div>
+                    <div class="absolute inset-0 bg-black/40"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                        <h2 class="text-display-lg font-display-lg text-on-primary mb-4">@item.Title</h2>
+                        <p class="text-body-lg font-body-lg text-on-primary/90 mb-8 max-w-lg">@item.Description</p>
+                        <a class="border-2 border-on-primary text-on-primary px-8 py-3 rounded-lg font-label-md hover:bg-on-primary hover:text-on-background transition-colors duration-300 backdrop-blur-sm" href="/ProductList/Index/">@Shared["StartShopping"]</a>
+                    </div>
+                </div>
+            }
+            <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-10">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="ms-dot h-2 w-2 border border-on-primary rounded-full cursor-pointer hover:bg-on-primary/50 transition-colors @(i == 0 ? "is-active" : "")"></div>
+                }
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("_SpeacialOfferComponentPartial")
+    </div>
+</section>

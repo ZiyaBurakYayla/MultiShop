@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Categories" xml:space="preserve"><value>Kategoriler</value></data>
+  <data name="Home" xml:space="preserve"><value>Ana Sayfa</value></data>
+  <data name="Products" xml:space="preserve"><value>Ürünler</value></data>
+  <data name="ProductDetails" xml:space="preserve"><value>Ürün Detayları</value></data>
+  <data name="Seller" xml:space="preserve"><value>Satıcı</value></data>
+  <data name="Store" xml:space="preserve"><value>Mağaza</value></data>
+  <data name="NoProductsInStore" xml:space="preserve"><value>Bu mağazada henüz ürün bulunmuyor.</value></data>
+  <data name="BecomeSeller" xml:space="preserve"><value>Satıcı Ol</value></data>
+  <data name="BecomeSellerSub" xml:space="preserve"><value>Kendi mağazanızı açın ve MultiShop'ta ürünlerinizi satmaya başlayın.</value></data>
+  <data name="SellerApplicationForm" xml:space="preserve"><value>Satıcı Başvuru Formu</value></data>
+  <data name="StoreName" xml:space="preserve"><value>Mağaza Adı</value></data>
+  <data name="LogoUrl" xml:space="preserve"><value>Logo URL</value></data>
+  <data name="SubmitApplication" xml:space="preserve"><value>Başvuruyu Gönder</value></data>
+  <data name="StatusPending" xml:space="preserve"><value>İnceleniyor</value></data>
+  <data name="ApplicationPendingText" xml:space="preserve"><value>Başvurunuz alındı, admin onayı bekleniyor.</value></data>
+  <data name="StatusApproved" xml:space="preserve"><value>Onaylandı</value></data>
+  <data name="ApplicationApprovedText" xml:space="preserve"><value>Tebrikler! Başvurunuz onaylandı, artık satıcısınız.</value></data>
+  <data name="ViewMyStore" xml:space="preserve"><value>Mağazamı Görüntüle</value></data>
+  <data name="StatusRejected" xml:space="preserve"><value>Reddedildi</value></data>
+  <data name="ApplicationRejectedText" xml:space="preserve"><value>Başvurunuz reddedildi. Bilgilerinizi güncelleyip tekrar başvurabilirsiniz.</value></data>
+  <data name="ReapplyApplication" xml:space="preserve"><value>Tekrar Başvur</value></data>
+  <data name="SellerApplications" xml:space="preserve"><value>Satıcı Başvuruları</value></data>
+  <data name="NoPendingApplications" xml:space="preserve"><value>Bekleyen başvuru bulunmuyor.</value></data>
+  <data name="SellerPanel" xml:space="preserve"><value>Satıcı Paneli</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Panel</value></data>
+  <data name="MyProducts" xml:space="preserve"><value>Ürünlerim</value></data>
+  <data name="MyProductsSub" xml:space="preserve"><value>Mağazanızdaki ürünleri yönetin.</value></data>
+  <data name="NewProduct" xml:space="preserve"><value>Yeni Ürün</value></data>
+  <data name="NewProductSub" xml:space="preserve"><value>Mağazanıza yeni bir ürün ekleyin.</value></data>
+  <data name="UpdateProduct" xml:space="preserve"><value>Ürün Güncelle</value></data>
+  <data name="ProductList" xml:space="preserve"><value>Ürün Listesi</value></data>
+  <data name="ProductImage" xml:space="preserve"><value>Ürün Görseli</value></data>
+  <data name="StoreInfo" xml:space="preserve"><value>Mağaza Bilgileri</value></data>
+  <data name="TotalProducts" xml:space="preserve"><value>Toplam Ürün</value></data>
+  <data name="TotalCatalogValue" xml:space="preserve"><value>Toplam Katalog Değeri</value></data>
+  <data name="NoProductsYet" xml:space="preserve"><value>Henüz ürün eklemediniz.</value></data>
+  <data name="Category" xml:space="preserve"><value>Kategori</value></data>
+  <data name="Save" xml:space="preserve"><value>Kaydet</value></data>
+  <data name="Cancel" xml:space="preserve"><value>İptal</value></data>
+  <data name="Variants" xml:space="preserve"><value>Varyantlar</value></data>
+  <data name="VariantHint" xml:space="preserve"><value>Kategori seçin — o kategorinin varyant özellikleri (örn. Renk, Beden) burada çıkacak.</value></data>
+  <data name="SkuPrefix" xml:space="preserve"><value>SKU Ön Eki</value></data>
+  <data name="Stock" xml:space="preserve"><value>Stok</value></data>
+  <data name="GenerateVariants" xml:space="preserve"><value>Varyant Üret</value></data>
+  <data name="NoVariantAttributes" xml:space="preserve"><value>Bu kategoride varyant özelliği tanımlı değil.</value></data>
+  <data name="RegenerateVariants" xml:space="preserve"><value>Varyant Üret (mevcutları değiştirir)</value></data>
+  <data name="MyOrders" xml:space="preserve"><value>Siparişlerim</value></data>
+  <data name="MyOrdersSub" xml:space="preserve"><value>Mağazanızdan satılan ürünlerin siparişleri.</value></data>
+  <data name="TotalOrderLines" xml:space="preserve"><value>Toplam Satış Kalemi</value></data>
+  <data name="TotalRevenue" xml:space="preserve"><value>Toplam Ciro</value></data>
+  <data name="NoOrdersYet" xml:space="preserve"><value>Henüz siparişiniz bulunmuyor.</value></data>
+  <data name="OrderNo" xml:space="preserve"><value>Sipariş No</value></data>
+  <data name="Amount" xml:space="preserve"><value>Adet</value></data>
+  <data name="PaidRevenue" xml:space="preserve"><value>Tahsil Edilen Ciro</value></data>
+  <data name="PendingRevenue" xml:space="preserve"><value>Bekleyen Ödeme</value></data>
+  <data name="OrderCount" xml:space="preserve"><value>Sipariş Sayısı</value></data>
+  <data name="SoldQuantity" xml:space="preserve"><value>Satılan Adet</value></data>
+  <data name="AverageOrderValue" xml:space="preserve"><value>Ortalama Sepet</value></data>
+  <data name="TopProducts" xml:space="preserve"><value>En Çok Satanlar</value></data>
+  <data name="RecentOrders" xml:space="preserve"><value>Son Siparişler</value></data>
+  <data name="AdminProductReadOnlyNotice" xml:space="preserve"><value>Ürünler satıcılar tarafından yönetilir. Bu sayfadan yalnızca görüntüleme yapılabilir.</value></data>
+  <data name="ViewDetails" xml:space="preserve"><value>Detayları Gör</value></data>
+  <data name="Back" xml:space="preserve"><value>Geri Dön</value></data>
+  <data name="ProductInfo" xml:space="preserve"><value>Ürün Bilgisi</value></data>
+  <data name="ProductDetailPage" xml:space="preserve"><value>Açıklama ve Bilgi</value></data>
+  <data name="ProductImagesPage" xml:space="preserve"><value>Görseller</value></data>
+  <data name="ImportProductTitle" xml:space="preserve"><value>Dış Pazardan Ürün Aktarma</value></data>
+  <data name="ImportProductNotice" xml:space="preserve"><value>Bu form yalnızca dış pazardan ürün aktarmak içindir. Aktarılan ürün seçtiğiniz satıcıya atanır ve sonrasında o satıcı tarafından yönetilir.</value></data>
+  <data name="DealOfTheDay" xml:space="preserve"><value>Günün Fırsatı</value></data>
+  <data name="Pages" xml:space="preserve"><value>Sayfalar</value></data>
+  <data name="MyCart" xml:space="preserve"><value>Sepetim</value></data>
+  <data name="Payment" xml:space="preserve"><value>Ödeme</value></data>
+  <data name="Register" xml:space="preserve"><value>Kayıt Ol</value></data>
+  <data name="Login" xml:space="preserve"><value>Giriş Yap</value></data>
+  <data name="Contact" xml:space="preserve"><value>İletişim</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Aranacak Ürünü Giriniz</value></data>
+  <data name="OurPhone" xml:space="preserve"><value>Telefon Numaramız</value></data>
+  <data name="AboutUs" xml:space="preserve"><value>Hakkımızda</value></data>
+  <data name="QuickShopping" xml:space="preserve"><value>Hızlı Alışveriş</value></data>
+  <data name="OurProducts" xml:space="preserve"><value>Ürünlerimiz</value></data>
+  <data name="Discounts" xml:space="preserve"><value>İndirimler</value></data>
+  <data name="WriteToUs" xml:space="preserve"><value>Bize Yazın</value></data>
+  <data name="MyAccount" xml:space="preserve"><value>Hesabım</value></data>
+  <data name="MyProfile" xml:space="preserve"><value>Profilim</value></data>
+  <data name="MyPurchases" xml:space="preserve"><value>Alışverişlerim</value></data>
+  <data name="MyCartDetails" xml:space="preserve"><value>Sepet Detaylarım</value></data>
+  <data name="MyPastProducts" xml:space="preserve"><value>Geçmiş Ürünlerim</value></data>
+  <data name="MyDiscounts" xml:space="preserve"><value>İndirimlerim</value></data>
+  <data name="Newsletter" xml:space="preserve"><value>Mail Bülteni</value></data>
+  <data name="NewsletterText" xml:space="preserve"><value>En son indirimler ve kampanyalar için hemen abone olun!</value></data>
+  <data name="EmailPlaceholder" xml:space="preserve"><value>Email Adresiniz</value></data>
+  <data name="Subscribe" xml:space="preserve"><value>Abone Ol</value></data>
+  <data name="FollowUs" xml:space="preserve"><value>Bizi Takip Edin</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Tüm hakları saklıdır.</value></data>
+  <data name="FeaturedCategories" xml:space="preserve"><value>Öne Çıkan Kategoriler</value></data>
+  <data name="FeaturedProducts" xml:space="preserve"><value>Öne Çıkan Ürünler</value></data>
+  <data name="ProductUnit" xml:space="preserve"><value>Ürün</value></data>
+  <data name="StartShopping" xml:space="preserve"><value>Alışverişe Başla</value></data>
+  <data name="FilterByPrice" xml:space="preserve"><value>Fiyata Göre Filtrele</value></data>
+  <data name="AllPrices" xml:space="preserve"><value>Tüm Fiyatlar</value></data>
+  <data name="FilterByColor" xml:space="preserve"><value>Renge Göre Filtrele</value></data>
+  <data name="AllColors" xml:space="preserve"><value>Tüm Renkler</value></data>
+  <data name="FilterBySize" xml:space="preserve"><value>Ebata Göre Filtrele</value></data>
+  <data name="AllSizes" xml:space="preserve"><value>Tüm Ebatlar</value></data>
+  <data name="Black" xml:space="preserve"><value>Siyah</value></data>
+  <data name="White" xml:space="preserve"><value>Beyaz</value></data>
+  <data name="Red" xml:space="preserve"><value>Kırmızı</value></data>
+  <data name="Blue" xml:space="preserve"><value>Mavi</value></data>
+  <data name="Green" xml:space="preserve"><value>Yeşil</value></data>
+  <data name="Pink" xml:space="preserve"><value>Pembe</value></data>
+  <data name="Sort" xml:space="preserve"><value>Sırala</value></data>
+  <data name="LatestProducts" xml:space="preserve"><value>Son Ürünler</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popülarite</value></data>
+  <data name="Best" xml:space="preserve"><value>En İyiler</value></data>
+  <data name="Show" xml:space="preserve"><value>Göster</value></data>
+  <data name="ProductDetailTab" xml:space="preserve"><value>Ürün Detayı</value></data>
+  <data name="ProductInfoTab" xml:space="preserve"><value>Ürün Bilgileri</value></data>
+  <data name="Reviews" xml:space="preserve"><value>Yorumlar</value></data>
+  <data name="CommentsCount" xml:space="preserve"><value>yorum bulunmaktadır</value></data>
+  <data name="Ratings" xml:space="preserve"><value>değerlendirme</value></data>
+  <data name="Sizes" xml:space="preserve"><value>Ebatlar</value></data>
+  <data name="Colors" xml:space="preserve"><value>Renkler</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Sepete Ekle</value></data>
+  <data name="Share" xml:space="preserve"><value>Paylaş</value></data>
+  <data name="LeaveComment" xml:space="preserve"><value>Bir Yorum Bırakın</value></data>
+  <data name="CommentEmailNote" xml:space="preserve"><value>Yorumunuzun alınması için geçerli bir email adresi giriniz.*</value></data>
+  <data name="CommentLoginRequired" xml:space="preserve"><value>Yorum yapabilmek için giriş yapmalısınız.</value></data>
+  <data name="YourRating" xml:space="preserve"><value>Ürün puanınız *</value></data>
+  <data name="YourFullName" xml:space="preserve"><value>Adınız soyadınız *</value></data>
+  <data name="YourEmail" xml:space="preserve"><value>Email adresiniz *</value></data>
+  <data name="YourComment" xml:space="preserve"><value>Yorumunuz *</value></data>
+  <data name="SubmitComment" xml:space="preserve"><value>Yorum Yap</value></data>
+  <data name="VeryGood" xml:space="preserve"><value>Çok İyi</value></data>
+  <data name="Good" xml:space="preserve"><value>İyi</value></data>
+  <data name="Average" xml:space="preserve"><value>Orta</value></data>
+  <data name="Bad" xml:space="preserve"><value>Kötü</value></data>
+  <data name="VeryBad" xml:space="preserve"><value>Çok Kötü</value></data>
+  <data name="Price" xml:space="preserve"><value>Fiyat</value></data>
+  <data name="Quantity" xml:space="preserve"><value>Miktar</value></data>
+  <data name="Total" xml:space="preserve"><value>Toplam</value></data>
+  <data name="Remove" xml:space="preserve"><value>Kaldır</value></data>
+  <data name="CouponCode" xml:space="preserve"><value>Kupon Kodunuz</value></data>
+  <data name="ApplyCoupon" xml:space="preserve"><value>Kuponu Uygula</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Sipariş Özeti</value></data>
+  <data name="TotalProductPrice" xml:space="preserve"><value>Toplam Ürün Fiyatı</value></data>
+  <data name="TaxAmount" xml:space="preserve"><value>Kdv Tutarı</value></data>
+  <data name="DiscountRate" xml:space="preserve"><value>İndirim Oranı</value></data>
+  <data name="AmountWithoutDiscount" xml:space="preserve"><value>İndirimsiz Tutar</value></data>
+  <data name="DiscountedAmount" xml:space="preserve"><value>İndirimli Güncel Tutar</value></data>
+  <data name="ProceedToPayment" xml:space="preserve"><value>Ödeme Adımına Geç</value></data>
+  <data name="DeliveryBillingAddress" xml:space="preserve"><value>Sipariş Teslimat ve Fatura Adresiniz</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Adınız</value></data>
+  <data name="LastName" xml:space="preserve"><value>Soyadınız</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>E-mail Adresiniz</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>Telefon Numaranız</value></data>
+  <data name="AddressLine1" xml:space="preserve"><value>Adres Satır 1</value></data>
+  <data name="AddressLine2" xml:space="preserve"><value>Adres Satır 2</value></data>
+  <data name="Country" xml:space="preserve"><value>Ülke</value></data>
+  <data name="City" xml:space="preserve"><value>Şehir</value></data>
+  <data name="District" xml:space="preserve"><value>İlçe</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>Posta Kodu</value></data>
+  <data name="Description" xml:space="preserve"><value>Açıklama</value></data>
+  <data name="OrderProductList" xml:space="preserve"><value>Sipariş Ürün Listesi</value></data>
+  <data name="ShoppingAmountInclTax" xml:space="preserve"><value>Alışveriş Tutarı (Kdv dahil)</value></data>
+  <data name="ShippingFee" xml:space="preserve"><value>Kargo Ücreti</value></data>
+  <data name="GrandTotal" xml:space="preserve"><value>Genel Toplam</value></data>
+  <data name="SelectPaymentMethod" xml:space="preserve"><value>Ödeme Yöntemini Seçin</value></data>
+  <data name="CreditDebitCard" xml:space="preserve"><value>Kredi/Banka Kartı</value></data>
+  <data name="BankTransfer" xml:space="preserve"><value>Havale/Eft</value></data>
+  <data name="UsePoints" xml:space="preserve"><value>Puan Kullan</value></data>
+  <data name="CardHolder" xml:space="preserve"><value>Kart Sahibi</value></data>
+  <data name="ExpiryDate" xml:space="preserve"><value>Son Geçerlilik Tarihi</value></data>
+  <data name="CardNumber" xml:space="preserve"><value>Kart Numarası</value></data>
+  <data name="MonthInfo" xml:space="preserve"><value>Ay Bilgisi</value></data>
+  <data name="SelectMonth" xml:space="preserve"><value>Ay Seçiniz</value></data>
+  <data name="YearInfo" xml:space="preserve"><value>Yıl Bilgisi</value></data>
+  <data name="SelectYear" xml:space="preserve"><value>Yıl Seçiniz</value></data>
+  <data name="CompletePayment" xml:space="preserve"><value>Ödemeyi Tamamla</value></data>
+  <data name="ECommerce" xml:space="preserve"><value>E-Ticaret</value></data>
+  <data name="LoginForm" xml:space="preserve"><value>Giriş Formu</value></data>
+  <data name="RegisterForm" xml:space="preserve"><value>Kayıt Formu</value></data>
+  <data name="Username" xml:space="preserve"><value>Kullanıcı Adınız</value></data>
+  <data name="Password" xml:space="preserve"><value>Şifre</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Şifre Tekrar</value></data>
+  <data name="FullName" xml:space="preserve"><value>Adınız Soyadınız</value></data>
+  <data name="MessageSubject" xml:space="preserve"><value>Mesaj Konusu</value></data>
+  <data name="YourMessage" xml:space="preserve"><value>Mesajınız</value></data>
+  <data name="SendMessage" xml:space="preserve"><value>Mesajı Gönder</value></data>
+  <data name="FieldRequired" xml:space="preserve"><value>Lütfen boş geçmeyin</value></data>
+  <data name="LoginIntro1" xml:space="preserve"><value>MultiShop projemiz üzerinden e-ticaret işlemlerini gerçekleştirebilmek, indirimli ürünler ve fırsatlardan haberdar olmak adına hemen oturum açma işlemini gerçekleştirin.</value></data>
+  <data name="LoginIntro2" xml:space="preserve"><value>Alışverişinizi gerçekleştirebilmek, sepetinize ürün eklemek ve ürün listesini görebilmek için oturum açmanız gerekmektedir. Bir hesabınız yoksa aşağıda kayıt olabilirsiniz.</value></data>
+  <data name="RegisterIntro1" xml:space="preserve"><value>MultiShop projemiz üzerinden e-ticaret işlemlerini gerçekleştirebilmek, indirimli ürünler ve fırsatlardan haberdar olmak adına 1 dakikada kayıt işlemini gerçekleştirin.</value></data>
+  <data name="RegisterIntro2" xml:space="preserve"><value>Eğer bir hesabınız varsa kayıt olmaya gerek duymadan aşağıdaki link üzerinden hemen giriş sayfasına gidebilirsiniz.</value></data>
+  <data name="OrderHistory" xml:space="preserve"><value>Sipariş Geçmişim</value></data>
+  <data name="OrderHistorySub" xml:space="preserve"><value>Tamamlanan ve geçmiş siparişlerinizin listesi.</value></data>
+  <data name="TotalPriceCol" xml:space="preserve"><value>Toplam Fiyat</value></data>
+  <data name="OrderDate" xml:space="preserve"><value>Sipariş Tarihi</value></data>
+  <data name="PaymentStatus" xml:space="preserve"><value>Ödeme Durumu</value></data>
+  <data name="Paid" xml:space="preserve"><value>Ödendi</value></data>
+  <data name="Unpaid" xml:space="preserve"><value>Bekliyor</value></data>
+  <data name="OrderDetails" xml:space="preserve"><value>Sipariş Detayları</value></data>
+  <data name="Details" xml:space="preserve"><value>Detaylar</value></data>
+  <data name="IncomingMessages" xml:space="preserve"><value>Gelen Mesajlar</value></data>
+  <data name="IncomingMessagesSub" xml:space="preserve"><value>Size gönderilen mesajların listesi.</value></data>
+  <data name="IncomingMessageList" xml:space="preserve"><value>Gelen Mesaj Listesi</value></data>
+  <data name="Sender" xml:space="preserve"><value>Gönderen</value></data>
+  <data name="Subject" xml:space="preserve"><value>Konu</value></data>
+  <data name="Date" xml:space="preserve"><value>Tarih</value></data>
+  <data name="Status" xml:space="preserve"><value>Durum</value></data>
+  <data name="Actions" xml:space="preserve"><value>İşlemler</value></data>
+  <data name="Read" xml:space="preserve"><value>Okundu</value></data>
+  <data name="Unread" xml:space="preserve"><value>Okunmadı</value></data>
+  <data name="Open" xml:space="preserve"><value>Aç</value></data>
+  <data name="Delete" xml:space="preserve"><value>Sil</value></data>
+  <data name="SentMessages" xml:space="preserve"><value>Gönderilen Mesajlar</value></data>
+  <data name="SentMessagesSub" xml:space="preserve"><value>Sizin gönderdiğiniz mesajların listesi.</value></data>
+  <data name="SentMessageList" xml:space="preserve"><value>Gönderilen Mesaj Listesi</value></data>
+  <data name="Recipient" xml:space="preserve"><value>Alıcı</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Tekrar hoş geldiniz</value></data>
+  <data name="SearchWords" xml:space="preserve"><value>Aranacak Kelimeler...</value></data>
+  <data name="Menus" xml:space="preserve"><value>Menüler</value></data>
+  <data name="ActiveOrders" xml:space="preserve"><value>Aktif Siparişlerim</value></data>
+  <data name="PastOrders" xml:space="preserve"><value>Geçmiş Siparişlerim</value></data>
+  <data name="MyCargos" xml:space="preserve"><value>Kargolarım</value></data>
+  <data name="MyMessages" xml:space="preserve"><value>Mesajlarım</value></data>
+  <data name="MyRequests" xml:space="preserve"><value>Taleplerim</value></data>
+  <data name="Logout" xml:space="preserve"><value>Çıkış Yap</value></data>
+  <data name="PrivacyPolicy" xml:space="preserve"><value>Gizlilik Politikası</value></data>
+  <data name="Help" xml:space="preserve"><value>Yardım</value></data>
+  <data name="Online" xml:space="preserve"><value>Çevrimiçi</value></data>
+  <data name="Menu" xml:space="preserve"><value>Menü</value></data>
+  <data name="GoToSite" xml:space="preserve"><value>Siteye Git</value></data>
+  <data name="SpecialOffers" xml:space="preserve"><value>Özel Teklifler</value></data>
+  <data name="SliderPanel" xml:space="preserve"><value>Slider Paneli</value></data>
+  <data name="FeaturePanel" xml:space="preserve"><value>Öne Çıkan Alan Paneli</value></data>
+  <data name="DiscountOffers" xml:space="preserve"><value>İndirim Teklifleri</value></data>
+  <data name="Brands" xml:space="preserve"><value>Markalar</value></data>
+  <data name="About" xml:space="preserve"><value>Hakkımda</value></data>
+  <data name="Comments" xml:space="preserve"><value>Yorumlar</value></data>
+  <data name="UserList" xml:space="preserve"><value>Kullanıcı Listesi</value></data>
+  <data name="OrderList" xml:space="preserve"><value>Sipariş Listesi</value></data>
+  <data name="CashInfo" xml:space="preserve"><value>Kasa Bilgileri</value></data>
+  <data name="Statistics" xml:space="preserve"><value>İstatistikler</value></data>
+  <data name="Cargo" xml:space="preserve"><value>Kargo</value></data>
+  <data name="Images" xml:space="preserve"><value>Görseller</value></data>
+  <data name="Messages" xml:space="preserve"><value>Mesajlar</value></data>
+  <data name="Settings" xml:space="preserve"><value>Ayarlar</value></data>
+  <data name="Update" xml:space="preserve"><value>Güncelle</value></data>
+  <data name="BrandName" xml:space="preserve"><value>Marka Adı</value></data>
+  <data name="BrandImage" xml:space="preserve"><value>Marka Görsel</value></data>
+  <data name="BrandAddPage" xml:space="preserve"><value>Marka Ekleme Sayfası</value></data>
+  <data name="BrandUpdatePage" xml:space="preserve"><value>Marka Güncelleme Sayfası</value></data>
+  <data name="AddBrandBtn" xml:space="preserve"><value>Markayı Ekle</value></data>
+  <data name="UpdateBrandBtn" xml:space="preserve"><value>Markayı Güncelle</value></data>
+  <data name="NewBrandEntry" xml:space="preserve"><value>Yeni Marka Girişi</value></data>
+  <data name="CategoryName" xml:space="preserve"><value>Kategori Adı</value></data>
+  <data name="CategoryImage" xml:space="preserve"><value>Kategori Görsel</value></data>
+  <data name="CategoryAddPage" xml:space="preserve"><value>Kategori Ekleme Sayfası</value></data>
+  <data name="CategoryUpdatePage" xml:space="preserve"><value>Kategori Güncelleme Sayfası</value></data>
+  <data name="AddCategoryBtn" xml:space="preserve"><value>Kategoriyi Ekle</value></data>
+  <data name="UpdateCategoryBtn" xml:space="preserve"><value>Kategoriyi Güncelle</value></data>
+  <data name="NewCategoryEntry" xml:space="preserve"><value>Yeni Kategori Girişi</value></data>
+  <data name="ProductName" xml:space="preserve"><value>Ürün Adı</value></data>
+  <data name="ProductPrice" xml:space="preserve"><value>Ürün Fiyatı</value></data>
+  <data name="ProductImageLabel" xml:space="preserve"><value>Ürün Görseli</value></data>
+  <data name="ProductCategory" xml:space="preserve"><value>Ürün Kategorisi</value></data>
+  <data name="ProductDescription" xml:space="preserve"><value>Ürün Açıklaması</value></data>
+  <data name="ProductAddPage" xml:space="preserve"><value>Ürün Ekleme Sayfası</value></data>
+  <data name="ProductUpdatePage" xml:space="preserve"><value>Ürün Güncelleme Sayfası</value></data>
+  <data name="AddProductBtn" xml:space="preserve"><value>Ürünü Ekle</value></data>
+  <data name="UpdateProductBtn" xml:space="preserve"><value>Ürünü Güncelle</value></data>
+  <data name="NewProductEntry" xml:space="preserve"><value>Yeni Ürün Girişi</value></data>
+  <data name="ProductImages" xml:space="preserve"><value>Ürün Görselleri</value></data>
+  <data name="DescriptionAndInfo" xml:space="preserve"><value>Açıklama ve Bilgi</value></data>
+  <data name="ProductMarket" xml:space="preserve"><value>Ürün Pazarı</value></data>
+</root>

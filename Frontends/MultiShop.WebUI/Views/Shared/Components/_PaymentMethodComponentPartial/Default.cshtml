@@ -1,0 +1,28 @@
+<div class="mb-6">
+    <div class="flex items-center gap-4 mb-4">
+        <h5 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface bg-surface-container-low px-3 py-2 uppercase">@Shared["SelectPaymentMethod"]</h5>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6">
+        <div class="flex flex-col gap-3 mb-6">
+            <label class="flex items-center gap-3 cursor-pointer" for="paypal">
+                <input class="text-primary-container focus:ring-primary-container" id="paypal" name="payment" type="radio" value="paypal" />
+                <span class="font-body-md text-on-surface">Paypal</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer" for="directcheck">
+                <input class="text-primary-container focus:ring-primary-container" id="directcheck" name="payment" type="radio" value="card" checked />
+                <span class="font-body-md text-on-surface">@Shared["CreditDebitCard"]</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer" for="banktransfer">
+                <input class="text-primary-container focus:ring-primary-container" id="banktransfer" name="payment" type="radio" value="bank" />
+                <span class="font-body-md text-on-surface">@Shared["BankTransfer"]</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer" for="usepoints">
+                <input class="text-primary-container focus:ring-primary-container" id="usepoints" name="payment" type="radio" value="points" />
+                <span class="font-body-md text-on-surface">@Shared["UsePoints"]</span>
+            </label>
+        </div>
+        <button class="w-full bg-primary-container text-on-primary-fixed font-label-md py-3 rounded-lg hover:bg-primary-fixed transition-colors" type="submit">@Shared["ProceedToPayment"]</button>
+    </div>
+</div>

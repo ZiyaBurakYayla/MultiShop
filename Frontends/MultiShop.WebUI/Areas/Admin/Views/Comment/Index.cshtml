@@ -1,0 +1,55 @@
+@model List<ResultUserCommentDto>
+@{
+    ViewData["Title"] = "Yorumlar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Kullanıcı</th>
+                <th>Yorum</th>
+                <th>@Shared["Date"]</th>
+                <th>@Shared["Status"]</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.NameSurname</td>
+                    <td class="max-w-md">@item.CommentDetail</td>
+                    <td class="whitespace-nowrap">@item.CreatedDate.ToShortDateString()</td>
+                    <td>
+                        @if (item.Status)
+                        {
+                            <span class="ms-badge ms-badge-gold">Onaylı</span>
+                        }
+                        else
+                        {
+                            <span class="ms-badge ms-badge-neutral">Beklemede</span>
+                        }
+                    </td>
+                    <td class="text-right whitespace-nowrap">
+                        @if (item.Status)
+                        {
+                            <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Comment/RejectComment/@item.UserCommentId">Pasife Al</a>
+                        }
+                        else
+                        {
+                            <a class="ms-btn ms-btn-sm ms-btn-primary" href="/Admin/Comment/ApproveComment/@item.UserCommentId">Aktife Al</a>
+                        }
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Comment/UpdateComment/@item.UserCommentId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/Comment/DeleteComment/@item.UserCommentId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Page d'information</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenue !</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Cette page a été créée pour tester la prise en charge multilingue.</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>Choisir la langue :</value>
+  </data>
+</root>

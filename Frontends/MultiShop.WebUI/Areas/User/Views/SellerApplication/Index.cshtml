@@ -1,0 +1,91 @@
+@model ResultSellerDto
+@{
+    ViewData["Title"] = "Satıcı Ol";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["BecomeSeller"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["BecomeSellerSub"]</p>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="mb-6 bg-primary-fixed/40 text-on-primary-fixed border border-primary-container rounded-lg px-4 py-3 text-label-sm">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (Model == null)
+{
+    <div class="ms-panel max-w-3xl">
+        <h2 class="ms-panel-title flex items-center gap-2">
+            <span class="material-symbols-outlined">storefront</span> @Shared["SellerApplicationForm"]
+        </h2>
+        <form method="post" asp-action="Apply">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["StoreName"]</label>
+                <input class="ms-input" name="storeName" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Description"]</label>
+                <textarea class="ms-textarea" name="description" rows="4"></textarea>
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["LogoUrl"]</label>
+                <input class="ms-input" name="logoUrl" type="text" />
+            </div>
+            <div class="pt-2">
+                <button class="ms-btn ms-btn-primary" type="submit">
+                    <span class="material-symbols-outlined text-[20px]">send</span> @Shared["SubmitApplication"]
+                </button>
+            </div>
+        </form>
+    </div>
+}
+else if (Model.Status == "Pending")
+{
+    <div class="ms-panel max-w-3xl">
+        <span class="ms-badge ms-badge-gold">@Shared["StatusPending"]</span>
+        <p class="text-body-md text-secondary mt-4">@Shared["ApplicationPendingText"]</p>
+    </div>
+}
+else if (Model.Status == "Approved")
+{
+    <div class="ms-panel max-w-3xl">
+        <span class="ms-badge ms-badge-gold">@Shared["StatusApproved"]</span>
+        <p class="text-body-md text-secondary mt-4 mb-6">@Shared["ApplicationApprovedText"]</p>
+        <div class="flex flex-wrap gap-3">
+            <a class="ms-btn ms-btn-primary" href="/Seller/Dashboard">
+                <span class="material-symbols-outlined text-[20px]">dashboard</span> @Shared["SellerPanel"]
+            </a>
+            <a class="ms-btn ms-btn-ghost" href="/Store/Index/@Model.SellerId">
+                <span class="material-symbols-outlined text-[20px]">storefront</span> @Shared["ViewMyStore"]
+            </a>
+        </div>
+    </div>
+}
+else if (Model.Status == "Rejected")
+{
+    <div class="ms-panel max-w-3xl">
+        <span class="ms-badge ms-badge-danger">@Shared["StatusRejected"]</span>
+        <p class="text-body-md text-secondary mt-4 mb-6">@Shared["ApplicationRejectedText"]</p>
+        <form method="post" asp-action="Apply">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["StoreName"]</label>
+                <input class="ms-input" name="storeName" value="@Model.StoreName" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Description"]</label>
+                <textarea class="ms-textarea" name="description" rows="4">@Model.Description</textarea>
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["LogoUrl"]</label>
+                <input class="ms-input" name="logoUrl" value="@Model.LogoUrl" type="text" />
+            </div>
+            <div class="pt-2">
+                <button class="ms-btn ms-btn-primary" type="submit">
+                    <span class="material-symbols-outlined text-[20px]">refresh</span> @Shared["ReapplyApplication"]
+                </button>
+            </div>
+        </form>
+    </div>
+}

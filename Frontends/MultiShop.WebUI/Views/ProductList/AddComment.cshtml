@@ -1,0 +1,41 @@
+@{
+    var isSignedIn = User.Identity != null && User.Identity.IsAuthenticated;
+}
+
+<div class="bg-surface-container-low rounded-xl p-6">
+    <h4 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-2">@Shared["LeaveComment"]</h4>
+
+    @if (!isSignedIn)
+    {
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[32px] text-secondary">lock</span>
+            <p class="text-body-md text-secondary mt-2 mb-4">@Shared["CommentLoginRequired"]</p>
+            <a class="ms-btn ms-btn-primary" href="/Login/Index/">@Shared["Login"]</a>
+        </div>
+    }
+    else
+    {
+        <p class="text-label-sm text-secondary mb-6">@Shared["CommentEmailNote"]</p>
+
+        <form class="flex flex-col gap-4" method="post" asp-action="AddComment" asp-controller="ProductList">
+            <input type="hidden" name="ProductId" value="@ViewBag.Id" />
+            <div>
+                <label class="block text-sm font-medium text-on-surface-variant mb-1" for="rating">@Shared["YourRating"]</label>
+                <select class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="rating" name="Rating">
+                    <option value="5">5 - @Shared["VeryGood"]</option>
+                    <option value="4">4 - @Shared["Good"]</option>
+                    <option value="3">3 - @Shared["Average"]</option>
+                    <option value="2">2 - @Shared["Bad"]</option>
+                    <option value="1">1 - @Shared["VeryBad"]</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-on-surface-variant mb-1" for="message">@Shared["YourComment"]</label>
+                <textarea class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="message" name="CommentDetail" rows="5" required></textarea>
+            </div>
+            <div>
+                <button class="bg-primary-container text-on-primary-fixed px-6 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" type="submit">@Shared["SubmitComment"]</button>
+            </div>
+        </form>
+    }
+</div>

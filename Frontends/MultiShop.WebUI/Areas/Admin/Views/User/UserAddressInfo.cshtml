@@ -1,0 +1,40 @@
+@model GetCargoCustomerByIdDto
+@{
+    ViewData["Title"] = "Kullanıcı Adres Bilgisi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="ms-panel max-w-3xl">
+    <h4 class="ms-panel-title">Kullanıcı Adres ve İletişim Bilgisi</h4>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">Kullanıcı Id</span>
+            <span class="font-label-md text-on-surface break-all">@Model.cargoCustomerId</span>
+        </div>
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">Ad Soyad</span>
+            <span class="font-label-md text-on-surface">@Model.name @Model.surname</span>
+        </div>
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">Email Adresi</span>
+            <span class="font-label-md text-on-surface break-all">@Model.email</span>
+        </div>
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">Telefon</span>
+            <span class="font-label-md text-on-surface">@Model.phone</span>
+        </div>
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">İlçe - Şehir</span>
+            <span class="font-label-md text-on-surface">@Model.district @Model.city</span>
+        </div>
+        <div class="bg-surface-container-low rounded-lg p-4">
+            <span class="text-label-sm text-secondary block mb-1">Adres</span>
+            <span class="font-label-md text-on-surface">@Model.address</span>
+        </div>
+    </div>
+
+    <div class="pt-6">
+        <a class="ms-btn ms-btn-ghost" href="/Admin/User/UserList/">@Shared["Back"]</a>
+    </div>
+</div>

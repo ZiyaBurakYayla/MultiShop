@@ -1,0 +1,82 @@
+@model CreateAddressDto
+
+@{
+    ViewData["Title"] = "Sipariş";
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory3 = "Sipariş";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <form method="post">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <div class="lg:col-span-2">
+                <div class="flex items-center gap-4 mb-4">
+                    <h5 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface bg-surface-container-low px-3 py-2 uppercase">@Shared["DeliveryBillingAddress"]</h5>
+                    <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+                </div>
+
+                <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["FirstName"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Name" type="text" placeholder="adınız" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["LastName"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Surname" type="text" placeholder="soyadınız" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["EmailAddress"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Email" type="text" placeholder="mail@email.com" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["PhoneNumber"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="PhoneNo" type="text" placeholder="+90 123 456 78 90" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["AddressLine1"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Detail1" type="text" placeholder="123 mahallesi" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["AddressLine2"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Detail2" type="text" placeholder="123 sokak" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["Country"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Country" type="text" placeholder="Türkiye" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["City"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="City" type="text" placeholder="şehriniz" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["District"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="District" type="text" placeholder="ilçeniz" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["ZipCode"]</label>
+                            <input class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="ZipCode" type="text" placeholder="12345" />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-on-surface-variant mb-1">@Shared["Description"]</label>
+                            <textarea class="w-full border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" asp-for="Description" rows="5" placeholder="..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="flex items-center gap-4 mb-4">
+                    <h5 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface bg-surface-container-low px-3 py-2 uppercase">@Shared["OrderSummary"]</h5>
+                    <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+                </div>
+
+                @await Component.InvokeAsync("_OrderSummaryComponentPartial")
+
+                @await Component.InvokeAsync("_PaymentMethodComponentPartial")
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,39 @@
+@model List<ResultSpecialOfferDto>
+
+@{
+    ViewData["Title"] = "Özel Teklifler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/SpecialOffer/CreateSpecialOffer/">
+        <span class="material-symbols-outlined text-[20px]">add</span> Yeni Teklif Girişi
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>Görsel</th>
+                <th>Teklif Başlığı</th>
+                <th>Teklif Alt Başlığı</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img class="w-20 h-12 object-cover rounded bg-surface-container-low" src="@item.ImageUrl" alt="@item.Title" /></td>
+                    <td>@item.Title</td>
+                    <td>@item.SubTitle</td>
+                    <td class="text-right whitespace-nowrap">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/SpecialOffer/UpdateSpecialOffer/@item.SpecialOfferId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/SpecialOffer/DeleteSpecialOffer/@item.SpecialOfferId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

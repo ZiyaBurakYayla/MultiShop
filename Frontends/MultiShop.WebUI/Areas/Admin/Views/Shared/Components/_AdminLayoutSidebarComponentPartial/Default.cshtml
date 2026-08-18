@@ -1,0 +1,49 @@
+@{
+    var path = (Context.Request.Path.Value ?? "").ToLowerInvariant();
+    var itemClass = "flex items-center gap-3 px-4 py-2.5 rounded-lg font-label-md text-inverse-on-surface hover:bg-white/15 hover:text-primary-container transition-colors";
+    var itemActiveClass = "flex items-center gap-3 px-4 py-2.5 rounded-lg font-label-md bg-primary-container text-on-primary-fixed transition-colors";
+    ViewData["PanelLinkClass"] = itemClass;
+    ViewData["PanelSkip"] = "Admin";
+}
+
+<aside class="ms-sidebar bg-inverse-surface">
+
+    <div class="flex items-center justify-between px-4 py-5 border-b border-white/15">
+        <a class="flex items-center gap-1" href="/Admin/Statistic/Index/">
+            <div class="text-headline-lg font-display-md font-black bg-primary-container text-on-primary-fixed px-3 py-1 rounded-l-lg tracking-tight">MULTI</div>
+            <div class="text-headline-lg font-display-md font-black bg-white/15 text-primary-container px-3 py-1 rounded-r-lg tracking-tight">SHOP</div>
+        </a>
+        <button class="lg:hidden text-inverse-on-surface hover:text-primary-container transition-colors" data-ms-sidebar-toggle type="button" title="Menüyü kapat">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto ms-no-scrollbar px-3 py-4">
+        <p class="px-4 pb-2 text-label-md text-primary-container uppercase tracking-wider">@Shared["Menu"]</p>
+        <ul class="flex flex-col gap-1">
+            <li><a class="@(path.StartsWith("/admin/statistic") ? itemActiveClass : itemClass)" href="/Admin/Statistic/Index/"><span class="material-symbols-outlined text-[22px]">pie_chart</span><span>@Shared["Statistics"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/category") ? itemActiveClass : itemClass)" href="/Admin/Category/Index/"><span class="material-symbols-outlined text-[22px]">category</span><span>@Shared["Categories"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/product/") ? itemActiveClass : itemClass)" href="/Admin/Product/ProductListWithCategory/"><span class="material-symbols-outlined text-[22px]">inventory_2</span><span>@Shared["Products"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/brand") ? itemActiveClass : itemClass)" href="/Admin/Brand/Index/"><span class="material-symbols-outlined text-[22px]">apartment</span><span>@Shared["Brands"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/productmarket") ? itemActiveClass : itemClass)" href="/Admin/ProductMarket/Index/"><span class="material-symbols-outlined text-[22px]">public</span><span>Dış Pazar</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/sellerapplication") ? itemActiveClass : itemClass)" href="/Admin/SellerApplication/Index/"><span class="material-symbols-outlined text-[22px]">handshake</span><span>@Shared["SellerApplications"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/user") ? itemActiveClass : itemClass)" href="/Admin/User/UserList/"><span class="material-symbols-outlined text-[22px]">group</span><span>@Shared["UserList"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/comment") ? itemActiveClass : itemClass)" href="/Admin/Comment/Index/"><span class="material-symbols-outlined text-[22px]">comment</span><span>@Shared["Comments"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/cargo/cargocompany") || path.Equals("/admin/cargo") ? itemActiveClass : itemClass)" href="/Admin/Cargo/CargoCompanyList/"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span>@Shared["Cargo"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/cargo/cargodetaillist") ? itemActiveClass : itemClass)" href="/Admin/Cargo/CargoDetailList/"><span class="material-symbols-outlined text-[22px]">inventory</span><span>Tüm Gönderiler</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/specialoffer") ? itemActiveClass : itemClass)" href="/Admin/SpecialOffer/Index/"><span class="material-symbols-outlined text-[22px]">sell</span><span>@Shared["SpecialOffers"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/featureslider") ? itemActiveClass : itemClass)" href="/Admin/FeatureSlider/Index/"><span class="material-symbols-outlined text-[22px]">image</span><span>@Shared["SliderPanel"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/feature/") ? itemActiveClass : itemClass)" href="/Admin/Feature/Index/"><span class="material-symbols-outlined text-[22px]">anchor</span><span>@Shared["FeaturePanel"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/offerdiscount") ? itemActiveClass : itemClass)" href="/Admin/OfferDiscount/Index/"><span class="material-symbols-outlined text-[22px]">percent</span><span>@Shared["DiscountOffers"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/imageupload") ? itemActiveClass : itemClass)" href="/Admin/ImageUpload/Index/"><span class="material-symbols-outlined text-[22px]">photo_library</span><span>@Shared["Images"]</span></a></li>
+            <li><a class="@(path.StartsWith("/admin/about") ? itemActiveClass : itemClass)" href="/Admin/About/Index/"><span class="material-symbols-outlined text-[22px]">info</span><span>@Shared["About"]</span></a></li>
+            <li><a class="@itemClass" href="/User/Message/Inbox/"><span class="material-symbols-outlined text-[22px]">send</span><span>@Shared["Messages"]</span></a></li>
+        </ul>
+
+        <div class="mt-6 pt-4 border-t border-white/15 flex flex-col gap-1">
+            @await Html.PartialAsync("~/Views/Shared/_PanelLinksPartial.cshtml")
+            <a class="@itemClass" href="/Default/Index/"><span class="material-symbols-outlined text-[22px]">home</span><span>@Shared["GoToSite"]</span></a>
+            <a class="@itemClass" href="/Login/LogOut/"><span class="material-symbols-outlined text-[22px]">logout</span><span>@Shared["Logout"]</span></a>
+        </div>
+    </nav>
+</aside>

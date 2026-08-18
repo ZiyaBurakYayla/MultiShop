@@ -1,0 +1,106 @@
+@model List<MultiShop.DtoLayer.OrderDtos.OrderDetailDtos.ResultOrderDetailDto>
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    var order = ViewBag.Order as MultiShop.DtoLayer.OrderDtos.OrderingDtos.ResultOrderingByUserIdDto;
+    decimal linesTotal = 0;
+    foreach (var line in Model)
+    {
+        linesTotal += line.ProductTotalPrice;
+    }
+}
+
+<div class="flex items-center justify-between flex-wrap gap-4 mb-6">
+    <div>
+        <h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["OrderDetails"]</h1>
+        <p class="text-body-md text-secondary">@Shared["OrderNo"]: #@order.OrderingId</p>
+    </div>
+    <a class="ms-btn ms-btn-ghost" href="/User/MyOrder/MyOrderList">
+        <span class="material-symbols-outlined text-[20px]">arrow_back</span> @Shared["Back"]
+    </a>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">calendar_month</span>
+        </div>
+        <div>
+            <h5 class="text-label-sm text-secondary mb-1">@Shared["OrderDate"]</h5>
+            <h3 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@order.OrderDate.ToString("dd MMMM yyyy")</h3>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">payments</span>
+        </div>
+        <div>
+            <h5 class="text-label-sm text-secondary mb-1">@Shared["TotalPriceCol"]</h5>
+            <h3 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@order.TotalPrice.ToString("N2") ₺</h3>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">@(order.IsPaid ? "check_circle" : "pending")</span>
+        </div>
+        <div>
+            <h5 class="text-label-sm text-secondary mb-1">@Shared["PaymentStatus"]</h5>
+            @if (order.IsPaid)
+            {
+                <span class="ms-badge ms-badge-gold">@Shared["Paid"]</span>
+            }
+            else
+            {
+                <span class="ms-badge ms-badge-neutral">@Shared["Unpaid"]</span>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="ms-panel">
+    <h2 class="ms-panel-title flex items-center gap-2">
+        <span class="material-symbols-outlined">inventory_2</span> @Shared["OrderProductList"]
+    </h2>
+
+    @if (!Model.Any())
+    {
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">inventory_2</span>
+            Bu siparişe ait ürün kaydı bulunamadı.
+        </div>
+    }
+    else
+    {
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>@Shared["ProductName"]</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th>@Shared["Amount"]</th>
+                        <th class="text-right">@Shared["Total"]</th>
+                    </tr>
+                </thead>
+                <tbody data-ms-pager="10">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a class="hover:text-primary transition-colors" href="/ProductList/ProductDetail/@item.ProductId">@item.ProductName</a>
+                            </td>
+                            <td>@item.ProductPrice.ToString("N2") ₺</td>
+                            <td>@item.ProductAmount</td>
+                            <td class="text-right font-label-md">@item.ProductTotalPrice.ToString("N2") ₺</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="font-label-md text-right bg-surface-container-low">@Shared["TotalProductPrice"]</td>
+                        <td class="text-right font-label-md bg-surface-container-low">@linesTotal.ToString("N2") ₺</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+</div>

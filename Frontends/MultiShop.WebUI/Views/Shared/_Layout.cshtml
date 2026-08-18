@@ -1,0 +1,33 @@
+@{
+    Layout = null;
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+<html lang="@lang">
+<head>
+    @await Html.PartialAsync("~/Views/Shared/_StitchHeadPartial.cshtml")
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+
+    <div class="bg-surface-container-lowest border-b border-surface-variant">
+        <div class="max-w-container-max mx-auto px-gutter py-4">
+            <a class="inline-flex items-center gap-1 group" href="/Default/Index/">
+                <div class="text-display-md font-display-md font-black bg-primary-container text-on-primary-fixed px-4 py-1 rounded-l-lg tracking-tight group-hover:bg-primary-fixed transition-colors">MULTI</div>
+                <div class="text-display-md font-display-md font-black bg-inverse-surface text-primary-container px-4 py-1 rounded-r-lg tracking-tight group-hover:bg-on-background transition-colors">SHOP</div>
+            </a>
+        </div>
+    </div>
+
+    <main class="flex-1 max-w-container-max mx-auto px-gutter py-section-padding w-full">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-inverse-surface text-on-secondary-fixed-variant text-label-sm py-6 text-center">
+        &copy; @DateTime.Now.Year <span class="text-primary-container font-bold">MultiShop</span>. @Shared["AllRightsReserved"]
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

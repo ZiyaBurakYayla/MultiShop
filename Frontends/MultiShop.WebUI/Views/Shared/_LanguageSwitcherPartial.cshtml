@@ -1,0 +1,36 @@
+@using System.Globalization
+@{
+    var current = CultureInfo.CurrentUICulture.Name;
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+    var langs = new List<(string Code, string Flag, string Name)>
+    {
+        ("tr", "tr", "Türkçe"),
+        ("en", "gb", "English"),
+        ("de", "de", "Deutsch"),
+        ("fr", "fr", "Français"),
+        ("it", "it", "Italiano"),
+        ("ru", "ru", "Русский")
+    };
+    var cur = langs.FirstOrDefault(x => x.Code == current);
+    if (cur.Code == null) { cur = langs[0]; }
+}
+
+<details class="ms-lang relative">
+    <summary class="flex items-center gap-2 cursor-pointer hover:text-primary transition-colors">
+        <img class="w-5 h-4 object-cover rounded-sm" src="https://flagcdn.com/24x18/@(cur.Flag).png" alt="@cur.Code" />
+        <span class="font-label-sm text-secondary">@cur.Name</span>
+        <span class="material-symbols-outlined text-[16px] text-secondary">arrow_drop_down</span>
+    </summary>
+    <ul class="absolute right-0 top-full mt-2 z-50 min-w-[180px] bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg py-1">
+        @foreach (var l in langs)
+        {
+            var url = $"/Language/SetCulture?culture={l.Code}&returnUrl={Uri.EscapeDataString(returnUrl)}";
+            <li>
+                <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors @(l.Code == current ? "bg-surface-container-low font-semibold" : "")" href="@url">
+                    <img class="w-5 h-4 object-cover rounded-sm" src="https://flagcdn.com/24x18/@(l.Flag).png" alt="@l.Code" />
+                    <span>@l.Name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</details>

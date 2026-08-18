@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Sayfa Bulunamadı";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    @await Html.PartialAsync("~/Views/Shared/_StitchHeadPartial.cshtml")
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+
+    <div class="bg-surface-container-lowest border-b border-surface-variant">
+        <div class="max-w-container-max mx-auto px-gutter py-4">
+            <a class="inline-flex items-center gap-1 group" href="/Default/Index/">
+                <div class="text-display-md font-display-md font-black bg-primary-container text-on-primary-fixed px-4 py-1 rounded-l-lg tracking-tight group-hover:bg-primary-fixed transition-colors">MULTI</div>
+                <div class="text-display-md font-display-md font-black bg-inverse-surface text-primary-container px-4 py-1 rounded-r-lg tracking-tight group-hover:bg-on-background transition-colors">SHOP</div>
+            </a>
+        </div>
+    </div>
+
+    <main class="flex-1 flex items-center justify-center relative overflow-hidden px-gutter py-section-padding">
+        <div class="absolute -top-56 -left-56 w-[700px] h-[700px] rounded-full bg-primary-container opacity-25 blur-[100px] pointer-events-none"></div>
+        <div class="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-surface-container-highest opacity-40 blur-[100px] pointer-events-none"></div>
+
+        <div class="relative z-10 text-center max-w-[620px]">
+            <div class="font-display-lg font-black leading-none tracking-tighter text-inverse-surface select-none mb-6 text-[clamp(96px,18vw,180px)]">
+                4<span class="inline-block text-primary-container translate-y-2 rotate-12">0</span>4
+            </div>
+            <h1 class="text-display-md font-display-md text-on-surface mb-2">Aradığınız sayfa bulunamadı</h1>
+            <p class="text-body-lg font-body-lg text-secondary max-w-[460px] mx-auto mb-12">
+                Sayfa kaldırılmış, adı değişmiş ya da hiç var olmamış olabilir.
+                Kaldığınız yerden devam edebilir veya bize yazabilirsiniz.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a class="flex items-center gap-2 bg-primary-container text-on-primary-fixed px-8 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" href="/Default/Index/" onclick="return goBack();">
+                    <span class="material-symbols-outlined text-[20px]">arrow_back</span> Geri Dön
+                </a>
+                <a class="flex items-center gap-2 border-2 border-inverse-surface text-on-surface px-8 py-3 rounded-lg font-label-md hover:bg-inverse-surface hover:text-primary-container transition-colors" href="/Contact/Index/">
+                    <span class="material-symbols-outlined text-[20px]">mail</span> İletişim
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div class="bg-inverse-surface text-on-secondary-fixed-variant text-label-sm py-6 text-center">
+        &copy; <span class="text-primary-container font-bold">MultiShop</span>. Tüm hakları saklıdır.
+    </div>
+
+    <script>
+        function goBack() {
+            if (document.referrer && document.referrer.indexOf(window.location.host) !== -1) {
+                history.back();
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+</html>

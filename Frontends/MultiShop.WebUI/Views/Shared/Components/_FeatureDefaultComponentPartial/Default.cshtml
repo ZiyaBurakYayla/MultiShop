@@ -1,0 +1,15 @@
+@model List<ResultFeatureDto>
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach (var item in Model)
+        {
+            <div class="flex items-center gap-4 bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding">
+                <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined">verified</span>
+                </div>
+                <h5 class="font-label-md text-on-surface">@item.Title</h5>
+            </div>
+        }
+    </div>
+</section>

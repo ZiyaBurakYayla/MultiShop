@@ -1,0 +1,45 @@
+@model List<ResultCargoDetailDto>
+
+@{
+    ViewData["Title"] = "Tüm Gönderiler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Barkod</th>
+                <th>Sipariş No</th>
+                <th>Kargo Firması</th>
+                <th>Alıcı</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td class="whitespace-nowrap font-mono">@item.Barcode</td>
+                    <td>#@item.OrderingId</td>
+                    <td>@item.CargoCompanyName</td>
+                    <td>@item.ReceiverCustomer</td>
+                    <td>
+                        @if (item.Status == "Teslim Edildi")
+                        {
+                            <span class="ms-badge ms-badge-gold">@item.Status</span>
+                        }
+                        else
+                        {
+                            <span class="ms-badge ms-badge-neutral">@item.Status</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

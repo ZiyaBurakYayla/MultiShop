@@ -1,0 +1,12 @@
+@model List<ResultBrandDto>
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex justify-between items-center flex-nowrap overflow-x-auto ms-no-scrollbar gap-8 py-8 opacity-70 hover:opacity-100 transition-opacity">
+        @foreach (var item in Model)
+        {
+            <div class="w-24 h-24 relative flex-shrink-0">
+                <img class="absolute inset-0 w-full h-full object-contain" src="@item.ImageUrl" alt="@item.BrandName" />
+            </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,67 @@
+@model List<BasketItemDto>
+
+<div class="lg:col-span-2">
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden">
+        @if (!Model.Any())
+        {
+            <div class="p-12 text-center">
+                <span class="material-symbols-outlined text-[48px] text-outline">shopping_cart</span>
+                <p class="text-body-lg font-body-lg text-secondary mt-4">Sepetiniz boş.</p>
+                <a class="inline-block mt-6 bg-primary-container text-on-primary-fixed px-6 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" href="/ProductList/Index/">@Shared["StartShopping"]</a>
+            </div>
+        }
+        else
+        {
+            <div class="overflow-x-auto">
+                <table class="w-full text-left" id="ms-cart-table">
+                    <thead class="bg-inverse-surface text-on-secondary">
+                        <tr>
+                            <th class="px-4 py-3 font-label-md">@Shared["ProductUnit"]</th>
+                            <th class="px-4 py-3 font-label-md">@Shared["Price"]</th>
+                            <th class="px-4 py-3 font-label-md">@Shared["Quantity"]</th>
+                            <th class="px-4 py-3 font-label-md">@Shared["Total"]</th>
+                            <th class="px-4 py-3 font-label-md text-right">@Shared["Remove"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="border-b border-surface-variant hover:bg-surface-container-low transition-colors" data-product-id="@item.ProductId">
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <img class="w-14 h-16 object-cover rounded" src="@item.ProductImageUrl" alt="@item.ProductName" />
+                                        <div>
+                                            <span class="font-body-md text-on-surface block">@item.ProductName</span>
+                                            @if (!string.IsNullOrEmpty(item.Sku))
+                                            {
+                                                <span class="text-label-sm text-secondary">@item.Sku</span>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-body-md text-on-surface">@item.Price.ToString("N2") ₺</td>
+                                <td class="px-4 py-3">
+                                    <div class="inline-flex items-center border border-outline-variant rounded-lg overflow-hidden">
+                                        <button class="ms-qty px-3 py-2 bg-surface-container-low text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" data-step="-1" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">remove</span>
+                                        </button>
+                                        <input class="ms-qty-input w-14 text-center border-none bg-surface-container-lowest text-on-surface font-body-md focus:ring-0" type="text" value="@item.Quantity" readonly />
+                                        <button class="ms-qty px-3 py-2 bg-surface-container-low text-on-surface hover:bg-primary-container hover:text-on-primary-fixed transition-colors" data-step="1" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">add</span>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-label-md text-on-surface ms-line-total">@((item.Price * item.Quantity).ToString("N2")) ₺</td>
+                                <td class="px-4 py-3 text-right">
+                                    <a class="inline-flex items-center justify-center w-9 h-9 rounded bg-error-container text-on-error-container hover:bg-error hover:text-on-error transition-colors" href="/ShoppingCart/DiscardBasketItem/@item.ProductId">
+                                        <span class="material-symbols-outlined text-[18px]">close</span>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

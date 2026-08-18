@@ -1,0 +1,39 @@
+@model List<ResultCategoryDto>
+
+@{
+    ViewData["Title"] = "Kategoriler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/Category/CreateCategory/">
+        <span class="material-symbols-outlined text-[20px]">add</span> @Shared["NewCategoryEntry"]
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Shared["CategoryName"]</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.CategoryName</td>
+                    <td class="text-right">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Category/UpdateCategory/@item.CategoryID">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/Category/DeleteCategory/@item.CategoryID">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

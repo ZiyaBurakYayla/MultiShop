@@ -1,0 +1,78 @@
+@model List<ResultCargoDetailDto>
+@{
+    ViewData["Title"] = "Kargo Paneli";
+    Layout = "~/Areas/Cargo/Views/CargoLayout/Index.cshtml";
+    int count = 0;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@ViewBag.CompanyName</h1>
+<p class="text-body-md text-secondary mb-6">Firmanıza ait gönderilerin özeti.</p>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="ms-panel">
+        <p class="ms-label">Toplam Gönderi</p>
+        <p class="text-display-md font-display-md text-on-surface">@ViewBag.Total</p>
+    </div>
+    <div class="ms-panel">
+        <p class="ms-label">Hazırlanıyor</p>
+        <p class="text-display-md font-display-md text-on-surface">@ViewBag.Preparing</p>
+    </div>
+    <div class="ms-panel">
+        <p class="ms-label">Yolda</p>
+        <p class="text-display-md font-display-md text-on-surface">@ViewBag.OnTheWay</p>
+    </div>
+    <div class="ms-panel">
+        <p class="ms-label">Teslim Edildi</p>
+        <p class="text-display-md font-display-md text-on-surface">@ViewBag.Delivered</p>
+    </div>
+</div>
+
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-4">Son Gönderiler</h2>
+
+@if (Model == null || Model.Count == 0)
+{
+    <div class="ms-empty">
+        <span class="material-symbols-outlined text-[32px] text-secondary">local_shipping</span>
+        <p class="text-body-md text-secondary mt-2">Firmanıza ait gönderi bulunmuyor.</p>
+    </div>
+}
+else
+{
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Barkod</th>
+                    <th>Alıcı</th>
+                    <th>Durum</th>
+                    <th class="text-right">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody data-ms-pager="5">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td class="whitespace-nowrap font-mono">@item.Barcode</td>
+                        <td>@item.ReceiverCustomer</td>
+                        <td>
+                            @if (item.Status == "Teslim Edildi")
+                            {
+                                <span class="ms-badge ms-badge-gold">@item.Status</span>
+                            }
+                            else
+                            {
+                                <span class="ms-badge ms-badge-neutral">@item.Status</span>
+                            }
+                        </td>
+                        <td class="text-right whitespace-nowrap">
+                            <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Cargo/Shipment/Detail/@item.Barcode">Detay</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

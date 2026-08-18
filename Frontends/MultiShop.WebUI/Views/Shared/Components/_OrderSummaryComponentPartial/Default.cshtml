@@ -1,0 +1,28 @@
+@model List<BasketItemDto>
+
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6 mb-6">
+    <div class="border-b border-surface-variant pb-4">
+        <h6 class="font-label-md text-on-surface mb-3">@Shared["OrderProductList"]</h6>
+        @foreach (var item in Model)
+        {
+            <div class="flex justify-between items-center py-1">
+                <span class="font-body-md text-secondary">@item.ProductName (@item.Quantity)</span>
+                <span class="font-label-md text-on-surface">@item.Price.ToString("N2") ₺</span>
+            </div>
+        }
+    </div>
+    <div class="border-b border-surface-variant py-4 flex flex-col gap-2">
+        <div class="flex justify-between">
+            <span class="font-body-md text-secondary">@Shared["ShoppingAmountInclTax"]</span>
+            <span class="font-label-md text-on-surface">@(((decimal)ViewBag.totalPriceWithTax).ToString("N2")) ₺</span>
+        </div>
+        <div class="flex justify-between">
+            <span class="font-body-md text-secondary">@Shared["ShippingFee"]</span>
+            <span class="font-label-md text-on-surface">@(((decimal)ViewBag.CargoPrice).ToString("N2")) ₺</span>
+        </div>
+    </div>
+    <div class="pt-4 flex justify-between items-center">
+        <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@Shared["GrandTotal"]</span>
+        <span class="text-headline-lg-mobile font-headline-lg-mobile text-primary">@(((decimal)ViewBag.totalPrice).ToString("N2")) ₺</span>
+    </div>
+</div>

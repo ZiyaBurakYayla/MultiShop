@@ -1,0 +1,41 @@
+@model List<ResultBrandDto>
+
+@{
+    ViewData["Title"] = "Markalar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/Brand/CreateBrand/">
+        <span class="material-symbols-outlined text-[20px]">add</span> @Shared["NewBrandEntry"]
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Shared["BrandName"]</th>
+                <th>@Shared["BrandImage"]</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.BrandName</td>
+                    <td><img class="w-12 h-12 object-contain rounded bg-surface-container-low" src="@item.ImageUrl" alt="@item.BrandName" /></td>
+                    <td class="text-right">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Brand/UpdateBrand/@item.BrandId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/Brand/DeleteBrand/@item.BrandId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

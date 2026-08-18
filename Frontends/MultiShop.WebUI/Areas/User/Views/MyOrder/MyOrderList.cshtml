@@ -1,0 +1,61 @@
+@model List<ResultOrderingByUserIdDto>
+@{
+    ViewData["Title"] = "Siparişlerim";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    int count = 0;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["OrderHistory"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["OrderHistorySub"]</p>
+
+@if (!Model.Any())
+{
+    <div class="ms-panel">
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">receipt_long</span>
+            @Shared["NoOrdersYet"]
+        </div>
+    </div>
+}
+else
+{
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@Shared["TotalPriceCol"]</th>
+                    <th>@Shared["OrderDate"]</th>
+                    <th>@Shared["PaymentStatus"]</th>
+                    <th class="text-right">@Shared["OrderDetails"]</th>
+                </tr>
+            </thead>
+            <tbody data-ms-pager="10">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td class="font-label-md">@item.TotalPrice.ToString("N2") ₺</td>
+                        <td class="whitespace-nowrap">@(((DateTime)item.OrderDate).ToString("dd-MMM-yyyy"))</td>
+                        <td>
+                            @if (item.IsPaid)
+                            {
+                                <span class="ms-badge ms-badge-gold">@Shared["Paid"]</span>
+                            }
+                            else
+                            {
+                                <span class="ms-badge ms-badge-neutral">@Shared["Unpaid"]</span>
+                            }
+                        </td>
+                        <td class="text-right">
+                            <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/User/MyOrder/OrderDetail/@item.OrderingId">
+                                @Shared["Details"] <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

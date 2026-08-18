@@ -1,0 +1,111 @@
+@model AdminProductViewModel
+
+@{
+    ViewData["Title"] = "Ürün Detayı";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="mb-4 bg-secondary-container text-on-secondary-container border border-outline-variant rounded-lg px-4 py-3 flex items-center gap-2 text-label-sm">
+    <span class="material-symbols-outlined text-[20px]">info</span> @Shared["AdminProductReadOnlyNotice"]
+</div>
+
+<div class="ms-panel">
+    <h4 class="ms-panel-title">@Model.Product.ProductName</h4>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-1">
+            <img class="w-full rounded-xl border border-surface-variant bg-surface-container-low object-cover" src="@Model.Product.ProductImageUrl" alt="@Model.Product.ProductName" />
+        </div>
+        <div class="lg:col-span-2">
+            <div class="ms-table-wrap">
+                <table class="ms-table">
+                    <tbody>
+                        <tr>
+                            <td class="w-52 font-label-md bg-surface-container-low">@Shared["ProductName"]</td>
+                            <td>@Model.Product.ProductName</td>
+                        </tr>
+                        <tr>
+                            <td class="font-label-md bg-surface-container-low">@Shared["ProductPrice"]</td>
+                            <td>@Model.Product.ProductPrice.ToString("N2") ₺</td>
+                        </tr>
+                        <tr>
+                            <td class="font-label-md bg-surface-container-low">@Shared["ProductCategory"]</td>
+                            <td>@(Model.CategoryName ?? "-")</td>
+                        </tr>
+                        <tr>
+                            <td class="font-label-md bg-surface-container-low">@Shared["Seller"]</td>
+                            <td>@(Model.SellerName ?? "-")</td>
+                        </tr>
+                        <tr>
+                            <td class="font-label-md bg-surface-container-low">@Shared["Description"]</td>
+                            <td>@Model.Product.ProductDescription</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Product.Variants != null && Model.Product.Variants.Count > 0)
+    {
+        <h5 class="ms-panel-title mt-8">@Shared["Variants"]</h5>
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th>@Shared["Stock"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var v in Model.Product.Variants)
+                    {
+                        <tr>
+                            <td>@v.Sku</td>
+                            <td>@v.Price.ToString("N2") ₺</td>
+                            <td>@v.Stock</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.Detail != null)
+    {
+        <h5 class="ms-panel-title mt-8">@Shared["DescriptionAndInfo"]</h5>
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <tbody>
+                    <tr>
+                        <td class="w-52 font-label-md bg-surface-container-low">@Shared["Description"]</td>
+                        <td>@Model.Detail.ProductDescription</td>
+                    </tr>
+                    <tr>
+                        <td class="font-label-md bg-surface-container-low">@Shared["ProductInfo"]</td>
+                        <td>@Model.Detail.ProductInfo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+
+    @if (Model.Images != null)
+    {
+        <h5 class="ms-panel-title mt-8">@Shared["ProductImages"]</h5>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            @foreach (var src in new[] { Model.Images.Image1, Model.Images.Image2, Model.Images.Image3, Model.Images.Image4 })
+            {
+                if (!string.IsNullOrEmpty(src))
+                {
+                    <img class="w-full aspect-square object-cover rounded-lg border border-surface-variant" src="@src" alt="Ürün görseli" />
+                }
+            }
+        </div>
+    }
+
+    <div class="pt-8">
+        <a class="ms-btn ms-btn-ghost" href="/Admin/Product/ProductListWithCategory">@Shared["Back"]</a>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+@model List<ResultFeatureDto>
+
+@{
+    ViewData["Title"] = "Öne Çıkan Alanlar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/Feature/CreateFeature/">
+        <span class="material-symbols-outlined text-[20px]">add</span> Yeni Öne Çıkan Alan Girişi
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Öne Çıkan Alan Adı</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.Title</td>
+                    <td class="text-right whitespace-nowrap">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Feature/UpdateFeature/@item.FeatureId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/Feature/DeleteFeature/@item.FeatureId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

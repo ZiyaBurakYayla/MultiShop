@@ -1,0 +1,30 @@
+@model UpdateFeatureSliderDto
+
+@{
+    ViewData["Title"] = "Slider Görseli Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="ms-panel max-w-3xl">
+    <h4 class="ms-panel-title">Öne Çıkan Slider Görseli Güncelleme Sayfası</h4>
+
+    <form method="post">
+        <input type="hidden" asp-for="FeatureSliderId" />
+        <div class="ms-field">
+            <label class="ms-label">Görsel Başlığı</label>
+            <input class="ms-input" asp-for="Title" type="text" />
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">Görsel Açıklaması</label>
+            <input class="ms-input" asp-for="Description" type="text" />
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">Görsel Linki</label>
+            <input class="ms-input" asp-for="ImageUrl" type="text" />
+        </div>
+        <div class="flex gap-3 pt-2">
+            <button class="ms-btn ms-btn-primary" type="submit">Öne Çıkan Slider Görseli Güncelle</button>
+            <a class="ms-btn ms-btn-ghost" href="/Admin/FeatureSlider/Index/">@Shared["Back"]</a>
+        </div>
+    </form>
+</div>

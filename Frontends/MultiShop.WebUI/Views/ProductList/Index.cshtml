@@ -1,0 +1,23 @@
+@{
+    var allProducts = string.IsNullOrEmpty(ViewBag.i as string);
+    var pageTitle = allProducts ? "Tüm Ürünler" : Shared["ProductList"].Value;
+    ViewData["Title"] = pageTitle;
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@pageTitle</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <aside class="lg:col-span-1">
+            @await Component.InvokeAsync("_ProductListCategoryFilterComponentPartial", new { id = ViewBag.i })
+        </aside>
+
+        <div class="lg:col-span-3">
+            @await Component.InvokeAsync("_ProductListComponentPartial", new { id = ViewBag.i })
+        </div>
+    </div>
+</section>

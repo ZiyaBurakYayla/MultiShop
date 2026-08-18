@@ -1,0 +1,41 @@
+@model List<ResultAboutDto>
+
+@{
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/About/CreateAbout/">
+        <span class="material-symbols-outlined text-[20px]">add</span> Yeni Hakkımızda Girişi
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>@Shared["Description"]</th>
+                <th>Adres</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="max-w-md">@item.Description</td>
+                    <td>@item.Address</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td class="text-right whitespace-nowrap">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/About/UpdateAbout/@item.AboutId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/About/DeleteAbout/@item.AboutId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

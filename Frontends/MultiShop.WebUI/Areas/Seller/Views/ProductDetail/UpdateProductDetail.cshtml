@@ -1,0 +1,32 @@
+@model UpdateProductDetailDto
+@{
+    ViewData["Title"] = "Ürün Detayı";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["ProductDetailPage"]</h1>
+<p class="text-body-md text-secondary mb-6">@ViewBag.productName</p>
+
+<div class="ms-panel max-w-3xl">
+    <form method="post" asp-action="UpdateProductDetail">
+        <div asp-validation-summary="All" class="mb-4 text-error text-label-sm"></div>
+        <input type="hidden" name="ProductDetailId" value="@Model.ProductDetailId" />
+        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+        <div class="ms-field">
+            <label class="ms-label">@Shared["Description"]</label>
+            <textarea class="ms-textarea" name="ProductDescription" rows="5">@Model.ProductDescription</textarea>
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">@Shared["ProductInfo"]</label>
+            <textarea class="ms-textarea" name="ProductInfo" rows="5">@Model.ProductInfo</textarea>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+            <button class="ms-btn ms-btn-primary" type="submit">
+                <span class="material-symbols-outlined text-[20px]">save</span> @Shared["Save"]
+            </button>
+            <a class="ms-btn ms-btn-ghost" href="/Seller/Product">@Shared["Cancel"]</a>
+        </div>
+    </form>
+</div>

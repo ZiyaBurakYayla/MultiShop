@@ -1,0 +1,21 @@
+@model List<ResultCategoryDto>
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@Shared["FeaturedCategories"]</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach (var item in Model)
+        {
+            <a class="flex items-center bg-surface-container-lowest p-4 rounded-lg border border-surface-variant hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 group" href="/ProductList/Index/@item.CategoryID">
+                <div class="w-20 h-20 bg-surface-container-low rounded flex-shrink-0 overflow-hidden relative">
+                    <img class="absolute inset-0 w-full h-full object-cover" src="@item.ImageUrl" alt="@item.CategoryName" />
+                </div>
+                <div class="ml-4">
+                    <h4 class="font-label-md text-on-surface group-hover:text-primary transition-colors">@item.CategoryName</h4>
+                </div>
+            </a>
+        }
+    </div>
+</section>

@@ -1,0 +1,79 @@
+@model CreateRegisterDto
+@{
+    Layout = null;
+    ViewData["Title"] = "Kayıt Ol";
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+<html lang="@lang">
+<head>
+    @await Html.PartialAsync("~/Views/Shared/_StitchHeadPartial.cshtml")
+    <style>
+        body { background-color: #78dede; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 font-body-md text-on-background antialiased">
+
+    <main class="w-full max-w-[900px] flex flex-col md:flex-row bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden min-h-[500px]">
+
+        <div class="md:w-[45%] bg-primary-container p-10 flex flex-col justify-center text-on-primary-fixed">
+            <h1 class="text-display-md font-display-md font-bold mb-6">MultiShop @Shared["ECommerce"]</h1>
+            <p class="text-sm leading-relaxed mb-6 font-medium">@Shared["RegisterIntro1"]</p>
+            <p class="text-sm leading-relaxed mb-8 font-medium">@Shared["RegisterIntro2"]</p>
+            <div>
+                <a class="inline-block font-bold underline underline-offset-4 decoration-2 hover:text-on-background transition-colors" href="/Login/Index/">@Shared["Login"]</a>
+            </div>
+        </div>
+
+        <div class="md:w-[55%] p-10 flex flex-col justify-center bg-surface-container-lowest">
+            <h2 class="text-headline-lg font-headline-lg font-bold text-on-surface mb-8">MultiShop @Shared["RegisterForm"]</h2>
+
+            @if (ViewBag.RegisterError != null)
+            {
+                <div class="mb-6 bg-error-container text-on-error-container border border-error/30 rounded-lg px-4 py-3 text-label-sm break-words">
+                    @ViewBag.RegisterError
+                </div>
+            }
+
+            <form class="space-y-4" method="post">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="first_name">@Shared["FirstName"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="first_name" asp-for="Name" type="text" />
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="last_name">@Shared["LastName"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="last_name" asp-for="Surname" type="text" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-on-surface-variant mb-1" for="your_email">@Shared["EmailAddress"]</label>
+                    <input class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="your_email" asp-for="Email" type="email" required />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-on-surface-variant mb-1" for="your_username">@Shared["Username"]</label>
+                    <input class="w-full bg-primary-fixed/30 border border-outline-variant rounded-lg px-3 py-2 text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="your_username" asp-for="Username" type="text" required />
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="password">@Shared["Password"]</label>
+                        <input class="w-full bg-primary-fixed/30 border border-outline-variant rounded-lg px-3 py-2 text-on-surface focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="password" asp-for="Password" type="password" required />
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="comfirm_password">@Shared["ConfirmPassword"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-primary-container focus:border-primary-container transition-colors" id="comfirm_password" asp-for="ConfirmPassword" type="password" required />
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button class="bg-primary-container hover:bg-primary-fixed text-on-primary-fixed font-bold py-2 px-8 rounded-lg transition-colors" type="submit">@Shared["Register"]</button>
+                </div>
+            </form>
+
+            <a class="mt-8 text-label-sm text-secondary hover:text-primary transition-colors" href="/Default/Index/">&larr; @Shared["Home"]</a>
+        </div>
+
+    </main>
+
+</body>
+</html>

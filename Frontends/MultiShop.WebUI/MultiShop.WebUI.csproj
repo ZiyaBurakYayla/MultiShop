@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>743ff3bd-1d2d-494b-906c-7f2616befb3b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
+    <PackageReference Include="IdentityModel.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.36" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.18" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\help-documentation\assets\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\help-documentation\assets\blueprint-css\plugins\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\app\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\charts\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\component\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\dist\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\forms\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\maps\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\pages\et-line-font\fonts\.DS_Store" />
+    <None Include="wwwroot\MainDownload-OvioAdmin-html5-template\html\tables\et-line-font\fonts\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiShop.DtoLayer\MultiShop.DtoLayer.csproj" />
+  </ItemGroup>
+
+</Project>

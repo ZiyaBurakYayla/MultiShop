@@ -1,0 +1,44 @@
+@model UpdateUserCommentDto
+@{
+    ViewData["Title"] = "Yorumu Düzenle";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    var products = ViewBag.Products as List<ResultProductDto>;
+    var product = products.FirstOrDefault(x => x.ProductId == Model.ProductId);
+    var productName = product == null ? Model.ProductId : product.ProductName;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">Yorumu Düzenle</h1>
+<p class="text-body-md text-secondary mb-6">Düzenlenen yorumlar yönetici onayından sonra tekrar yayınlanır.</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="ms-panel mb-4 border-l-4 border-error">
+        <p class="text-body-md text-error">@ViewBag.Error</p>
+    </div>
+}
+
+<div class="ms-panel max-w-3xl">
+    <h4 class="ms-panel-title">@productName</h4>
+
+    <form method="post">
+        <input type="hidden" asp-for="UserCommentId" />
+        <div class="ms-field">
+            <label class="ms-label">Puanınız</label>
+            <select class="ms-select" asp-for="Rating">
+                <option value="5">5 - Çok İyi</option>
+                <option value="4">4 - İyi</option>
+                <option value="3">3 - Orta</option>
+                <option value="2">2 - Kötü</option>
+                <option value="1">1 - Çok Kötü</option>
+            </select>
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">Yorumunuz</label>
+            <textarea class="ms-textarea" asp-for="CommentDetail" rows="5" required></textarea>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="ms-btn ms-btn-primary" type="submit">Güncelle</button>
+            <a class="ms-btn ms-btn-ghost" href="/User/MyComment/Index">Vazgeç</a>
+        </div>
+    </form>
+</div>

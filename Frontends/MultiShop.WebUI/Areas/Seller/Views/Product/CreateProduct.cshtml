@@ -1,0 +1,347 @@
+@model CreateProductDto
+@{
+    ViewData["Title"] = "Yeni Ürün";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["NewProduct"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["NewProductSub"]</p>
+
+<div class="ms-panel mb-6">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+            <h2 class="ms-panel-title flex items-center gap-2">
+                <span class="material-symbols-outlined">public</span> Dış Pazardan Ekle
+            </h2>
+            <p class="text-body-md text-secondary">Dış pazarda ürün arayın, seçtiğiniz ürünün bilgileri aşağıdaki forma dolsun.</p>
+        </div>
+        <button class="ms-btn ms-btn-ghost" id="market-toggle" type="button">
+            <span class="material-symbols-outlined text-[20px]">travel_explore</span> Dış Pazarda Ara
+        </button>
+    </div>
+
+    <div class="hidden mt-4" id="market-box">
+        <div class="flex gap-3">
+            <input class="ms-input" id="market-query" placeholder="Örnek: deri ceket" type="text" />
+            <button class="ms-btn ms-btn-primary" id="market-search" type="button">
+                <span class="material-symbols-outlined text-[20px]">search</span> Ara
+            </button>
+        </div>
+        <div class="mt-4" id="market-results"></div>
+    </div>
+</div>
+
+<div class="ms-panel">
+    <form method="post" asp-action="CreateProduct">
+        <div asp-validation-summary="All" class="mb-4 text-error text-label-sm"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductName"]</label>
+                <input class="ms-input" name="ProductName" value="@Model?.ProductName" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductPrice"]</label>
+                <input class="ms-input" name="ProductPrice" value="@Model?.ProductPrice" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductImage"]</label>
+                <input class="ms-input" name="ProductImageUrl" value="@Model?.ProductImageUrl" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Category"]</label>
+                <select class="ms-select" id="CategoryId" name="CategoryId" asp-items="ViewBag.CategoryValues"></select>
+            </div>
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">@Shared["Description"]</label>
+            <textarea class="ms-textarea" name="ProductDescription" rows="4" required>@Model?.ProductDescription</textarea>
+        </div>
+
+        <hr class="border-t border-surface-variant my-8" />
+
+        <h2 class="ms-panel-title flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">tune</span> @Shared["Variants"]
+        </h2>
+        <p class="text-body-md text-secondary mb-4" id="attr-hint">@Shared["VariantHint"]</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["SkuPrefix"]</label>
+                <input class="ms-input" id="v-prefix" placeholder="CEKET" type="text" />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductPrice"]</label>
+                <input class="ms-input" id="v-price" placeholder="1500" type="text" />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Stock"]</label>
+                <input class="ms-input" id="v-stock" placeholder="10" type="text" />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" id="attribute-inputs"></div>
+
+        <button class="ms-btn ms-btn-ghost" id="v-generate" type="button">
+            <span class="material-symbols-outlined text-[20px]">auto_awesome</span> @Shared["GenerateVariants"]
+        </button>
+
+        <div class="ms-table-wrap mt-4">
+            <table class="ms-table">
+                <thead>
+                    <tr id="variant-thead-row">
+                        <th>SKU</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th>@Shared["Stock"]</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="variant-rows"></tbody>
+            </table>
+        </div>
+
+        <hr class="border-t border-surface-variant my-8" />
+
+        <div class="flex gap-3">
+            <button class="ms-btn ms-btn-primary" type="submit">
+                <span class="material-symbols-outlined text-[20px]">save</span> @Shared["Save"]
+            </button>
+            <a class="ms-btn ms-btn-ghost" href="/Seller/Product">@Shared["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+    var categoryVariantMap = @Html.Raw(ViewBag.CategoryVariantMap ?? "{}");
+    var currentAttrs = [];
+
+    function slug(text) {
+        return text.trim().toUpperCase().replace(/\s+/g, "-");
+    }
+
+    function splitList(value) {
+        var parts = (value || "").split(",");
+        var result = [];
+        for (var i = 0; i < parts.length; i++) {
+            var p = parts[i].trim();
+            if (p !== "") {
+                result.push(p);
+            }
+        }
+        return result;
+    }
+
+    function cartesian(lists) {
+        var result = [[]];
+        for (var i = 0; i < lists.length; i++) {
+            var next = [];
+            for (var r = 0; r < result.length; r++) {
+                for (var v = 0; v < lists[i].length; v++) {
+                    next.push(result[r].concat([lists[i][v]]));
+                }
+            }
+            result = next;
+        }
+        return result;
+    }
+
+    function renderCategory() {
+        var catId = document.getElementById("CategoryId").value;
+        currentAttrs = splitList(categoryVariantMap[catId]);
+
+        var inHtml = "";
+        for (var a = 0; a < currentAttrs.length; a++) {
+            inHtml += '<div class="ms-field"><label class="ms-label">' + currentAttrs[a] + '</label>'
+                + '<input type="text" class="ms-input v-attr-values" data-attr="' + currentAttrs[a] + '" placeholder="deger1,deger2" /></div>';
+        }
+        document.getElementById("attribute-inputs").innerHTML = inHtml;
+
+        var thHtml = "<th>SKU</th>";
+        for (var a = 0; a < currentAttrs.length; a++) {
+            thHtml += "<th>" + currentAttrs[a] + "</th>";
+        }
+        thHtml += "<th>@Shared["ProductPrice"]</th><th>@Shared["Stock"]</th><th></th>";
+        document.getElementById("variant-thead-row").innerHTML = thHtml;
+
+        document.getElementById("variant-rows").innerHTML = "";
+
+        if (currentAttrs.length === 0) {
+            document.getElementById("attr-hint").innerText = "@Shared["NoVariantAttributes"]";
+        } else {
+            document.getElementById("attr-hint").innerText = currentAttrs.join(", ");
+        }
+    }
+
+    function rowHtml(index, prefix, combo, price, stock) {
+        var skuParts = [slug(prefix)];
+        for (var a = 0; a < combo.length; a++) {
+            skuParts.push(slug(combo[a]));
+        }
+        var sku = skuParts.join("-");
+
+        var html = "<tr>";
+        html += '<td><input type="text" class="ms-input" data-field="Sku" name="Variants[' + index + '].Sku" value="' + sku + '" /></td>';
+        for (var a = 0; a < currentAttrs.length; a++) {
+            html += '<td><input type="text" class="ms-input" readonly data-attr="' + currentAttrs[a] + '" name="Variants[' + index + '].Options[' + currentAttrs[a] + ']" value="' + combo[a] + '" /></td>';
+        }
+        html += '<td><input type="text" class="ms-input" data-field="Price" name="Variants[' + index + '].Price" value="' + price + '" /></td>';
+        html += '<td><input type="text" class="ms-input" data-field="Stock" name="Variants[' + index + '].Stock" value="' + stock + '" /></td>';
+        html += '<td><button type="button" class="ms-btn ms-btn-sm ms-btn-danger v-remove">@Shared["Delete"]</button></td>';
+        html += "</tr>";
+        return html;
+    }
+
+    function renumber() {
+        var rows = document.getElementById("variant-rows").getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            var inputs = rows[i].getElementsByTagName("input");
+            for (var j = 0; j < inputs.length; j++) {
+                var field = inputs[j].getAttribute("data-field");
+                var attr = inputs[j].getAttribute("data-attr");
+                if (field) {
+                    inputs[j].name = "Variants[" + i + "]." + field;
+                } else if (attr) {
+                    inputs[j].name = "Variants[" + i + "].Options[" + attr + "]";
+                }
+            }
+        }
+    }
+
+    function bindRemove() {
+        var buttons = document.getElementsByClassName("v-remove");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = function () {
+                var row = this.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                renumber();
+            };
+        }
+    }
+
+    function generate() {
+        if (currentAttrs.length === 0) {
+            alert("@Shared["NoVariantAttributes"]");
+            return;
+        }
+        var prefix = document.getElementById("v-prefix").value;
+        var price = document.getElementById("v-price").value;
+        var stock = document.getElementById("v-stock").value;
+
+        var valueInputs = document.getElementsByClassName("v-attr-values");
+        var lists = [];
+        for (var a = 0; a < valueInputs.length; a++) {
+            var vals = splitList(valueInputs[a].value);
+            if (vals.length === 0) {
+                alert(valueInputs[a].getAttribute("data-attr"));
+                return;
+            }
+            lists.push(vals);
+        }
+
+        var combos = cartesian(lists);
+        var html = "";
+        for (var i = 0; i < combos.length; i++) {
+            html += rowHtml(i, prefix, combos[i], price, stock);
+        }
+        document.getElementById("variant-rows").innerHTML = html;
+        bindRemove();
+    }
+
+    document.getElementById("CategoryId").addEventListener("change", renderCategory);
+    document.getElementById("v-generate").addEventListener("click", generate);
+    renderCategory();
+
+    var marketResults = [];
+    var ondalikAyirici = "@System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator";
+
+    function marketPrice(text) {
+        if (!text) {
+            return "";
+        }
+        var digits = text.replace(/[^0-9.,]/g, "");
+        var lastComma = digits.lastIndexOf(",");
+        var lastDot = digits.lastIndexOf(".");
+        if (lastComma > lastDot) {
+            digits = digits.replace(/\./g, "").replace(",", ".");
+        } else {
+            digits = digits.replace(/,/g, "");
+        }
+        var value = parseFloat(digits);
+        if (isNaN(value)) {
+            return "";
+        }
+        return value.toFixed(2).replace(".", ondalikAyirici);
+    }
+
+    function marketFill(index) {
+        var item = marketResults[index];
+        document.getElementsByName("ProductName")[0].value = item.productTitle || "";
+        document.getElementsByName("ProductImageUrl")[0].value = item.productPhoto || "";
+        document.getElementsByName("ProductDescription")[0].value = (item.storeName ? item.storeName + " mağazasından alınan ürün. " : "") + (item.productTitle || "");
+        var price = marketPrice(item.price);
+        if (price !== "") {
+            document.getElementsByName("ProductPrice")[0].value = price;
+        }
+        document.getElementById("market-box").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function marketRender(items) {
+        marketResults = items;
+        if (items.length === 0) {
+            document.getElementById("market-results").innerHTML = '<div class="ms-empty">Sonuç bulunamadı.</div>';
+            return;
+        }
+        var html = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">';
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            html += '<div class="border border-surface-variant rounded-xl p-3 flex flex-col gap-2">';
+            html += '<img class="w-full h-32 object-contain bg-surface-container-low rounded" src="' + (item.productPhoto || "") + '" alt="" />';
+            html += '<span class="text-label-sm text-on-surface text-truncate-2">' + (item.productTitle || "") + '</span>';
+            html += '<span class="text-label-sm text-primary">' + (item.price || "-") + '</span>';
+            html += '<span class="text-label-sm text-secondary">' + (item.storeName || "") + '</span>';
+            html += '<button type="button" class="ms-btn ms-btn-sm ms-btn-primary market-pick" data-index="' + i + '">Forma Aktar</button>';
+            html += '</div>';
+        }
+        html += '</div>';
+        document.getElementById("market-results").innerHTML = html;
+
+        var buttons = document.getElementsByClassName("market-pick");
+        for (var b = 0; b < buttons.length; b++) {
+            buttons[b].onclick = function () {
+                marketFill(parseInt(this.getAttribute("data-index")));
+            };
+        }
+    }
+
+    function marketSearch() {
+        var query = document.getElementById("market-query").value;
+        if (query.trim() === "") {
+            return;
+        }
+        document.getElementById("market-results").innerHTML = '<div class="ms-empty">Aranıyor...</div>';
+        fetch("/Seller/Product/SearchMarket?q=" + encodeURIComponent(query))
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("istek basarisiz");
+                }
+                return response.json();
+            })
+            .then(marketRender)
+            .catch(function () {
+                document.getElementById("market-results").innerHTML = '<div class="ms-empty">Dış pazar servisine ulaşılamadı.</div>';
+            });
+    }
+
+    document.getElementById("market-toggle").addEventListener("click", function () {
+        document.getElementById("market-box").classList.toggle("hidden");
+    });
+    document.getElementById("market-search").addEventListener("click", marketSearch);
+    document.getElementById("market-query").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            marketSearch();
+        }
+    });
+</script>
+}

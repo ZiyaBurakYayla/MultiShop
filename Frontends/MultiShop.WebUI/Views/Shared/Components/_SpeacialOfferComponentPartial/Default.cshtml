@@ -1,0 +1,16 @@
+@model List<ResultSpecialOfferDto>
+
+<div class="flex flex-col gap-6 h-full">
+    @foreach (var item in Model)
+    {
+        <div class="relative flex-1 min-h-[200px] rounded-xl overflow-hidden group shadow-sm">
+            <div class="absolute inset-0 bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" style="background-image: url('@item.ImageUrl')"></div>
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                <span class="text-label-md text-on-primary/80 mb-2 uppercase tracking-wider">@item.Title</span>
+                <h3 class="text-display-md font-display-md text-on-primary mb-6">@item.SubTitle</h3>
+                <a class="bg-primary-container text-on-primary-fixed px-6 py-2 rounded-lg font-label-md hover:bg-primary-fixed transition-colors duration-300" href="/ProductList/Index/">@Shared["StartShopping"]</a>
+            </div>
+        </div>
+    }
+</div>

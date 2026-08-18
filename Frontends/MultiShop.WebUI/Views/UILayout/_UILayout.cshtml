@@ -1,0 +1,32 @@
+@{
+    Layout = null;
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+<html lang="@lang">
+
+@await Component.InvokeAsync("_HeadUILayoutComponentPartial")
+
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+
+    @await Component.InvokeAsync("_TopbarUILayoutComponentPartial")
+
+    @await Component.InvokeAsync("_NavbarUILayoutComponentPartial")
+
+    <main class="flex-1">
+
+        @await Component.InvokeAsync("_DirectoryAlertUILayoutComponentPartial")
+
+        @RenderBody()
+
+    </main>
+
+    @await Component.InvokeAsync("_FooterUILayoutComponentPartial")
+
+    @await Component.InvokeAsync("_ScriptUILayoutComponentPartial")
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

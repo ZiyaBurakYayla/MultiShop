@@ -1,0 +1,215 @@
+@model UpdateProductDto
+@{
+    int ratingCount = ViewBag.RatingCount == null ? 0 : (int)ViewBag.RatingCount;
+    double ratingAverage = ViewBag.RatingAverage == null ? 0 : (double)ViewBag.RatingAverage;
+    int fullStars = (int)Math.Floor(ratingAverage);
+    bool halfStar = (ratingAverage - fullStars) >= 0.5;
+}
+
+<div class="lg:col-span-7">
+    <div class="h-full bg-surface-container-lowest border border-surface-variant rounded-xl p-6 md:p-8">
+        <h3 class="text-headline-lg font-headline-lg text-on-surface mb-3">@Model.ProductName</h3>
+
+        <div class="flex items-center gap-2 mb-4">
+            <div class="flex items-center text-primary-container text-[14px]">
+                @for (int s = 0; s < 5; s++)
+                {
+                    if (s < fullStars)
+                    {
+                        <span class="material-symbols-outlined fill-current">star</span>
+                    }
+                    else if (s == fullStars && halfStar)
+                    {
+                        <span class="material-symbols-outlined fill-current">star_half</span>
+                    }
+                    else
+                    {
+                        <span class="material-symbols-outlined text-outline-variant">star</span>
+                    }
+                }
+            </div>
+            <span class="text-label-sm text-secondary">@ratingAverage.ToString("0.0") (@ratingCount @Shared["Ratings"])</span>
+        </div>
+
+        <h3 class="text-display-md font-display-md text-on-surface mb-4"><span id="variant-price">@Model.ProductPrice.ToString("N2")</span> ₺</h3>
+
+        @if (ViewBag.SellerId != null)
+        {
+            <p class="text-body-md mb-3">
+                <strong class="text-on-surface">@Shared["Seller"]:</strong>
+                <a class="text-primary hover:underline" href="/Store/Index/@ViewBag.SellerId">@ViewBag.SellerName</a>
+            </p>
+        }
+
+        <p class="text-body-md text-secondary mb-6 leading-relaxed">@Model.ProductDescription</p>
+
+        <div id="variant-area">
+            <div class="mb-3 flex flex-col gap-3" id="variant-selectors"></div>
+            <div class="mb-4 flex gap-4" id="variant-info">
+                <span class="text-label-sm text-secondary" id="variant-sku"></span>
+                <span class="text-label-sm text-secondary" id="variant-stock"></span>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+            <div class="flex items-center border border-outline-variant rounded-lg overflow-hidden">
+                <button class="px-3 py-2 bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors" id="qty-minus" type="button">
+                    <span class="material-symbols-outlined text-[18px]">remove</span>
+                </button>
+                <input class="w-14 text-center border-none bg-surface-container-lowest text-on-surface font-body-md focus:ring-0" id="variant-quantity" type="text" value="1" />
+                <button class="px-3 py-2 bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors" id="qty-plus" type="button">
+                    <span class="material-symbols-outlined text-[18px]">add</span>
+                </button>
+            </div>
+            <button class="flex items-center gap-2 bg-primary-container text-on-primary-fixed px-6 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" id="add-to-cart-btn" type="button">
+                <span class="material-symbols-outlined text-[20px]">shopping_cart</span> @Shared["AddToCart"]
+            </button>
+            <a class="flex items-center gap-2 border-2 border-primary-container text-on-surface px-6 py-3 rounded-lg font-label-md hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="/ProductMarket/Index?productName=@Uri.EscapeDataString(Model.ProductName)">
+                <span class="material-symbols-outlined text-[20px]">public</span> Dış Pazara Bak
+            </a>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <strong class="text-on-surface font-label-md">@Shared["Share"]:</strong>
+            <div class="flex gap-2">
+                <a class="w-9 h-9 rounded bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-primary-container hover:text-on-primary-fixed transition-colors font-bold" href="https://facebook.com" target="_blank">f</a>
+                <a class="w-9 h-9 rounded bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-primary-container hover:text-on-primary-fixed transition-colors font-bold" href="https://twitter.com" target="_blank">t</a>
+                <a class="w-9 h-9 rounded bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-primary-container hover:text-on-primary-fixed transition-colors font-bold" href="https://linkedin.com" target="_blank">in</a>
+                <a class="w-9 h-9 rounded bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-primary-container hover:text-on-primary-fixed transition-colors font-bold" href="https://pinterest.com" target="_blank">p</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var variants = @Html.Raw(Json.Serialize(Model.Variants));
+    var productId = "@Model.ProductId";
+    var selectedSku = "";
+    var selectedStock = 0;
+
+    function money(value) {
+        return Number(value).toFixed(2).replace('.', ',');
+    }
+
+    function optionKeys() {
+        var keys = [];
+        for (var i = 0; i < variants.length; i++) {
+            for (var key in variants[i].options) {
+                if (keys.indexOf(key) === -1) {
+                    keys.push(key);
+                }
+            }
+        }
+        return keys;
+    }
+
+    function buildSelectors() {
+        var keys = optionKeys();
+        var html = "";
+        for (var k = 0; k < keys.length; k++) {
+            var key = keys[k];
+            var values = [];
+            for (var i = 0; i < variants.length; i++) {
+                var v = variants[i].options[key];
+                if (v && values.indexOf(v) === -1) {
+                    values.push(v);
+                }
+            }
+            html += '<div class="flex items-center gap-3">';
+            html += '<strong class="text-on-surface font-label-md min-w-[80px]">' + key + ':</strong>';
+            html += '<select class="variant-select border border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" data-key="' + key + '">';
+            html += '<option value="">Seçiniz</option>';
+            for (var j = 0; j < values.length; j++) {
+                html += '<option value="' + values[j] + '">' + values[j] + '</option>';
+            }
+            html += '</select></div>';
+        }
+        document.getElementById("variant-selectors").innerHTML = html;
+
+        var selects = document.getElementsByClassName("variant-select");
+        for (var s = 0; s < selects.length; s++) {
+            selects[s].addEventListener("change", findVariant);
+        }
+    }
+
+    function findVariant() {
+        var selects = document.getElementsByClassName("variant-select");
+        var chosen = {};
+        var allChosen = true;
+        for (var s = 0; s < selects.length; s++) {
+            var key = selects[s].getAttribute("data-key");
+            var val = selects[s].value;
+            if (val === "") {
+                allChosen = false;
+            }
+            chosen[key] = val;
+        }
+
+        selectedSku = "";
+        document.getElementById("variant-sku").innerText = "";
+        document.getElementById("variant-stock").innerText = "";
+
+        if (!allChosen) {
+            return;
+        }
+
+        for (var i = 0; i < variants.length; i++) {
+            var match = true;
+            for (var key in chosen) {
+                if (variants[i].options[key] !== chosen[key]) {
+                    match = false;
+                }
+            }
+            if (match) {
+                selectedSku = variants[i].sku;
+                selectedStock = variants[i].stock;
+                document.getElementById("variant-price").innerText = money(variants[i].price);
+                document.getElementById("variant-sku").innerText = "SKU: " + variants[i].sku;
+                document.getElementById("variant-stock").innerText = "Stok: " + variants[i].stock;
+                return;
+            }
+        }
+
+        document.getElementById("variant-sku").innerText = "Bu kombinasyon mevcut değil.";
+    }
+
+    function currentQuantity() {
+        var quantity = parseInt(document.getElementById("variant-quantity").value);
+        if (isNaN(quantity) || quantity < 1) {
+            quantity = 1;
+        }
+        return quantity;
+    }
+
+    function addToCart() {
+        var quantity = currentQuantity();
+
+        if (variants != null && variants.length > 0) {
+            if (selectedSku === "") {
+                alert("Lütfen ürün seçeneklerini belirleyin.");
+                return;
+            }
+            if (quantity > selectedStock) {
+                alert("Yetersiz stok. Mevcut stok: " + selectedStock);
+                return;
+            }
+            window.location.href = "/ShoppingCart/AddBasketItem?id=" + productId + "&sku=" + encodeURIComponent(selectedSku) + "&quantity=" + quantity;
+        } else {
+            window.location.href = "/ShoppingCart/AddBasketItem?id=" + productId + "&quantity=" + quantity;
+        }
+    }
+
+    if (variants == null) {
+        variants = [];
+    }
+    if (variants.length > 0) {
+        buildSelectors();
+    }
+    document.getElementById("add-to-cart-btn").addEventListener("click", addToCart);
+    document.getElementById("qty-minus").addEventListener("click", function () {
+        document.getElementById("variant-quantity").value = Math.max(1, currentQuantity() - 1);
+    });
+    document.getElementById("qty-plus").addEventListener("click", function () {
+        document.getElementById("variant-quantity").value = currentQuantity() + 1;
+    });
+</script>

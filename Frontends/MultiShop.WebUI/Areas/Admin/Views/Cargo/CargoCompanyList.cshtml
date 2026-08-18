@@ -1,0 +1,54 @@
+@model List<ResultCargoCompanyDto>
+
+@{
+    ViewData["Title"] = "Kargo Firmaları";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+    var users = ViewBag.Users as List<ResultUserDto>;
+}
+
+<div class="flex justify-end mb-4">
+    <a class="ms-btn ms-btn-primary" href="/Admin/Cargo/CreateCargoCompany/">
+        <span class="material-symbols-outlined text-[20px]">add</span> Yeni Kargo Firması Girişi
+    </a>
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Kargo Adı</th>
+                <th>Firma Yetkilisi</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.CargoCompanyName</td>
+                    <td>
+                        @{
+                            var owner = users == null ? null : users.FirstOrDefault(x => x.id == item.OwnerUserId);
+                        }
+                        @if (owner == null)
+                        {
+                            <span class="ms-badge ms-badge-neutral">Atanmadı</span>
+                        }
+                        else
+                        {
+                            <span>@owner.name @owner.surname</span>
+                        }
+                    </td>
+                    <td class="text-right whitespace-nowrap">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Cargo/UpdateCargoCompany/@item.CargoCompanyId">@Shared["Update"]</a>
+                        <a class="ms-btn ms-btn-sm ms-btn-danger" href="/Admin/Cargo/DeleteCargoCompany/@item.CargoCompanyId">@Shared["Delete"]</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

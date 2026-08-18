@@ -1,0 +1,31 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var slider = document.getElementById('ms-hero-slider');
+        if (!slider) {
+            return;
+        }
+        var slides = slider.querySelectorAll('.ms-slide');
+        var dots = slider.querySelectorAll('.ms-dot');
+        if (slides.length < 2) {
+            return;
+        }
+        var index = 0;
+        function show(i) {
+            index = i;
+            for (var s = 0; s < slides.length; s++) {
+                slides[s].classList.toggle('is-active', s === i);
+            }
+            for (var d = 0; d < dots.length; d++) {
+                dots[d].classList.toggle('is-active', d === i);
+            }
+        }
+        for (var d = 0; d < dots.length; d++) {
+            (function (n) {
+                dots[n].addEventListener('click', function () { show(n); });
+            })(d);
+        }
+        setInterval(function () {
+            show((index + 1) % slides.length);
+        }, 6000);
+    });
+</script>

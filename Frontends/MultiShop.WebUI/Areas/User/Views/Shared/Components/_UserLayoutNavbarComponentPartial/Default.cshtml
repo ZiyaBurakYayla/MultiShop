@@ -1,0 +1,67 @@
+@model UserDetailViewModel
+@{
+    var fullName = ($"{Model.Name} {Model.Surname}").Trim();
+    if (string.IsNullOrWhiteSpace(fullName))
+    {
+        fullName = Model.Username;
+    }
+    var photo = string.IsNullOrWhiteSpace(Model.ImageUrl)
+        ? "https://ui-avatars.com/api/?size=80&background=ffc107&color=261a00&name=" + Uri.EscapeDataString(string.IsNullOrWhiteSpace(fullName) ? "MS" : fullName)
+        : Model.ImageUrl;
+    var messageCount = ViewBag.MessageCount == null ? 0 : (int)ViewBag.MessageCount;
+    var basketCount = ViewBag.BasketItemCount == null ? 0 : (int)ViewBag.BasketItemCount;
+}
+
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+    <div class="px-gutter py-3 flex items-center justify-between gap-6">
+
+        <div class="flex items-center gap-4">
+            <button class="flex items-center justify-center w-10 h-10 rounded-lg text-on-surface hover:bg-surface-container-low transition-colors" data-ms-sidebar-toggle type="button" title="Menü">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div class="hidden md:block">
+                <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@Shared["WelcomeBack"]</span>
+                @if (!string.IsNullOrWhiteSpace(fullName))
+                {
+                    <span class="text-headline-lg-mobile font-headline-lg-mobile text-primary">, @fullName</span>
+                }
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            @await Html.PartialAsync("~/Views/Shared/_LanguageSwitcherPartial.cshtml")
+
+            <a class="relative flex items-center text-secondary hover:text-primary transition-colors" href="/User/Message/Inbox" title="@Shared["Messages"]">
+                <span class="material-symbols-outlined">mail</span>
+                @if (messageCount > 0)
+                {
+                    <span class="absolute -top-2 -right-3 bg-primary-container text-on-primary-fixed text-label-sm px-1.5 rounded-full">@messageCount</span>
+                }
+            </a>
+
+            <a class="relative flex items-center text-secondary hover:text-primary transition-colors" href="/ShoppingCart/Index/" title="@Shared["MyCart"]">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                @if (basketCount > 0)
+                {
+                    <span class="absolute -top-2 -right-3 bg-primary-container text-on-primary-fixed text-label-sm px-1.5 rounded-full">@basketCount</span>
+                }
+            </a>
+
+            <details class="ms-lang relative">
+                <summary class="flex items-center gap-2 cursor-pointer">
+                    <img class="w-9 h-9 rounded-full object-cover border-2 border-primary-container" src="@photo" alt="@fullName" />
+                    <span class="hidden sm:inline font-label-md text-on-surface">@Model.Username</span>
+                    <span class="material-symbols-outlined text-[16px] text-secondary">arrow_drop_down</span>
+                </summary>
+                <div class="absolute right-0 top-full mt-2 z-50 min-w-[220px] bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg py-1 flex flex-col">
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/User/Profile"><span class="material-symbols-outlined text-[20px]">person</span> @Shared["MyProfile"]</a>
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/User/MyOrder/MyOrderList"><span class="material-symbols-outlined text-[20px]">receipt_long</span> @Shared["MyOrders"]</a>
+                    @{ ViewData["PanelSkip"] = "User"; }
+                    @await Html.PartialAsync("~/Views/Shared/_PanelLinksPartial.cshtml")
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Default/Index/"><span class="material-symbols-outlined text-[20px]">home</span> @Shared["GoToSite"]</a>
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-error hover:bg-surface-container-low transition-colors" href="/Login/LogOut"><span class="material-symbols-outlined text-[20px]">logout</span> @Shared["Logout"]</a>
+                </div>
+            </details>
+        </div>
+    </div>
+</header>

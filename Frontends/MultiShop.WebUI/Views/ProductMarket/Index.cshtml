@@ -1,0 +1,63 @@
+@model List<MultiShop.DtoLayer.RapidApiDtos.CatalogProductDtos.ProductSearchDto>
+
+@{
+    ViewData["Title"] = Shared["ProductMarket"];
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory3 = Shared["ProductMarket"];
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@Shared["ProductMarket"]</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <form class="flex mb-8 max-w-2xl" method="get" asp-controller="ProductMarket" asp-action="Index">
+        <input class="w-full bg-surface-container-low border-none rounded-l-lg px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary-container transition-all" name="productName" value="@ViewBag.productName" placeholder="Ürün ara (örn. laptop)" type="text" />
+        <button class="bg-primary-container text-on-primary-fixed font-label-md px-6 py-3 rounded-r-lg hover:bg-primary-fixed transition-colors" type="submit">Ara</button>
+    </form>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-12 text-center">
+            <span class="material-symbols-outlined text-[48px] text-outline">travel_explore</span>
+            <p class="text-body-lg font-body-lg text-secondary mt-4">Sonuç yok. Yukarıdan bir arama yapın.</p>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach (var item in Model)
+            {
+                <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 group flex flex-col">
+                    <div class="relative aspect-square bg-surface-container-low overflow-hidden">
+                        @if (!string.IsNullOrEmpty(item.ProductPhoto))
+                        {
+                            <img class="absolute inset-0 w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" src="@item.ProductPhoto" alt="@item.ProductTitle" />
+                        }
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <h6 class="font-label-md text-on-surface mb-2 text-truncate-2">@item.ProductTitle</h6>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@item.Price</span>
+                            @if (item.OnSale && !string.IsNullOrEmpty(item.OriginalPrice))
+                            {
+                                <span class="text-body-md text-secondary line-through">@item.OriginalPrice</span>
+                            }
+                        </div>
+                        <p class="text-label-sm text-secondary mb-1">@item.StoreName</p>
+                        @if (item.ProductRating != null)
+                        {
+                            <div class="flex items-center gap-1 text-label-sm text-secondary mb-3">
+                                <span class="material-symbols-outlined fill-current text-primary-container text-[16px]">star</span>
+                                <span>@item.ProductRating (@item.ProductNumReviews)</span>
+                            </div>
+                        }
+                        <a class="mt-auto block text-center border-2 border-primary-container text-on-surface px-4 py-2 rounded-lg font-label-md hover:bg-primary-container hover:text-on-primary-fixed transition-colors" href="@item.ProductPageUrl" target="_blank">Ürüne Git</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

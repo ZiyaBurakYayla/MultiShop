@@ -1,0 +1,46 @@
+@{
+    var discountRate = ViewBag.DiscountRate == null ? 0 : (int)ViewBag.DiscountRate;
+    var totalWithTax = ViewBag.totalPriceWithTax == null ? 0m : (decimal)ViewBag.totalPriceWithTax;
+    var discounted = ViewBag.totalNewPriceWithDiscount == null ? 0m : (decimal)ViewBag.totalNewPriceWithDiscount;
+    var finalPrice = (discountRate > 0 && discounted > 0) ? discounted : totalWithTax;
+}
+
+<div class="lg:col-span-1">
+    <form class="flex mb-6" asp-controller="Discount" asp-action="ConfirmDiscountCoupon" method="post">
+        <input class="w-full bg-surface-container-lowest border border-outline-variant rounded-l-lg px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary-container" name="code" value="@ViewBag.Code" placeholder="@Shared["CouponCode"]" type="text" />
+        <button class="bg-primary-container text-on-primary-fixed font-label-md px-5 py-3 rounded-r-lg hover:bg-primary-fixed transition-colors whitespace-nowrap" type="submit">@Shared["ApplyCoupon"]</button>
+    </form>
+
+    <div class="flex items-center gap-4 mb-4">
+        <h5 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface bg-surface-container-low px-3 py-2 uppercase">@Shared["OrderSummary"]</h5>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6" id="ms-cart-summary" data-discount-rate="@discountRate">
+        <div class="border-b border-surface-variant pb-4 flex flex-col gap-2">
+            <div class="flex justify-between">
+                <span class="font-body-md text-secondary">@Shared["TotalProductPrice"]</span>
+                <span class="font-label-md text-on-surface" id="ms-sum-total">@(((decimal)ViewBag.total).ToString("N2")) ₺</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-body-md text-secondary">@Shared["TaxAmount"]</span>
+                <span class="font-label-md text-on-surface" id="ms-sum-tax">@(((decimal)ViewBag.tax).ToString("N2")) ₺</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-body-md text-secondary">@Shared["DiscountRate"]</span>
+                <span class="font-label-md text-on-surface">% @discountRate</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="font-body-md text-secondary">@Shared["AmountWithoutDiscount"]</span>
+                <span class="font-label-md text-on-surface" id="ms-sum-withtax">@(((decimal)ViewBag.totalPriceWithTax).ToString("N2")) ₺</span>
+            </div>
+        </div>
+        <div class="pt-4">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@Shared["DiscountedAmount"]</span>
+                <span class="text-headline-lg-mobile font-headline-lg-mobile text-primary whitespace-nowrap" id="ms-sum-final">@finalPrice.ToString("N2") ₺</span>
+            </div>
+            <a class="block w-full text-center bg-primary-container text-on-primary-fixed font-label-md py-3 rounded-lg hover:bg-primary-fixed transition-colors" href="/Order/Index">@Shared["ProceedToPayment"]</a>
+        </div>
+    </div>
+</div>

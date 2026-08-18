@@ -1,0 +1,58 @@
+@model MultiShop.WebUI.Models.StoreViewModel
+@{
+    ViewData["Title"] = Model.Seller.StoreName;
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory2 = "Mağazalar";
+    ViewBag.directory3 = Model.Seller.StoreName;
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6 flex items-center gap-6 mb-8">
+        @if (!string.IsNullOrEmpty(Model.Seller.LogoUrl))
+        {
+            <div class="w-20 h-20 rounded-lg bg-surface-container-low overflow-hidden flex-shrink-0">
+                <img class="w-full h-full object-contain" src="@Model.Seller.LogoUrl" alt="@Model.Seller.StoreName" />
+            </div>
+        }
+        <div>
+            <h3 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Model.Seller.StoreName</h3>
+            @if (!string.IsNullOrEmpty(Model.Seller.Description))
+            {
+                <p class="text-body-md text-secondary">@Model.Seller.Description</p>
+            }
+        </div>
+    </div>
+
+    @if (Model.Products == null || Model.Products.Count == 0)
+    {
+        <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-12 text-center">
+            <span class="material-symbols-outlined text-[48px] text-outline">storefront</span>
+            <p class="text-body-lg font-body-lg text-secondary mt-4">@Shared["NoProductsInStore"]</p>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach (var item in Model.Products)
+            {
+                <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 group flex flex-col">
+                    <div class="relative aspect-square bg-surface-container-low overflow-hidden">
+                        <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@item.ProductImageUrl" alt="@item.ProductName" />
+                        <div class="absolute inset-0 bg-surface/40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/ShoppingCart/AddBasketItem?id=@item.ProductId"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></a>
+                            <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/ProductList/ProductDetail/@item.ProductId"><span class="material-symbols-outlined text-[20px]">search</span></a>
+                        </div>
+                    </div>
+                    <div class="p-4 flex flex-col items-center text-center flex-1">
+                        <a class="font-label-md text-on-surface mb-1 group-hover:text-primary transition-colors text-truncate-2" href="/ProductList/ProductDetail/@item.ProductId">@item.ProductName</a>
+                        <div class="mt-auto pt-2">
+                            <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@item.ProductPrice.ToString("N2") ₺</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

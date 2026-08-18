@@ -1,0 +1,89 @@
+@model List<ResultOrderDetailBySellerDto>
+@{
+    ViewData["Title"] = "Siparişlerim";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+    decimal total = 0;
+    foreach (var item in Model)
+    {
+        total += item.ProductTotalPrice;
+    }
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["MyOrders"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["MyOrdersSub"]</p>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">list_alt</span>
+        </div>
+        <div>
+            <h5 class="text-label-sm text-secondary mb-1">@Shared["TotalOrderLines"]</h5>
+            <h3 class="text-display-md font-display-md text-on-surface">@Model.Count</h3>
+        </div>
+    </div>
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4">
+        <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined">payments</span>
+        </div>
+        <div>
+            <h5 class="text-label-sm text-secondary mb-1">@Shared["TotalRevenue"]</h5>
+            <h3 class="text-display-md font-display-md text-on-surface">@total.ToString("N2") ₺</h3>
+        </div>
+    </div>
+</div>
+
+<div class="ms-panel">
+    <h2 class="ms-panel-title flex items-center gap-2">
+        <span class="material-symbols-outlined">receipt_long</span> @Shared["OrderList"]
+    </h2>
+
+    @if (Model.Count == 0)
+    {
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">receipt_long</span>
+            @Shared["NoOrdersYet"]
+        </div>
+    }
+    else
+    {
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>@Shared["OrderNo"]</th>
+                        <th>@Shared["Date"]</th>
+                        <th>@Shared["ProductName"]</th>
+                        <th>SKU</th>
+                        <th>@Shared["Amount"]</th>
+                        <th>@Shared["Total"]</th>
+                        <th>@Shared["Status"]</th>
+                    </tr>
+                </thead>
+                <tbody data-ms-pager="10">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="font-label-md">#@item.OrderingId</td>
+                            <td class="whitespace-nowrap">@item.OrderDate.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Sku</td>
+                            <td>@item.ProductAmount</td>
+                            <td>@item.ProductTotalPrice.ToString("N2") ₺</td>
+                            <td>
+                                @if (item.IsPaid)
+                                {
+                                    <span class="ms-badge ms-badge-gold">@Shared["Paid"]</span>
+                                }
+                                else
+                                {
+                                    <span class="ms-badge ms-badge-neutral">@Shared["Unpaid"]</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

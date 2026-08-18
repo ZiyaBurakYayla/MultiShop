@@ -1,0 +1,18 @@
+@model List<ResultOfferDiscountDto>
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[300px]">
+        @foreach (var item in Model)
+        {
+            <div class="relative min-h-[240px] rounded-xl overflow-hidden group shadow-sm">
+                <div class="absolute inset-0 bg-cover bg-center w-full h-full transition-transform duration-700 group-hover:scale-105" style="background-image: url('@item.ImageUrl')"></div>
+                <div class="absolute inset-0 bg-black/50"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                    <span class="text-label-md text-on-primary/80 mb-2 uppercase tracking-wider">@item.Title</span>
+                    <h3 class="text-display-md font-display-md text-on-primary mb-6">@item.SubTitle</h3>
+                    <a class="bg-primary-container text-on-primary-fixed px-8 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors duration-300" href="/ProductList/Index/">@item.ButtonTitle</a>
+                </div>
+            </div>
+        }
+    </div>
+</section>

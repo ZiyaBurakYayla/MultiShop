@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Görsel Yükle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="ms-panel max-w-3xl">
+    <h4 class="ms-panel-title">Google Cloud Storage'a Görsel Yükle</h4>
+
+    @if (ViewBag.error != null)
+    {
+        <div class="mb-4 bg-error-container text-on-error-container border border-error/30 rounded-lg px-4 py-3 text-label-sm">
+            @ViewBag.error
+        </div>
+    }
+
+    <form asp-area="Admin" asp-controller="ImageUpload" asp-action="Index" method="post" enctype="multipart/form-data">
+        <div class="ms-field">
+            <label class="ms-label">Dosya seçin</label>
+            <input class="ms-input" name="file" type="file" accept="image/*" required />
+        </div>
+        <div class="pt-2">
+            <button class="ms-btn ms-btn-primary" type="submit">
+                <span class="material-symbols-outlined text-[20px]">upload</span> Yükle
+            </button>
+        </div>
+    </form>
+
+    @if (ViewBag.uploadedUrl != null)
+    {
+        <div class="mt-6 bg-primary-fixed/40 border border-primary-container rounded-lg px-4 py-3 text-label-sm text-on-primary-fixed">
+            Yükleme başarılı! URL'i kopyalayıp görsel alanına yapıştırabilirsiniz.
+        </div>
+        <div class="ms-field mt-4">
+            <input class="ms-input" type="text" value="@ViewBag.uploadedUrl" readonly onclick="this.select();" />
+        </div>
+        <img class="max-w-xs rounded-lg border border-surface-variant mt-2" src="@ViewBag.uploadedUrl" alt="Yüklenen görsel" />
+    }
+</div>

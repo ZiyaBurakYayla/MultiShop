@@ -1,0 +1,266 @@
+@model UpdateProductDto
+@{
+    ViewData["Title"] = "Ürün Güncelle";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["UpdateProduct"]</h1>
+<p class="text-body-md text-secondary mb-6">@Model.ProductName</p>
+
+<div class="ms-panel">
+    <form method="post" asp-action="UpdateProduct">
+        <div asp-validation-summary="All" class="mb-4 text-error text-label-sm"></div>
+        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductName"]</label>
+                <input class="ms-input" name="ProductName" value="@Model.ProductName" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductPrice"]</label>
+                <input class="ms-input" name="ProductPrice" value="@Model.ProductPrice" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductImage"]</label>
+                <input class="ms-input" name="ProductImageUrl" value="@Model.ProductImageUrl" type="text" required />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Category"]</label>
+                <select class="ms-select" asp-for="CategoryId" asp-items="ViewBag.CategoryValues"></select>
+            </div>
+        </div>
+        <div class="ms-field">
+            <label class="ms-label">@Shared["Description"]</label>
+            <textarea class="ms-textarea" name="ProductDescription" rows="4" required>@Model.ProductDescription</textarea>
+        </div>
+
+        <hr class="border-t border-surface-variant my-8" />
+
+        <h2 class="ms-panel-title flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">tune</span> @Shared["Variants"]
+        </h2>
+        <p class="text-body-md text-secondary mb-4" id="attr-hint">@Shared["VariantHint"]</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6">
+            <div class="ms-field">
+                <label class="ms-label">@Shared["SkuPrefix"]</label>
+                <input class="ms-input" id="v-prefix" placeholder="CEKET" type="text" />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["ProductPrice"]</label>
+                <input class="ms-input" id="v-price" placeholder="1500" type="text" />
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">@Shared["Stock"]</label>
+                <input class="ms-input" id="v-stock" placeholder="10" type="text" />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-6" id="attribute-inputs"></div>
+
+        <button class="ms-btn ms-btn-ghost" id="v-generate" type="button">
+            <span class="material-symbols-outlined text-[20px]">auto_awesome</span> @Shared["RegenerateVariants"]
+        </button>
+
+        <div class="ms-table-wrap mt-4">
+            <table class="ms-table">
+                <thead>
+                    <tr id="variant-thead-row">
+                        <th>SKU</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th>@Shared["Stock"]</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="variant-rows"></tbody>
+            </table>
+        </div>
+
+        <hr class="border-t border-surface-variant my-8" />
+
+        <div class="flex gap-3">
+            <button class="ms-btn ms-btn-primary" type="submit">
+                <span class="material-symbols-outlined text-[20px]">save</span> @Shared["Update"]
+            </button>
+            <a class="ms-btn ms-btn-ghost" href="/Seller/Product">@Shared["Cancel"]</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+    var categoryVariantMap = @Html.Raw(ViewBag.CategoryVariantMap ?? "{}");
+    var existingVariants = @Html.Raw(Json.Serialize(Model.Variants));
+    var currentAttrs = [];
+
+    function slug(text) {
+        return text.trim().toUpperCase().replace(/\s+/g, "-");
+    }
+
+    function splitList(value) {
+        var parts = (value || "").split(",");
+        var result = [];
+        for (var i = 0; i < parts.length; i++) {
+            var p = parts[i].trim();
+            if (p !== "") {
+                result.push(p);
+            }
+        }
+        return result;
+    }
+
+    function cartesian(lists) {
+        var result = [[]];
+        for (var i = 0; i < lists.length; i++) {
+            var next = [];
+            for (var r = 0; r < result.length; r++) {
+                for (var v = 0; v < lists[i].length; v++) {
+                    next.push(result[r].concat([lists[i][v]]));
+                }
+            }
+            result = next;
+        }
+        return result;
+    }
+
+    function buildAttributeInputs() {
+        var inHtml = "";
+        for (var a = 0; a < currentAttrs.length; a++) {
+            inHtml += '<div class="ms-field"><label class="ms-label">' + currentAttrs[a] + '</label>'
+                + '<input type="text" class="ms-input v-attr-values" data-attr="' + currentAttrs[a] + '" placeholder="deger1,deger2" /></div>';
+        }
+        document.getElementById("attribute-inputs").innerHTML = inHtml;
+
+        var thHtml = "<th>SKU</th>";
+        for (var a = 0; a < currentAttrs.length; a++) {
+            thHtml += "<th>" + currentAttrs[a] + "</th>";
+        }
+        thHtml += "<th>@Shared["ProductPrice"]</th><th>@Shared["Stock"]</th><th></th>";
+        document.getElementById("variant-thead-row").innerHTML = thHtml;
+
+        if (currentAttrs.length === 0) {
+            document.getElementById("attr-hint").innerText = "@Shared["NoVariantAttributes"]";
+        } else {
+            document.getElementById("attr-hint").innerText = currentAttrs.join(", ");
+        }
+    }
+
+    function rowHtml(index, sku, comboLookup, price, stock) {
+        var html = "<tr>";
+        html += '<td><input type="text" class="ms-input" data-field="Sku" name="Variants[' + index + '].Sku" value="' + sku + '" /></td>';
+        for (var a = 0; a < currentAttrs.length; a++) {
+            var val = comboLookup(currentAttrs[a], a);
+            html += '<td><input type="text" class="ms-input" readonly data-attr="' + currentAttrs[a] + '" name="Variants[' + index + '].Options[' + currentAttrs[a] + ']" value="' + val + '" /></td>';
+        }
+        html += '<td><input type="text" class="ms-input" data-field="Price" name="Variants[' + index + '].Price" value="' + price + '" /></td>';
+        html += '<td><input type="text" class="ms-input" data-field="Stock" name="Variants[' + index + '].Stock" value="' + stock + '" /></td>';
+        html += '<td><button type="button" class="ms-btn ms-btn-sm ms-btn-danger v-remove">@Shared["Delete"]</button></td>';
+        html += "</tr>";
+        return html;
+    }
+
+    function renumber() {
+        var rows = document.getElementById("variant-rows").getElementsByTagName("tr");
+        for (var i = 0; i < rows.length; i++) {
+            var inputs = rows[i].getElementsByTagName("input");
+            for (var j = 0; j < inputs.length; j++) {
+                var field = inputs[j].getAttribute("data-field");
+                var attr = inputs[j].getAttribute("data-attr");
+                if (field) {
+                    inputs[j].name = "Variants[" + i + "]." + field;
+                } else if (attr) {
+                    inputs[j].name = "Variants[" + i + "].Options[" + attr + "]";
+                }
+            }
+        }
+    }
+
+    function bindRemove() {
+        var buttons = document.getElementsByClassName("v-remove");
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].onclick = function () {
+                var row = this.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                renumber();
+            };
+        }
+    }
+
+    function renderExistingVariants() {
+        if (existingVariants == null || existingVariants.length === 0) {
+            document.getElementById("variant-rows").innerHTML = "";
+            return;
+        }
+        var html = "";
+        for (var i = 0; i < existingVariants.length; i++) {
+            var v = existingVariants[i];
+            var lookup = (function (variant) {
+                return function (attrName, attrIndex) {
+                    if (variant.options && variant.options[attrName]) {
+                        return variant.options[attrName];
+                    }
+                    return "";
+                };
+            })(v);
+            html += rowHtml(i, v.sku, lookup, v.price, v.stock);
+        }
+        document.getElementById("variant-rows").innerHTML = html;
+        bindRemove();
+    }
+
+    function renderCategory(keepExisting) {
+        var catId = document.getElementById("CategoryId").value;
+        currentAttrs = splitList(categoryVariantMap[catId]);
+        buildAttributeInputs();
+        if (keepExisting) {
+            renderExistingVariants();
+        } else {
+            document.getElementById("variant-rows").innerHTML = "";
+        }
+    }
+
+    function generate() {
+        if (currentAttrs.length === 0) {
+            alert("@Shared["NoVariantAttributes"]");
+            return;
+        }
+        var prefix = document.getElementById("v-prefix").value;
+        var price = document.getElementById("v-price").value;
+        var stock = document.getElementById("v-stock").value;
+
+        var valueInputs = document.getElementsByClassName("v-attr-values");
+        var lists = [];
+        for (var a = 0; a < valueInputs.length; a++) {
+            var vals = splitList(valueInputs[a].value);
+            if (vals.length === 0) {
+                alert(valueInputs[a].getAttribute("data-attr"));
+                return;
+            }
+            lists.push(vals);
+        }
+
+        var combos = cartesian(lists);
+        var html = "";
+        for (var i = 0; i < combos.length; i++) {
+            var skuParts = [slug(prefix)];
+            for (var a = 0; a < combos[i].length; a++) {
+                skuParts.push(slug(combos[i][a]));
+            }
+            var sku = skuParts.join("-");
+            var lookup = (function (combo) {
+                return function (attrName, attrIndex) {
+                    return combo[attrIndex];
+                };
+            })(combos[i]);
+            html += rowHtml(i, sku, lookup, price, stock);
+        }
+        document.getElementById("variant-rows").innerHTML = html;
+        bindRemove();
+    }
+
+    document.getElementById("CategoryId").addEventListener("change", function () { renderCategory(false); });
+    document.getElementById("v-generate").addEventListener("click", generate);
+    renderCategory(true);
+</script>
+}

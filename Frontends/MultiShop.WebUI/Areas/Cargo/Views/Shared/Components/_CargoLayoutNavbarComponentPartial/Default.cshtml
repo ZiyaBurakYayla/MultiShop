@@ -1,0 +1,16 @@
+@model ResultCargoCompanyDto
+
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+    <div class="px-gutter py-3 flex items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+            <button class="flex items-center justify-center w-10 h-10 rounded-lg text-on-surface hover:bg-surface-container-low transition-colors" data-ms-sidebar-toggle type="button" title="Menü">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@Model.CargoCompanyName</span>
+        </div>
+        <a class="flex items-center gap-2 text-secondary hover:text-primary transition-colors" href="/Default/Index" title="@Shared["GoToSite"]">
+            <span class="material-symbols-outlined">home</span>
+            <span class="hidden sm:inline font-label-md">@Shared["GoToSite"]</span>
+        </a>
+    </div>
+</header>

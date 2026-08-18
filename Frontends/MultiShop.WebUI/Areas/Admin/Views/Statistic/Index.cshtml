@@ -1,0 +1,95 @@
+@{
+    ViewData["Title"] = "İstatistikler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+
+    var cards = new (string Id, string Label, string Icon)[]
+    {
+        ("brandCount", "Toplam Marka", "apartment"),
+        ("productCount", "Toplam Ürün", "inventory_2"),
+        ("categoryCount", "Toplam Kategori", "category"),
+        ("productAvgPrice", "Ortalama Ürün Fiyatı", "payments"),
+        ("maxPriceProductName", "En Pahalı Ürün", "trending_up"),
+        ("minPriceProductName", "En Ucuz Ürün", "trending_down"),
+        ("userCount", "Toplam Kullanıcı", "group"),
+        ("commentCount", "Toplam Yorum", "comment"),
+        ("activeCommentCount", "Aktif Yorum", "check_circle"),
+        ("passiveCommentCount", "Pasif Yorum", "pending"),
+        ("discountCouponCount", "İndirim Kuponu Sayısı", "confirmation_number"),
+        ("messageCount", "Toplam Mesaj Sayısı", "mail"),
+        ("cargoCustomerCount", "Toplam Kargo Müşterisi", "local_shipping"),
+        ("totalOrderCount", "Toplam Sipariş Sayısı", "receipt_long"),
+        ("specialOfferCount", "Toplam İndirimli Ürün", "sell"),
+        ("lastBrandName", "Son Eklenen Marka", "new_releases"),
+        ("productImageCount", "Toplam Ürün Görseli", "photo_library"),
+        ("featureCount", "Toplam Özellik Sayısı", "anchor"),
+        ("productLastName", "Son Eklenen Ürün", "add_box"),
+        ("totalOrderDetailCount", "Toplam Sipariş Kalemi", "list_alt")
+    };
+}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    @foreach (var card in cards)
+    {
+        <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300">
+            <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">@card.Icon</span>
+            </div>
+            <div class="min-w-0">
+                <h5 class="text-label-sm text-secondary mb-1">@card.Label</h5>
+                <h3 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface truncate" id="@card.Id">-</h3>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7246/signalrhub")
+            .build();
+
+        function bind(event, id) {
+            connection.on(event, function (value) {
+                document.getElementById(id).innerText = value;
+            });
+        }
+
+        bind("ReceiveBrandCount", "brandCount");
+        bind("ReceiveLastBrandName", "lastBrandName");
+        bind("ReceiveProductCount", "productCount");
+        bind("ReceiveLastProductName", "productLastName");
+        bind("ReceiveMinPriceProductName", "minPriceProductName");
+        bind("ReceiveMaxPriceProductName", "maxPriceProductName");
+        bind("ReceiveProductAvgPrice", "productAvgPrice");
+        bind("ReceiveCommentCount", "commentCount");
+        bind("ReceiveActiveCommentCount", "activeCommentCount");
+        bind("ReceivePassiveCommentCount", "passiveCommentCount");
+        bind("ReceiveTotalMessageCount", "messageCount");
+        bind("ReceiveCategoryCount", "categoryCount");
+        bind("ReceiveSpecialOfferCount", "specialOfferCount");
+        bind("ReceiveProductImageCount", "productImageCount");
+        bind("ReceiveFeatureCount", "featureCount");
+        bind("ReceiveTotalOrderCount", "totalOrderCount");
+        bind("ReceiveTotalOrderDetailCount", "totalOrderDetailCount");
+        bind("ReceiveTotalCargoCustomerCount", "cargoCustomerCount");
+        bind("ReceiveDiscountCouponCount", "discountCouponCount");
+        bind("ReceiveUserCount", "userCount");
+
+        function refresh() {
+            connection.invoke("SendStatisticCount");
+            connection.invoke("SendCatalogStatics");
+            connection.invoke("SendOrderStatics");
+            connection.invoke("SendCargoStatics");
+            connection.invoke("SendDiscountStatics");
+            connection.invoke("SendUserStatics");
+        }
+
+        connection.start()
+            .then(() => {
+                refresh();
+                setInterval(refresh, 5000);
+            })
+            .catch(err => console.error(err.toString()));
+    </script>
+}

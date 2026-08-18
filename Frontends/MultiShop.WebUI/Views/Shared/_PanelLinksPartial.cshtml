@@ -1,0 +1,44 @@
+@{
+    var linkClass = ViewData["PanelLinkClass"] as string;
+    if (string.IsNullOrEmpty(linkClass))
+    {
+        linkClass = "flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors";
+    }
+    var iconSize = ViewData["PanelIconSize"] as string;
+    if (string.IsNullOrEmpty(iconSize))
+    {
+        iconSize = "text-[20px]";
+    }
+    var skip = ViewData["PanelSkip"] as string ?? "";
+    var isAdmin = User.IsInRole("Admin");
+    var isSeller = User.IsInRole("Seller");
+    var isCargo = User.IsInRole("Cargo");
+}
+
+@if (isAdmin && skip != "Admin")
+{
+    <a class="@linkClass" href="/Admin/Statistic/Index/">
+        <span class="material-symbols-outlined @iconSize">admin_panel_settings</span><span>Yönetici Paneli</span>
+    </a>
+}
+
+@if (isSeller && skip != "Seller")
+{
+    <a class="@linkClass" href="/Seller/Dashboard">
+        <span class="material-symbols-outlined @iconSize">storefront</span><span>@Shared["SellerPanel"]</span>
+    </a>
+}
+
+@if (isCargo && skip != "Cargo")
+{
+    <a class="@linkClass" href="/Cargo/Dashboard">
+        <span class="material-symbols-outlined @iconSize">local_shipping</span><span>Kargo Paneli</span>
+    </a>
+}
+
+@if (skip != "User")
+{
+    <a class="@linkClass" href="/User/Profile">
+        <span class="material-symbols-outlined @iconSize">account_circle</span><span>Kullanıcı Paneli</span>
+    </a>
+}

@@ -1,0 +1,36 @@
+@model List<ResultUserDto>
+
+@{
+    ViewData["Title"] = "Kullanıcılar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ad Soyad</th>
+                <th>@Shared["Username"]</th>
+                <th>Email</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.name</td>
+                    <td>@item.userName</td>
+                    <td>@item.email</td>
+                    <td class="text-right">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/User/UserAddressInfo/@item.id">Adres Detayı</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

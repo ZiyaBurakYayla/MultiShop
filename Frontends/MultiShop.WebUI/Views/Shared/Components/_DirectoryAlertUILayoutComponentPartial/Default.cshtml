@@ -1,0 +1,21 @@
+@{
+    var d1 = ViewBag.directory1 as string;
+    var d2 = ViewBag.directory2 as string;
+    var d3 = ViewBag.directory3 as string;
+}
+
+@if (!string.IsNullOrWhiteSpace(d1) || !string.IsNullOrWhiteSpace(d3))
+{
+    <div class="max-w-container-max mx-auto px-gutter py-4">
+        <div class="flex items-center gap-2 text-label-sm text-secondary">
+            <a class="hover:text-primary" href="/Default/Index/">@(string.IsNullOrWhiteSpace(d1) ? "MultiShop" : d1)</a>
+            <span>/</span>
+            @if (!string.IsNullOrWhiteSpace(d2))
+            {
+                <span>@d2</span>
+                <span>/</span>
+            }
+            <span class="text-on-surface">@d3</span>
+        </div>
+    </div>
+}

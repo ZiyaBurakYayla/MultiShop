@@ -1,0 +1,49 @@
+@model List<MultiShop.DtoLayer.RapidApiDtos.CatalogProductDtos.ProductSearchDto>
+
+@{
+    ViewData["Title"] = "Dış Pazar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="ms-panel">
+    <h4 class="ms-panel-title">Dış Pazardan Ürün Ekle</h4>
+
+    <form class="flex mb-8 max-w-2xl" method="get" asp-area="Admin" asp-controller="ProductMarket" asp-action="Index">
+        <input class="w-full bg-surface-container-low border-none rounded-l-lg px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary-container transition-all" name="productName" value="@ViewBag.productName" placeholder="Ürün ara (örn. laptop)" type="text" />
+        <button class="bg-primary-container text-on-primary-fixed font-label-md px-6 py-3 rounded-r-lg hover:bg-primary-fixed transition-colors" type="submit">Ara</button>
+    </form>
+
+    @if (Model == null || Model.Count == 0)
+    {
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">travel_explore</span>
+            Sonuç yok. Yukarıdan bir arama yapın.
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @foreach (var item in Model)
+            {
+                <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 flex flex-col">
+                    <div class="relative aspect-square bg-surface-container-low overflow-hidden">
+                        @if (!string.IsNullOrEmpty(item.ProductPhoto))
+                        {
+                            <img class="absolute inset-0 w-full h-full object-contain p-4" src="@item.ProductPhoto" alt="@item.ProductTitle" />
+                        }
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <h6 class="font-label-md text-on-surface mb-2 text-truncate-2">@item.ProductTitle</h6>
+                        <p class="mb-4">
+                            <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@item.Price</span>
+                            <span class="text-label-sm text-secondary ml-1">@item.StoreName</span>
+                        </p>
+                        <a class="ms-btn ms-btn-primary mt-auto w-full" href="/Admin/Product/CreateProduct?productName=@Uri.EscapeDataString(item.ProductTitle ?? "")&productImageUrl=@Uri.EscapeDataString(item.ProductPhoto ?? "")&productPrice=@Uri.EscapeDataString(item.Price ?? "")">
+                            <span class="material-symbols-outlined text-[20px]">add</span> Kataloğa Ekle
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

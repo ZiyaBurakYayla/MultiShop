@@ -1,0 +1,17 @@
+@{
+    var pageTitle = ViewData["Title"] as string;
+    var fullTitle = string.IsNullOrWhiteSpace(pageTitle) ? "MultiShop" : pageTitle + " | MultiShop";
+}
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<title>@fullTitle</title>
+<meta name="description" content="MultiShop - binlerce ürün, güvenli ödeme ve hızlı teslimat." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%232d3133'/><text x='16' y='24' font-family='sans-serif' font-size='22' font-weight='bold' fill='%23ffc107' text-anchor='middle'>M</text></svg>" />
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="~/js/stitch-theme.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet" />
+<link href="~/css/stitch-theme.css" rel="stylesheet" />
+<script src="~/js/ms-pager.js" defer></script>
+<script src="~/js/ms-sidebar.js" defer></script>

@@ -1,0 +1,83 @@
+@model List<ResultCategoryDto>
+@{
+    var isSignedIn = User.Identity != null && User.Identity.IsAuthenticated;
+    var profileUrl = isSignedIn ? "/User/Profile" : "/Login/Index";
+    var activePath = Context.Request.Path.Value ?? "";
+    var activeClass = "text-primary font-bold border-b-2 border-primary h-full flex items-center py-4 text-label-md font-label-md";
+    var passiveClass = "text-secondary hover:text-primary h-full flex items-center py-4 text-label-md font-label-md transition-colors";
+}
+
+<header class="bg-surface border-b border-outline-variant shadow-sm max-w-container-max mx-auto px-gutter w-full">
+    <div class="flex items-center justify-between py-4">
+        <a class="flex items-center gap-1 group" href="/Default/Index/">
+            <div class="text-display-md font-display-md font-black bg-primary-container text-on-primary-fixed px-4 py-1 rounded-l-lg tracking-tight group-hover:bg-primary-fixed transition-colors">MULTI</div>
+            <div class="text-display-md font-display-md font-black bg-inverse-surface text-primary-container px-4 py-1 rounded-r-lg tracking-tight group-hover:bg-on-background transition-colors">SHOP</div>
+        </a>
+        <div class="hidden md:flex flex-1 max-w-2xl mx-12">
+            <form class="relative w-full flex" action="/ProductMarket/Index" method="get">
+                <input class="w-full bg-surface-container-low border-none rounded-l-lg px-4 py-3 font-body-md text-on-surface focus:ring-2 focus:ring-primary-container transition-all" name="productName" placeholder="@Shared["SearchPlaceholder"]" type="text" />
+                <button class="bg-surface-container-low border-none rounded-r-lg px-4 py-3 flex items-center justify-center text-primary-container hover:bg-surface-container transition-colors group" type="submit">
+                    <span class="material-symbols-outlined group-hover:scale-110 transition-transform">search</span>
+                </button>
+            </form>
+        </div>
+        <div class="flex items-center gap-6">
+            <a class="flex items-center gap-2 group" href="@profileUrl" title="@Shared["MyProfile"]">
+                <span class="material-symbols-outlined text-secondary group-hover:text-primary-container transition-colors">person</span>
+                <span class="hidden lg:inline font-label-md text-secondary group-hover:text-primary transition-colors">
+                    @(isSignedIn ? Shared["MyProfile"].Value : Shared["Login"].Value)
+                </span>
+            </a>
+            <a class="flex items-center gap-2 group" href="/ShoppingCart/Index/" title="@Shared["MyCart"]">
+                <span class="material-symbols-outlined text-secondary group-hover:text-primary-container transition-colors">shopping_cart</span>
+                <span class="bg-secondary text-on-secondary font-label-sm px-2 py-0.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-fixed transition-colors" id="ms-cart-count">@ViewBag.BasketItemCount</span>
+            </a>
+        </div>
+    </div>
+
+    <nav class="flex items-center justify-between pb-0 relative">
+        <div class="flex items-center w-full">
+            <div class="relative w-64 mr-8 group">
+                <button class="w-full bg-primary-container text-on-primary-fixed font-label-md px-4 py-4 flex items-center justify-between rounded-t-lg hover:bg-primary-fixed transition-colors">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined">menu</span>
+                        @Shared["Categories"]
+                    </div>
+                    <span class="material-symbols-outlined">expand_more</span>
+                </button>
+                <div class="absolute top-full left-0 w-full bg-surface-container-lowest border border-outline-variant rounded-b-lg shadow-lg hidden group-hover:block z-50 max-h-96 overflow-y-auto">
+                    @foreach (var item in Model)
+                    {
+                        <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/ProductList/Index/@item.CategoryID">@item.CategoryName</a>
+                    }
+                </div>
+            </div>
+
+            <div class="hidden md:flex flex-1 items-center gap-8 h-full">
+                <a class="@(activePath.Equals("/", StringComparison.OrdinalIgnoreCase) || activePath.StartsWith("/Default", StringComparison.OrdinalIgnoreCase) ? activeClass : passiveClass)" href="/Default/Index/">@Shared["Home"]</a>
+                <a class="@(activePath.StartsWith("/ProductList", StringComparison.OrdinalIgnoreCase) ? activeClass : passiveClass)" href="/ProductList/Index/">@Shared["Products"]</a>
+                <a class="@(activePath.StartsWith("/ProductMarket", StringComparison.OrdinalIgnoreCase) ? activeClass : passiveClass)" href="/ProductMarket/Index/">@Shared["ProductMarket"]</a>
+                <div class="relative group h-full">
+                    <a class="@passiveClass gap-1" href="#">@Shared["Pages"] <span class="material-symbols-outlined text-[16px]">expand_more</span></a>
+                    <div class="absolute top-full left-0 min-w-[200px] bg-surface-container-lowest border border-outline-variant rounded-b-lg shadow-lg hidden group-hover:block z-50">
+                        <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/ShoppingCart/Index/">@Shared["MyCart"]</a>
+                        <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Order/Index/">@Shared["Payment"]</a>
+                        @if (isSignedIn)
+                        {
+                            ViewData["PanelLinkClass"] = "flex items-center gap-3 px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors";
+                            ViewData["PanelSkip"] = "";
+                            @await Html.PartialAsync("~/Views/Shared/_PanelLinksPartial.cshtml")
+                            <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Login/LogOut/">@Shared["Logout"]</a>
+                        }
+                        else
+                        {
+                            <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Register/Index/">@Shared["Register"]</a>
+                            <a class="block px-4 py-3 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Login/Index/">@Shared["Login"]</a>
+                        }
+                    </div>
+                </div>
+                <a class="@(activePath.StartsWith("/Contact", StringComparison.OrdinalIgnoreCase) ? activeClass : passiveClass)" href="/Contact/Index/">@Shared["Contact"]</a>
+            </div>
+        </div>
+    </nav>
+</header>

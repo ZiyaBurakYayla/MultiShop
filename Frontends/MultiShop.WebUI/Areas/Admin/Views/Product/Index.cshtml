@@ -1,0 +1,52 @@
+@model List<ResultProductDto>
+
+@{
+    ViewData["Title"] = "Ürünler";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+    var sellerNames = ViewBag.SellerNames as Dictionary<string, string>;
+}
+
+<div class="mb-4 bg-secondary-container text-on-secondary-container border border-outline-variant rounded-lg px-4 py-3 flex items-center gap-2 text-label-sm">
+    <span class="material-symbols-outlined text-[20px]">info</span> @Shared["AdminProductReadOnlyNotice"]
+</div>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Shared["ProductName"]</th>
+                <th>@Shared["ProductPrice"]</th>
+                <th>@Shared["Seller"]</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.ProductPrice.ToString("N2") ₺</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.SellerId) && sellerNames != null && sellerNames.ContainsKey(item.SellerId))
+                        {
+                            @sellerNames[item.SellerId]
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td class="text-right">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Admin/Product/ProductView/@item.ProductId">
+                            <span class="material-symbols-outlined text-[16px]">search</span> @Shared["ViewDetails"]
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

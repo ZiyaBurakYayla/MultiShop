@@ -1,0 +1,31 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Hata";
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory3 = "Hata";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-8 md:p-12 max-w-2xl mx-auto text-center">
+        <span class="material-symbols-outlined text-[56px] text-error">error</span>
+        <h1 class="text-display-md font-display-md text-on-surface mt-4 mb-2">Bir hata oluştu</h1>
+        <p class="text-body-lg font-body-lg text-secondary mb-8">İsteğiniz işlenirken beklenmeyen bir sorun yaşandı. Lütfen daha sonra tekrar deneyin.</p>
+
+        @if (Model.ShowRequestId)
+        {
+            <p class="text-label-sm text-secondary mb-8">
+                İstek No: <code class="bg-surface-container-low px-2 py-1 rounded text-on-surface">@Model.RequestId</code>
+            </p>
+        }
+
+        <div class="flex flex-wrap gap-3 justify-center">
+            <a class="flex items-center gap-2 bg-primary-container text-on-primary-fixed px-6 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" href="/Default/Index/">
+                <span class="material-symbols-outlined text-[20px]">home</span> @Shared["Home"]
+            </a>
+            <a class="flex items-center gap-2 border-2 border-inverse-surface text-on-surface px-6 py-3 rounded-lg font-label-md hover:bg-inverse-surface hover:text-primary-container transition-colors" href="/Contact/Index/">
+                <span class="material-symbols-outlined text-[20px]">mail</span> @Shared["Contact"]
+            </a>
+        </div>
+    </div>
+</section>

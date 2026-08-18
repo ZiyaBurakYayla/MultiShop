@@ -1,0 +1,112 @@
+@{
+    ViewData["Title"] = "Sepetim";
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory3 = "Sepetim";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@Shared["MyCart"]</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        @await Component.InvokeAsync("_ShoppingCartProductListComponentPartial")
+
+        @await Html.PartialAsync("~/Views/Discount/ConfirmDiscountCoupon.cshtml")
+
+    </div>
+
+</section>
+
+@section Scripts {
+    <script>
+        (function () {
+            var table = document.getElementById('ms-cart-table');
+            var summary = document.getElementById('ms-cart-summary');
+            if (!table || !summary) {
+                return;
+            }
+
+            var discountRate = parseInt(summary.getAttribute('data-discount-rate')) || 0;
+            var busy = false;
+
+            function money(value) {
+                return value.toFixed(2).replace('.', ',') + ' ₺';
+            }
+
+            function updateSummary(data) {
+                document.getElementById('ms-sum-total').innerText = money(data.total);
+                document.getElementById('ms-sum-tax').innerText = money(data.tax);
+                document.getElementById('ms-sum-withtax').innerText = money(data.totalPriceWithTax);
+                var final = data.totalPriceWithTax - (data.totalPriceWithTax / 100 * discountRate);
+                document.getElementById('ms-sum-final').innerText = money(final);
+
+                var badge = document.getElementById('ms-cart-count');
+                if (badge) {
+                    badge.innerText = data.itemCount;
+                }
+            }
+
+            function send(row, quantity) {
+                if (busy) {
+                    return;
+                }
+                busy = true;
+                var productId = row.getAttribute('data-product-id');
+                var body = new URLSearchParams();
+                body.append('productId', productId);
+                body.append('quantity', quantity);
+
+                fetch('/ShoppingCart/UpdateQuantity', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString()
+                })
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('istek basarisiz');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        if (data.removed) {
+                            row.parentNode.removeChild(row);
+                        } else {
+                            row.querySelector('.ms-qty-input').value = data.quantity;
+                            row.querySelector('.ms-line-total').innerText = money(data.lineTotal);
+                        }
+                        updateSummary(data);
+                        busy = false;
+                        if (data.itemCount === 0) {
+                            window.location.reload();
+                        }
+                    })
+                    .catch(function () {
+                        busy = false;
+                        alert('Adet güncellenemedi. Lütfen tekrar deneyin.');
+                    });
+            }
+
+            table.addEventListener('click', function (event) {
+                var button = event.target.closest('.ms-qty');
+                if (!button) {
+                    return;
+                }
+                var row = button.closest('tr');
+                var input = row.querySelector('.ms-qty-input');
+                var step = parseInt(button.getAttribute('data-step'));
+                var next = (parseInt(input.value) || 1) + step;
+                if (next < 1) {
+                    if (!confirm('Ürün sepetten çıkarılsın mı?')) {
+                        return;
+                    }
+                    next = 0;
+                }
+                send(row, next);
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,44 @@
+@model CreateContactDto
+@{
+    ViewData["Title"] = "İletişim";
+    ViewBag.directory1 = "MultiShop";
+    ViewBag.directory3 = "İletişim";
+    Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@Shared["WriteToUs"]</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7">
+            <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6 md:p-8">
+                <form class="flex flex-col gap-4" method="post">
+                    <div>
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="name">@Shared["FullName"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2.5 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="name" asp-for="NameSurname" type="text" placeholder="@Shared["FullName"]" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="email">@Shared["EmailAddress"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2.5 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="email" asp-for="Email" type="email" placeholder="@Shared["EmailAddress"]" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="subject">@Shared["MessageSubject"]</label>
+                        <input class="w-full border border-outline-variant rounded-lg px-3 py-2.5 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="subject" asp-for="Subject" type="text" placeholder="@Shared["MessageSubject"]" required />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-on-surface-variant mb-1" for="message">@Shared["YourMessage"]</label>
+                        <textarea class="w-full border border-outline-variant rounded-lg px-3 py-2.5 bg-surface-container-lowest text-on-surface font-body-md focus:ring-2 focus:ring-primary-container" id="message" asp-for="Message" rows="8" placeholder="@Shared["YourMessage"]" required></textarea>
+                    </div>
+                    <div>
+                        <button class="bg-primary-container text-on-primary-fixed px-6 py-3 rounded-lg font-label-md hover:bg-primary-fixed transition-colors" type="submit">@Shared["SendMessage"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @await Component.InvokeAsync("_ContactDetailComponentPartial")
+    </div>
+</section>

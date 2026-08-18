@@ -1,0 +1,48 @@
+@model UpdateProductImageDto
+@{
+    var images = new List<string> { Model.Image1, Model.Image2, Model.Image3, Model.Image4 };
+    images = images.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+}
+
+<div class="lg:col-span-5">
+    <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden">
+        <div class="relative aspect-square bg-surface-container-low">
+            @for (int i = 0; i < images.Count; i++)
+            {
+                <img class="ms-detail-image absolute inset-0 w-full h-full object-cover @(i == 0 ? "" : "hidden")" src="@images[i]" alt="@i" />
+            }
+        </div>
+        @if (images.Count > 1)
+        {
+            <div class="flex gap-2 p-4">
+                @for (int i = 0; i < images.Count; i++)
+                {
+                    <button class="ms-detail-thumb w-20 h-20 rounded overflow-hidden border-2 @(i == 0 ? "border-primary-container" : "border-surface-variant") transition-colors" data-index="@i" type="button">
+                        <img class="w-full h-full object-cover" src="@images[i]" alt="@i" />
+                    </button>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    (function () {
+        var images = document.querySelectorAll('.ms-detail-image');
+        var thumbs = document.querySelectorAll('.ms-detail-thumb');
+        for (var t = 0; t < thumbs.length; t++) {
+            (function (btn) {
+                btn.addEventListener('click', function () {
+                    var idx = parseInt(btn.getAttribute('data-index'));
+                    for (var i = 0; i < images.length; i++) {
+                        images[i].classList.toggle('hidden', i !== idx);
+                    }
+                    for (var k = 0; k < thumbs.length; k++) {
+                        thumbs[k].classList.toggle('border-primary-container', k === idx);
+                        thumbs[k].classList.toggle('border-surface-variant', k !== idx);
+                    }
+                });
+            })(thumbs[t]);
+        }
+    })();
+</script>

@@ -1,0 +1,74 @@
+@model ResultCargoDetailDto
+@{
+    ViewData["Title"] = "Kargo Takip";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    var operations = ViewBag.Operations as List<ResultCargoOperationDto>;
+}
+
+<div class="flex items-center gap-3 mb-6">
+    <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/User/Cargo">
+        <span class="material-symbols-outlined text-[16px]">arrow_back</span> Geri
+    </a>
+    <h1 class="text-headline-lg font-headline-lg text-on-surface">Kargo Takip</h1>
+</div>
+
+<div class="ms-panel mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div>
+            <p class="ms-label">Barkod</p>
+            <p class="text-body-md text-on-surface font-mono">@Model.Barcode</p>
+        </div>
+        <div>
+            <p class="ms-label">Sipariş No</p>
+            <p class="text-body-md text-on-surface">#@Model.OrderingId</p>
+        </div>
+        <div>
+            <p class="ms-label">Kargo Firması</p>
+            <p class="text-body-md text-on-surface">@Model.CargoCompanyName</p>
+        </div>
+        <div>
+            <p class="ms-label">Durum</p>
+            @if (Model.Status == "Teslim Edildi")
+            {
+                <span class="ms-badge ms-badge-gold">@Model.Status</span>
+            }
+            else
+            {
+                <span class="ms-badge ms-badge-neutral">@Model.Status</span>
+            }
+        </div>
+    </div>
+    <div class="mt-6 pt-6 border-t border-outline-variant grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+            <p class="ms-label">Gönderici</p>
+            <p class="text-body-md text-on-surface">@Model.SenderCustomer</p>
+        </div>
+        <div>
+            <p class="ms-label">Alıcı</p>
+            <p class="text-body-md text-on-surface">@Model.ReceiverCustomer</p>
+        </div>
+    </div>
+</div>
+
+<div class="ms-panel">
+    <h2 class="ms-panel-title">Hareket Geçmişi</h2>
+    @if (operations == null || operations.Count == 0)
+    {
+        <div class="ms-empty">
+            <p class="text-body-md text-secondary">Henüz bir hareket kaydı bulunmuyor.</p>
+        </div>
+    }
+    else
+    {
+        <ol class="mt-4 border-l border-outline-variant ml-2">
+            @foreach (var operation in operations)
+            {
+                <li class="relative pl-6 pb-6 last:pb-0">
+                    <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+                    <p class="text-body-md text-on-surface">@operation.Description</p>
+                    <p class="text-label-sm text-secondary mt-0.5">@operation.OperationDate.ToString("dd MMMM yyyy HH:mm")</p>
+                </li>
+            }
+        </ol>
+    }
+</div>

@@ -1,0 +1,58 @@
+@model UpdateProductImageDto
+@{
+    ViewData["Title"] = "Ürün Görselleri";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["ProductImagesPage"]</h1>
+<p class="text-body-md text-secondary mb-6">@ViewBag.productName</p>
+
+<div class="ms-panel max-w-4xl">
+    <form method="post" asp-action="UpdateProductImage">
+        <div asp-validation-summary="All" class="mb-4 text-error text-label-sm"></div>
+        <input type="hidden" name="ProductImagesId" value="@Model.ProductImagesId" />
+        <input type="hidden" name="ProductId" value="@Model.ProductId" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="ms-field">
+                <label class="ms-label">1. @Shared["ProductImage"]</label>
+                <input class="ms-input" name="Image1" value="@Model.Image1" type="text" />
+                @if (!string.IsNullOrEmpty(Model.Image1))
+                {
+                    <img class="mt-3 w-full max-w-[220px] rounded-lg border border-surface-variant" src="@Model.Image1" alt="1" />
+                }
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">2. @Shared["ProductImage"]</label>
+                <input class="ms-input" name="Image2" value="@Model.Image2" type="text" />
+                @if (!string.IsNullOrEmpty(Model.Image2))
+                {
+                    <img class="mt-3 w-full max-w-[220px] rounded-lg border border-surface-variant" src="@Model.Image2" alt="2" />
+                }
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">3. @Shared["ProductImage"]</label>
+                <input class="ms-input" name="Image3" value="@Model.Image3" type="text" />
+                @if (!string.IsNullOrEmpty(Model.Image3))
+                {
+                    <img class="mt-3 w-full max-w-[220px] rounded-lg border border-surface-variant" src="@Model.Image3" alt="3" />
+                }
+            </div>
+            <div class="ms-field">
+                <label class="ms-label">4. @Shared["ProductImage"]</label>
+                <input class="ms-input" name="Image4" value="@Model.Image4" type="text" />
+                @if (!string.IsNullOrEmpty(Model.Image4))
+                {
+                    <img class="mt-3 w-full max-w-[220px] rounded-lg border border-surface-variant" src="@Model.Image4" alt="4" />
+                }
+            </div>
+        </div>
+
+        <div class="flex gap-3 pt-4">
+            <button class="ms-btn ms-btn-primary" type="submit">
+                <span class="material-symbols-outlined text-[20px]">save</span> @Shared["Save"]
+            </button>
+            <a class="ms-btn ms-btn-ghost" href="/Seller/Product">@Shared["Cancel"]</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+@{
+    var path = (Context.Request.Path.Value ?? "").ToLowerInvariant();
+    var itemClass = "flex items-center gap-3 px-4 py-2.5 rounded-lg font-label-md text-inverse-on-surface hover:bg-white/15 hover:text-primary-container transition-colors";
+    var itemActiveClass = "flex items-center gap-3 px-4 py-2.5 rounded-lg font-label-md bg-primary-container text-on-primary-fixed transition-colors";
+    ViewData["PanelLinkClass"] = itemClass;
+    ViewData["PanelSkip"] = "User";
+}
+
+<aside class="ms-sidebar bg-inverse-surface">
+
+    <div class="flex items-center justify-between px-4 py-5 border-b border-white/15">
+        <a class="flex items-center gap-1" href="/Default/Index/">
+            <div class="text-headline-lg font-display-md font-black bg-primary-container text-on-primary-fixed px-3 py-1 rounded-l-lg tracking-tight">MULTI</div>
+            <div class="text-headline-lg font-display-md font-black bg-white/15 text-primary-container px-3 py-1 rounded-r-lg tracking-tight">SHOP</div>
+        </a>
+        <button class="lg:hidden text-inverse-on-surface hover:text-primary-container transition-colors" data-ms-sidebar-toggle type="button" title="Menüyü kapat">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto ms-no-scrollbar px-3 py-4">
+        <p class="px-4 pb-2 text-label-md text-primary-container uppercase tracking-wider">@Shared["Menus"]</p>
+        <ul class="flex flex-col gap-1">
+            <li><a class="@(path.StartsWith("/user/myorder") ? itemActiveClass : itemClass)" href="/User/MyOrder/MyOrderList"><span class="material-symbols-outlined text-[22px]">receipt_long</span><span>@Shared["MyOrders"]</span></a></li>
+            <li><a class="@(path.StartsWith("/user/cargo") ? itemActiveClass : itemClass)" href="/User/Cargo"><span class="material-symbols-outlined text-[22px]">local_shipping</span><span>@Shared["MyCargos"]</span></a></li>
+            <li><a class="@(path.StartsWith("/user/mycomment") ? itemActiveClass : itemClass)" href="/User/MyComment/Index"><span class="material-symbols-outlined text-[22px]">rate_review</span><span>Yorumlarım</span></a></li>
+            <li><a class="@(path.StartsWith("/user/message/inbox") ? itemActiveClass : itemClass)" href="/User/Message/Inbox"><span class="material-symbols-outlined text-[22px]">inbox</span><span>@Shared["IncomingMessages"]</span></a></li>
+            <li><a class="@(path.StartsWith("/user/message/sendbox") ? itemActiveClass : itemClass)" href="/User/Message/Sendbox"><span class="material-symbols-outlined text-[22px]">send</span><span>@Shared["SentMessages"]</span></a></li>
+            <li><a class="@(path.StartsWith("/user/sellerapplication") ? itemActiveClass : itemClass)" href="/User/SellerApplication"><span class="material-symbols-outlined text-[22px]">storefront</span><span>@Shared["BecomeSeller"]</span></a></li>
+        </ul>
+
+        <div class="mt-6 pt-4 border-t border-white/15 flex flex-col gap-1">
+            @await Html.PartialAsync("~/Views/Shared/_PanelLinksPartial.cshtml")
+            <a class="@(path.StartsWith("/user/profile") ? itemActiveClass : itemClass)" href="/User/Profile"><span class="material-symbols-outlined text-[22px]">person</span><span>@Shared["MyProfile"]</span></a>
+            <a class="@itemClass" href="/Default/Index/"><span class="material-symbols-outlined text-[22px]">home</span><span>@Shared["GoToSite"]</span></a>
+            <a class="@itemClass" href="/Login/LogOut"><span class="material-symbols-outlined text-[22px]">logout</span><span>@Shared["Logout"]</span></a>
+        </div>
+    </nav>
+</aside>

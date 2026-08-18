@@ -1,0 +1,51 @@
+@model List<ResultSendboxMessageDto>
+@{
+    ViewData["Title"] = "Gönderilenler";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    int count = 0;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["SentMessages"]</h1>
+<p class="text-body-md text-secondary mb-6">@Shared["SentMessagesSub"]</p>
+
+<div class="ms-table-wrap">
+    <table class="ms-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>@Shared["Recipient"]</th>
+                <th>@Shared["Subject"]</th>
+                <th>@Shared["Date"]</th>
+                <th>@Shared["Status"]</th>
+                <th class="text-right">@Shared["Actions"]</th>
+            </tr>
+        </thead>
+        <tbody data-ms-pager="10">
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@ViewBag.Name @ViewBag.Surname</td>
+                    <td>@item.Subject</td>
+                    <td class="whitespace-nowrap">@(((DateTime)item.MessageDate).ToString("dd-MMM-yyyy"))</td>
+                    <td>
+                        @if (item.IsRead)
+                        {
+                            <span class="ms-badge ms-badge-neutral">@Shared["Read"]</span>
+                        }
+                        else
+                        {
+                            <span class="ms-badge ms-badge-gold">@Shared["Unread"]</span>
+                        }
+                    </td>
+                    <td class="text-right whitespace-nowrap">
+                        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/User/Message/Sendbox">
+                            <span class="material-symbols-outlined text-[16px]">visibility</span> @Shared["Open"]
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

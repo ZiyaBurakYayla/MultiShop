@@ -1,0 +1,39 @@
+@model List<ResultUserCommentDto>
+
+<div class="ms-tab-pane hidden" id="tab-pane-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+            <h4 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-6">@Model.Count @Shared["CommentsCount"]</h4>
+
+            @if (!Model.Any())
+            {
+                <p class="text-body-md text-secondary">Bu ürüne henüz yorum yapılmamış.</p>
+            }
+            else
+            {
+                <div data-ms-pager="5">
+                    @foreach (var item in Model)
+                    {
+                        <div class="flex gap-3 mb-6">
+                            <img class="w-12 h-12 rounded-full object-cover flex-shrink-0" src="@item.ImageUrl" alt="@item.NameSurname" />
+                            <div class="flex-1">
+                                <h6 class="font-label-md text-on-surface">
+                                    @item.NameSurname
+                                    <span class="text-label-sm text-secondary font-normal"> - @item.CreatedDate.ToShortDateString()</span>
+                                </h6>
+                                <div class="flex items-center text-primary-container text-[14px] my-1">
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <span class="material-symbols-outlined @(i < item.Rating ? "fill-current" : "text-outline-variant")">star</span>
+                                    }
+                                </div>
+                                <p class="text-body-md text-secondary">@item.CommentDetail</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        @await Html.PartialAsync("~/Views/ProductList/AddComment.cshtml")
+    </div>
+</div>

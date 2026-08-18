@@ -1,0 +1,28 @@
+@model List<ResultCategoryDto>
+@{
+    var activeId = ViewBag.ActiveCategoryId as string;
+}
+
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding">
+    <h5 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-4 uppercase">@Shared["Categories"]</h5>
+    <ul class="flex flex-col gap-1">
+        <li>
+            <a class="flex items-center justify-between px-3 py-2 rounded font-body-md transition-colors @(string.IsNullOrEmpty(activeId) ? "bg-primary-container text-on-primary-fixed font-semibold" : "text-on-surface hover:bg-surface-container-low")" href="/ProductList/Index/">
+                <span>Tümü</span>
+            </a>
+        </li>
+        @foreach (var item in Model)
+        {
+            var isActive = activeId == item.CategoryID;
+            <li>
+                <a class="flex items-center justify-between px-3 py-2 rounded font-body-md transition-colors @(isActive ? "bg-primary-container text-on-primary-fixed font-semibold" : "text-on-surface hover:bg-surface-container-low")" href="/ProductList/Index/@item.CategoryID">
+                    <span>@item.CategoryName</span>
+                    @if (isActive)
+                    {
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                    }
+                </a>
+            </li>
+        }
+    </ul>
+</div>

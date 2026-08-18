@@ -1,0 +1,76 @@
+@model UserDetailViewModel
+@{
+    var fullName = ($"{Model.Name} {Model.Surname}").Trim();
+    if (string.IsNullOrWhiteSpace(fullName))
+    {
+        fullName = Model.Username;
+    }
+    var photo = string.IsNullOrWhiteSpace(Model.ImageUrl)
+        ? "https://ui-avatars.com/api/?size=80&background=ffc107&color=261a00&name=" + Uri.EscapeDataString(string.IsNullOrWhiteSpace(fullName) ? "MS" : fullName)
+        : Model.ImageUrl;
+    var messageCount = ViewBag.messageCount == null ? 0 : (int)ViewBag.messageCount;
+    var commentCount = ViewBag.totalCommentCount == null ? 0 : (int)ViewBag.totalCommentCount;
+}
+
+<header class="bg-surface-container-lowest border-b border-outline-variant shadow-sm">
+    <div class="px-gutter py-3 flex items-center justify-between gap-6">
+
+        <button class="flex items-center justify-center w-10 h-10 rounded-lg text-on-surface hover:bg-surface-container-low transition-colors" data-ms-sidebar-toggle type="button" title="Menü">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+
+        <form class="hidden md:flex flex-1 max-w-md" action="/Admin/Product/ProductListWithCategory" method="get">
+            <input class="w-full bg-surface-container-low border-none rounded-l-lg px-4 py-2.5 font-body-md text-on-surface focus:ring-2 focus:ring-primary-container transition-all" name="search" placeholder="@Shared["SearchWords"]" type="text" />
+            <button class="bg-surface-container-low border-none rounded-r-lg px-4 py-2.5 flex items-center justify-center text-primary-container hover:bg-surface-container transition-colors" type="submit">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+        </form>
+
+        <div class="flex items-center gap-4">
+            <a class="relative flex items-center text-secondary hover:text-primary transition-colors" href="/User/Message/Inbox/" title="@Shared["Messages"]">
+                <span class="material-symbols-outlined">mail</span>
+                <span class="absolute -top-2 -right-3 bg-primary-container text-on-primary-fixed text-label-sm px-1.5 rounded-full" id="headerMessageCount">@messageCount</span>
+            </a>
+            <a class="relative flex items-center text-secondary hover:text-primary transition-colors" href="/Admin/Comment/Index/" title="@Shared["Comments"]">
+                <span class="material-symbols-outlined">campaign</span>
+                <span class="absolute -top-2 -right-3 bg-primary-container text-on-primary-fixed text-label-sm px-1.5 rounded-full" id="headerCommentCount">@commentCount</span>
+            </a>
+
+            <details class="ms-lang relative">
+                <summary class="flex items-center gap-2 cursor-pointer">
+                    <img class="w-9 h-9 rounded-full object-cover border-2 border-primary-container" src="@photo" alt="@fullName" />
+                    <span class="hidden sm:inline font-label-md text-on-surface">@fullName</span>
+                    <span class="material-symbols-outlined text-[16px] text-secondary">arrow_drop_down</span>
+                </summary>
+                <div class="absolute right-0 top-full mt-2 z-50 min-w-[220px] bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg py-1 flex flex-col">
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/User/Message/Inbox/"><span class="material-symbols-outlined text-[20px]">inbox</span> @Shared["IncomingMessages"]</a>
+                    @{ ViewData["PanelSkip"] = "Admin"; }
+                    @await Html.PartialAsync("~/Views/Shared/_PanelLinksPartial.cshtml")
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-on-surface hover:bg-surface-container-low transition-colors" href="/Default/Index/"><span class="material-symbols-outlined text-[20px]">home</span> @Shared["GoToSite"]</a>
+                    <a class="flex items-center gap-3 px-4 py-2 font-body-md text-error hover:bg-surface-container-low transition-colors" href="/Login/LogOut/"><span class="material-symbols-outlined text-[20px]">logout</span> @Shared["Logout"]</a>
+                </div>
+            </details>
+        </div>
+    </div>
+</header>
+
+<script src="~/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    const headerConnection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7246/signalrhub")
+        .build();
+
+    headerConnection.on("ReceiveTotalMessageCount", function (count) {
+        document.getElementById("headerMessageCount").innerText = count;
+    });
+    headerConnection.on("ReceiveCommentCount", function (count) {
+        document.getElementById("headerCommentCount").innerText = count;
+    });
+
+    headerConnection.start()
+        .then(() => {
+            headerConnection.invoke("SendStatisticCount");
+            setInterval(() => headerConnection.invoke("SendStatisticCount"), 5000);
+        })
+        .catch(err => console.error(err.toString()));
+</script>

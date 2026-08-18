@@ -1,0 +1,185 @@
+@model SellerDashboardViewModel
+@{
+    ViewData["Title"] = "Satıcı Paneli";
+    Layout = "~/Areas/Seller/Views/SellerLayout/Index.cshtml";
+
+    var stats = new (string Label, string Value, string Icon)[]
+    {
+        (Shared["PaidRevenue"].Value, Model.PaidRevenue.ToString("N2") + " ₺", "payments"),
+        (Shared["PendingRevenue"].Value, Model.PendingRevenue.ToString("N2") + " ₺", "hourglass_top"),
+        (Shared["OrderCount"].Value, Model.OrderCount.ToString(), "receipt_long"),
+        (Shared["SoldQuantity"].Value, Model.SoldQuantity.ToString(), "local_mall"),
+        (Shared["AverageOrderValue"].Value, Model.AverageOrderValue.ToString("N2") + " ₺", "trending_up"),
+        (Shared["TotalProducts"].Value, Model.Products.Count.ToString(), "inventory_2")
+    };
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">@Shared["Dashboard"]</h1>
+<p class="text-body-md text-secondary mb-6">@Model.Seller.StoreName</p>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    @foreach (var stat in stats)
+    {
+        <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-card-padding flex items-center gap-4 hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300">
+            <div class="w-12 h-12 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined">@stat.Icon</span>
+            </div>
+            <div class="min-w-0">
+                <h5 class="text-label-sm text-secondary mb-1">@stat.Label</h5>
+                <h3 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface truncate">@stat.Value</h3>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="ms-panel mb-6">
+    <h2 class="ms-panel-title flex items-center gap-2">
+        <span class="material-symbols-outlined">storefront</span> @Shared["StoreInfo"]
+    </h2>
+    <div class="flex flex-wrap items-center gap-5">
+        @if (!string.IsNullOrEmpty(Model.Seller.LogoUrl))
+        {
+            <img class="w-18 h-18 rounded-xl object-cover bg-surface-container-low" style="width:72px;height:72px;" src="@Model.Seller.LogoUrl" alt="@Model.Seller.StoreName" />
+        }
+        <div>
+            <div class="text-body-lg font-body-lg font-semibold text-on-surface">@Model.Seller.StoreName</div>
+            <div class="text-body-md text-secondary mt-1">@Model.Seller.Description</div>
+        </div>
+        <div class="ml-auto flex flex-wrap gap-3">
+            <a class="ms-btn ms-btn-primary" href="/Seller/Product/CreateProduct">
+                <span class="material-symbols-outlined text-[20px]">add</span> @Shared["NewProduct"]
+            </a>
+            <a class="ms-btn ms-btn-ghost" href="/Store/Index/@Model.Seller.SellerId">
+                <span class="material-symbols-outlined text-[20px]">visibility</span> @Shared["ViewMyStore"]
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="ms-panel">
+        <h2 class="ms-panel-title flex items-center gap-2">
+            <span class="material-symbols-outlined">trophy</span> @Shared["TopProducts"]
+        </h2>
+        @if (Model.TopProducts.Count == 0)
+        {
+            <div class="ms-empty">@Shared["NoOrdersYet"]</div>
+        }
+        else
+        {
+            <div class="ms-table-wrap">
+                <table class="ms-table">
+                    <thead>
+                        <tr>
+                            <th>@Shared["ProductName"]</th>
+                            <th>@Shared["Amount"]</th>
+                            <th>@Shared["Total"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TopProducts)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Revenue.ToString("N2") ₺</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <div class="ms-panel">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="ms-panel-title mb-0 flex items-center gap-2">
+                <span class="material-symbols-outlined">history</span> @Shared["RecentOrders"]
+            </h2>
+            <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/Order">@Shared["MyOrders"]</a>
+        </div>
+        @if (Model.RecentOrders.Count == 0)
+        {
+            <div class="ms-empty">@Shared["NoOrdersYet"]</div>
+        }
+        else
+        {
+            <div class="ms-table-wrap">
+                <table class="ms-table">
+                    <thead>
+                        <tr>
+                            <th>@Shared["OrderNo"]</th>
+                            <th>@Shared["ProductName"]</th>
+                            <th>@Shared["Total"]</th>
+                            <th>@Shared["Status"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.RecentOrders)
+                        {
+                            <tr>
+                                <td>#@item.OrderingId</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.ProductTotalPrice.ToString("N2") ₺</td>
+                                <td>
+                                    @if (item.IsPaid)
+                                    {
+                                        <span class="ms-badge ms-badge-gold">@Shared["Paid"]</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="ms-badge ms-badge-neutral">@Shared["Unpaid"]</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="ms-panel">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="ms-panel-title mb-0 flex items-center gap-2">
+            <span class="material-symbols-outlined">inventory_2</span> @Shared["MyProducts"]
+        </h2>
+        <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/Product">@Shared["ProductList"]</a>
+    </div>
+
+    @if (Model.Products.Count == 0)
+    {
+        <div class="ms-empty">@Shared["NoProductsYet"]</div>
+    }
+    else
+    {
+        <div class="ms-table-wrap">
+            <table class="ms-table">
+                <thead>
+                    <tr>
+                        <th>@Shared["ProductImage"]</th>
+                        <th>@Shared["ProductName"]</th>
+                        <th>@Shared["ProductPrice"]</th>
+                        <th class="text-right">@Shared["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td><img class="w-12 h-12 object-cover rounded-lg bg-surface-container-low" src="@item.ProductImageUrl" alt="@item.ProductName" /></td>
+                            <td>@item.ProductName</td>
+                            <td>@item.ProductPrice.ToString("N2") ₺</td>
+                            <td class="text-right">
+                                <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/Seller/Product/UpdateProduct/@item.ProductId">
+                                    <span class="material-symbols-outlined text-[16px]">edit</span> @Shared["Update"]
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

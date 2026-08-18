@@ -1,0 +1,80 @@
+@model List<ResultUserCommentDto>
+@{
+    ViewData["Title"] = "Yorumlarım";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+    var products = ViewBag.Products as List<ResultProductDto>;
+    int count = 0;
+}
+
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-1">Yorumlarım</h1>
+<p class="text-body-md text-secondary mb-6">Ürünlere yaptığınız yorumları buradan düzenleyebilir veya silebilirsiniz.</p>
+
+@if (!Model.Any())
+{
+    <div class="ms-panel">
+        <div class="ms-empty">
+            <span class="material-symbols-outlined text-[48px] block mb-3">rate_review</span>
+            Henüz hiç yorum yapmadınız.
+        </div>
+    </div>
+}
+else
+{
+    <div class="ms-table-wrap">
+        <table class="ms-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ürün</th>
+                    <th>Puan</th>
+                    <th>Yorum</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                    <th class="text-right">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody data-ms-pager="10">
+                @foreach (var item in Model)
+                {
+                    count++;
+                    var product = products.FirstOrDefault(x => x.ProductId == item.ProductId);
+                    var productName = product == null ? item.ProductId : product.ProductName;
+                    <tr>
+                        <td>@count</td>
+                        <td>
+                            <a class="text-primary hover:underline" href="/ProductList/ProductDetail/@item.ProductId">@productName</a>
+                        </td>
+                        <td class="whitespace-nowrap text-primary-container">
+                            @for (int i = 0; i < item.Rating; i++)
+                            {
+                                <span class="material-symbols-outlined fill-current text-[16px]">star</span>
+                            }
+                        </td>
+                        <td class="max-w-md">
+                            <span class="text-truncate-2">@item.CommentDetail</span>
+                        </td>
+                        <td class="whitespace-nowrap">@item.CreatedDate.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (item.Status)
+                            {
+                                <span class="ms-badge ms-badge-gold">Yayında</span>
+                            }
+                            else
+                            {
+                                <span class="ms-badge ms-badge-neutral">Onay Bekliyor</span>
+                            }
+                        </td>
+                        <td class="text-right whitespace-nowrap">
+                            <a class="ms-btn ms-btn-sm ms-btn-ghost" href="/User/MyComment/UpdateComment/@item.UserCommentId">
+                                <span class="material-symbols-outlined text-[16px]">edit</span> Düzenle
+                            </a>
+                            <a class="ms-btn ms-btn-sm ms-btn-danger" href="/User/MyComment/DeleteComment/@item.UserCommentId" onclick="return confirm('Bu yorumu silmek istediğinize emin misiniz?');">
+                                <span class="material-symbols-outlined text-[16px]">delete</span> Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

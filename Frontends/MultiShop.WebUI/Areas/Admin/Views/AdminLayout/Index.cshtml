@@ -1,0 +1,38 @@
+@{
+    Layout = null;
+    var lang = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<!DOCTYPE html>
+<html lang="@lang">
+
+@await Component.InvokeAsync("_AdminLayoutHeadComponentPartial")
+
+<body class="bg-background text-on-background font-body-md antialiased">
+
+    <div class="flex min-h-screen">
+
+        @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
+
+        <div class="flex-1 flex flex-col min-w-0">
+
+            @await Component.InvokeAsync("_AdminLayoutHeaderComponentPartial")
+
+            @await Component.InvokeAsync("_AdminLayoutMainSectionViewbagComponentPartial")
+
+            <main class="flex-1 px-gutter pb-10">
+                @RenderBody()
+            </main>
+
+            <footer class="bg-inverse-surface text-inverse-on-surface text-label-md px-gutter py-4 flex items-center justify-between">
+                <span>Copyright &copy; @DateTime.Now.Year <span class="text-primary-container font-bold">MultiShop</span> | Tüm Hakları Saklıdır.</span>
+                <span>Version 1.0</span>
+            </footer>
+
+        </div>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Categories" xml:space="preserve"><value>Catégories</value></data>
+  <data name="Home" xml:space="preserve"><value>Accueil</value></data>
+  <data name="Products" xml:space="preserve"><value>Produits</value></data>
+  <data name="ProductDetails" xml:space="preserve"><value>Détails du produit</value></data>
+  <data name="Seller" xml:space="preserve"><value>Vendeur</value></data>
+  <data name="Store" xml:space="preserve"><value>Boutique</value></data>
+  <data name="NoProductsInStore" xml:space="preserve"><value>Il n'y a pas encore de produits dans cette boutique.</value></data>
+  <data name="BecomeSeller" xml:space="preserve"><value>Devenir vendeur</value></data>
+  <data name="BecomeSellerSub" xml:space="preserve"><value>Ouvrez votre propre boutique et commencez à vendre vos produits sur MultiShop.</value></data>
+  <data name="SellerApplicationForm" xml:space="preserve"><value>Formulaire de candidature vendeur</value></data>
+  <data name="StoreName" xml:space="preserve"><value>Nom de la boutique</value></data>
+  <data name="LogoUrl" xml:space="preserve"><value>URL du logo</value></data>
+  <data name="SubmitApplication" xml:space="preserve"><value>Envoyer la candidature</value></data>
+  <data name="StatusPending" xml:space="preserve"><value>En attente</value></data>
+  <data name="ApplicationPendingText" xml:space="preserve"><value>Votre candidature a été reçue et est en attente d'approbation par l'administrateur.</value></data>
+  <data name="StatusApproved" xml:space="preserve"><value>Approuvé</value></data>
+  <data name="ApplicationApprovedText" xml:space="preserve"><value>Félicitations ! Votre candidature a été approuvée, vous êtes maintenant vendeur.</value></data>
+  <data name="ViewMyStore" xml:space="preserve"><value>Voir ma boutique</value></data>
+  <data name="StatusRejected" xml:space="preserve"><value>Rejeté</value></data>
+  <data name="ApplicationRejectedText" xml:space="preserve"><value>Votre candidature a été rejetée. Vous pouvez mettre à jour vos informations et postuler à nouveau.</value></data>
+  <data name="ReapplyApplication" xml:space="preserve"><value>Postuler à nouveau</value></data>
+  <data name="SellerApplications" xml:space="preserve"><value>Candidatures vendeurs</value></data>
+  <data name="NoPendingApplications" xml:space="preserve"><value>Aucune candidature en attente.</value></data>
+  <data name="SellerPanel" xml:space="preserve"><value>Espace vendeur</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Tableau de bord</value></data>
+  <data name="MyProducts" xml:space="preserve"><value>Mes produits</value></data>
+  <data name="MyProductsSub" xml:space="preserve"><value>Gérez les produits de votre boutique.</value></data>
+  <data name="NewProduct" xml:space="preserve"><value>Nouveau produit</value></data>
+  <data name="NewProductSub" xml:space="preserve"><value>Ajoutez un nouveau produit à votre boutique.</value></data>
+  <data name="UpdateProduct" xml:space="preserve"><value>Modifier le produit</value></data>
+  <data name="ProductList" xml:space="preserve"><value>Liste des produits</value></data>
+  <data name="ProductImage" xml:space="preserve"><value>Image du produit</value></data>
+  <data name="StoreInfo" xml:space="preserve"><value>Informations de la boutique</value></data>
+  <data name="TotalProducts" xml:space="preserve"><value>Total des produits</value></data>
+  <data name="TotalCatalogValue" xml:space="preserve"><value>Valeur totale du catalogue</value></data>
+  <data name="NoProductsYet" xml:space="preserve"><value>Vous n'avez pas encore ajouté de produits.</value></data>
+  <data name="Category" xml:space="preserve"><value>Catégorie</value></data>
+  <data name="Save" xml:space="preserve"><value>Enregistrer</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Variants" xml:space="preserve"><value>Variantes</value></data>
+  <data name="VariantHint" xml:space="preserve"><value>Sélectionnez une catégorie — ses attributs de variante (ex. Couleur, Taille) apparaîtront ici.</value></data>
+  <data name="SkuPrefix" xml:space="preserve"><value>Préfixe SKU</value></data>
+  <data name="Stock" xml:space="preserve"><value>Stock</value></data>
+  <data name="GenerateVariants" xml:space="preserve"><value>Générer les variantes</value></data>
+  <data name="NoVariantAttributes" xml:space="preserve"><value>Aucun attribut de variante n'est défini pour cette catégorie.</value></data>
+  <data name="RegenerateVariants" xml:space="preserve"><value>Générer les variantes (remplace les existantes)</value></data>
+  <data name="MyOrders" xml:space="preserve"><value>Mes commandes</value></data>
+  <data name="MyOrdersSub" xml:space="preserve"><value>Commandes des produits vendus par votre boutique.</value></data>
+  <data name="TotalOrderLines" xml:space="preserve"><value>Total des lignes de vente</value></data>
+  <data name="TotalRevenue" xml:space="preserve"><value>Chiffre d'affaires total</value></data>
+  <data name="NoOrdersYet" xml:space="preserve"><value>Vous n'avez pas encore de commandes.</value></data>
+  <data name="OrderNo" xml:space="preserve"><value>N° de commande</value></data>
+  <data name="Amount" xml:space="preserve"><value>Quantité</value></data>
+  <data name="PaidRevenue" xml:space="preserve"><value>Chiffre d'affaires encaissé</value></data>
+  <data name="PendingRevenue" xml:space="preserve"><value>Paiement en attente</value></data>
+  <data name="OrderCount" xml:space="preserve"><value>Nombre de commandes</value></data>
+  <data name="SoldQuantity" xml:space="preserve"><value>Unités vendues</value></data>
+  <data name="AverageOrderValue" xml:space="preserve"><value>Panier moyen</value></data>
+  <data name="TopProducts" xml:space="preserve"><value>Meilleures ventes</value></data>
+  <data name="RecentOrders" xml:space="preserve"><value>Commandes récentes</value></data>
+  <data name="AdminProductReadOnlyNotice" xml:space="preserve"><value>Les produits sont gérés par les vendeurs. Cette page est en lecture seule.</value></data>
+  <data name="ViewDetails" xml:space="preserve"><value>Voir les détails</value></data>
+  <data name="Back" xml:space="preserve"><value>Retour</value></data>
+  <data name="ProductInfo" xml:space="preserve"><value>Informations produit</value></data>
+  <data name="ProductDetailPage" xml:space="preserve"><value>Description et informations</value></data>
+  <data name="ProductImagesPage" xml:space="preserve"><value>Images</value></data>
+  <data name="ImportProductTitle" xml:space="preserve"><value>Importer un produit du marché externe</value></data>
+  <data name="ImportProductNotice" xml:space="preserve"><value>Ce formulaire sert uniquement à importer des produits du marché externe. Le produit importé est attribué au vendeur sélectionné et géré ensuite par celui-ci.</value></data>
+  <data name="DealOfTheDay" xml:space="preserve"><value>Offre du jour</value></data>
+  <data name="Pages" xml:space="preserve"><value>Pages</value></data>
+  <data name="MyCart" xml:space="preserve"><value>Mon panier</value></data>
+  <data name="Payment" xml:space="preserve"><value>Paiement</value></data>
+  <data name="Register" xml:space="preserve"><value>S'inscrire</value></data>
+  <data name="Login" xml:space="preserve"><value>Connexion</value></data>
+  <data name="Contact" xml:space="preserve"><value>Contact</value></data>
+  <data name="SearchPlaceholder" xml:space="preserve"><value>Entrez un produit à rechercher</value></data>
+  <data name="OurPhone" xml:space="preserve"><value>Notre numéro de téléphone</value></data>
+  <data name="AboutUs" xml:space="preserve"><value>À propos</value></data>
+  <data name="QuickShopping" xml:space="preserve"><value>Achat rapide</value></data>
+  <data name="OurProducts" xml:space="preserve"><value>Nos produits</value></data>
+  <data name="Discounts" xml:space="preserve"><value>Réductions</value></data>
+  <data name="WriteToUs" xml:space="preserve"><value>Écrivez-nous</value></data>
+  <data name="MyAccount" xml:space="preserve"><value>Mon compte</value></data>
+  <data name="MyProfile" xml:space="preserve"><value>Mon profil</value></data>
+  <data name="MyPurchases" xml:space="preserve"><value>Mes achats</value></data>
+  <data name="MyCartDetails" xml:space="preserve"><value>Détails de mon panier</value></data>
+  <data name="MyPastProducts" xml:space="preserve"><value>Mes produits passés</value></data>
+  <data name="MyDiscounts" xml:space="preserve"><value>Mes réductions</value></data>
+  <data name="Newsletter" xml:space="preserve"><value>Newsletter</value></data>
+  <data name="NewsletterText" xml:space="preserve"><value>Abonnez-vous pour les dernières réductions et promotions !</value></data>
+  <data name="EmailPlaceholder" xml:space="preserve"><value>Votre adresse e-mail</value></data>
+  <data name="Subscribe" xml:space="preserve"><value>S'abonner</value></data>
+  <data name="FollowUs" xml:space="preserve"><value>Suivez-nous</value></data>
+  <data name="AllRightsReserved" xml:space="preserve"><value>Tous droits réservés.</value></data>
+  <data name="FeaturedCategories" xml:space="preserve"><value>Catégories en vedette</value></data>
+  <data name="FeaturedProducts" xml:space="preserve"><value>Produits en vedette</value></data>
+  <data name="ProductUnit" xml:space="preserve"><value>produits</value></data>
+  <data name="StartShopping" xml:space="preserve"><value>Commencer les achats</value></data>
+  <data name="FilterByPrice" xml:space="preserve"><value>Filtrer par prix</value></data>
+  <data name="AllPrices" xml:space="preserve"><value>Tous les prix</value></data>
+  <data name="FilterByColor" xml:space="preserve"><value>Filtrer par couleur</value></data>
+  <data name="AllColors" xml:space="preserve"><value>Toutes les couleurs</value></data>
+  <data name="FilterBySize" xml:space="preserve"><value>Filtrer par taille</value></data>
+  <data name="AllSizes" xml:space="preserve"><value>Toutes les tailles</value></data>
+  <data name="Black" xml:space="preserve"><value>Noir</value></data>
+  <data name="White" xml:space="preserve"><value>Blanc</value></data>
+  <data name="Red" xml:space="preserve"><value>Rouge</value></data>
+  <data name="Blue" xml:space="preserve"><value>Bleu</value></data>
+  <data name="Green" xml:space="preserve"><value>Vert</value></data>
+  <data name="Pink" xml:space="preserve"><value>Rose</value></data>
+  <data name="Sort" xml:space="preserve"><value>Trier</value></data>
+  <data name="LatestProducts" xml:space="preserve"><value>Derniers produits</value></data>
+  <data name="Popularity" xml:space="preserve"><value>Popularité</value></data>
+  <data name="Best" xml:space="preserve"><value>Meilleurs</value></data>
+  <data name="Show" xml:space="preserve"><value>Afficher</value></data>
+  <data name="ProductDetailTab" xml:space="preserve"><value>Détail du produit</value></data>
+  <data name="ProductInfoTab" xml:space="preserve"><value>Informations sur le produit</value></data>
+  <data name="Reviews" xml:space="preserve"><value>Avis</value></data>
+  <data name="CommentsCount" xml:space="preserve"><value>commentaires trouvés</value></data>
+  <data name="Ratings" xml:space="preserve"><value>évaluations</value></data>
+  <data name="Sizes" xml:space="preserve"><value>Tailles</value></data>
+  <data name="Colors" xml:space="preserve"><value>Couleurs</value></data>
+  <data name="AddToCart" xml:space="preserve"><value>Ajouter au panier</value></data>
+  <data name="Share" xml:space="preserve"><value>Partager</value></data>
+  <data name="LeaveComment" xml:space="preserve"><value>Laissez un commentaire</value></data>
+  <data name="CommentEmailNote" xml:space="preserve"><value>Entrez une adresse e-mail valide pour que votre commentaire soit reçu.*</value></data>
+  <data name="CommentLoginRequired" xml:space="preserve"><value>Vous devez vous connecter pour laisser un commentaire.</value></data>
+  <data name="YourRating" xml:space="preserve"><value>Votre note *</value></data>
+  <data name="YourFullName" xml:space="preserve"><value>Votre nom complet *</value></data>
+  <data name="YourEmail" xml:space="preserve"><value>Votre adresse e-mail *</value></data>
+  <data name="YourComment" xml:space="preserve"><value>Votre commentaire *</value></data>
+  <data name="SubmitComment" xml:space="preserve"><value>Publier le commentaire</value></data>
+  <data name="VeryGood" xml:space="preserve"><value>Très bien</value></data>
+  <data name="Good" xml:space="preserve"><value>Bien</value></data>
+  <data name="Average" xml:space="preserve"><value>Moyen</value></data>
+  <data name="Bad" xml:space="preserve"><value>Mauvais</value></data>
+  <data name="VeryBad" xml:space="preserve"><value>Très mauvais</value></data>
+  <data name="Price" xml:space="preserve"><value>Prix</value></data>
+  <data name="Quantity" xml:space="preserve"><value>Quantité</value></data>
+  <data name="Total" xml:space="preserve"><value>Total</value></data>
+  <data name="Remove" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="CouponCode" xml:space="preserve"><value>Votre code promo</value></data>
+  <data name="ApplyCoupon" xml:space="preserve"><value>Appliquer le coupon</value></data>
+  <data name="OrderSummary" xml:space="preserve"><value>Récapitulatif de commande</value></data>
+  <data name="TotalProductPrice" xml:space="preserve"><value>Prix total des produits</value></data>
+  <data name="TaxAmount" xml:space="preserve"><value>Montant de la TVA</value></data>
+  <data name="DiscountRate" xml:space="preserve"><value>Taux de remise</value></data>
+  <data name="AmountWithoutDiscount" xml:space="preserve"><value>Montant sans remise</value></data>
+  <data name="DiscountedAmount" xml:space="preserve"><value>Montant remisé</value></data>
+  <data name="ProceedToPayment" xml:space="preserve"><value>Passer au paiement</value></data>
+  <data name="DeliveryBillingAddress" xml:space="preserve"><value>Adresse de livraison et de facturation</value></data>
+  <data name="FirstName" xml:space="preserve"><value>Prénom</value></data>
+  <data name="LastName" xml:space="preserve"><value>Nom</value></data>
+  <data name="EmailAddress" xml:space="preserve"><value>Adresse e-mail</value></data>
+  <data name="PhoneNumber" xml:space="preserve"><value>Numéro de téléphone</value></data>
+  <data name="AddressLine1" xml:space="preserve"><value>Adresse ligne 1</value></data>
+  <data name="AddressLine2" xml:space="preserve"><value>Adresse ligne 2</value></data>
+  <data name="Country" xml:space="preserve"><value>Pays</value></data>
+  <data name="City" xml:space="preserve"><value>Ville</value></data>
+  <data name="District" xml:space="preserve"><value>District</value></data>
+  <data name="ZipCode" xml:space="preserve"><value>Code postal</value></data>
+  <data name="Description" xml:space="preserve"><value>Description</value></data>
+  <data name="OrderProductList" xml:space="preserve"><value>Liste des produits commandés</value></data>
+  <data name="ShoppingAmountInclTax" xml:space="preserve"><value>Montant des achats (TVA incluse)</value></data>
+  <data name="ShippingFee" xml:space="preserve"><value>Frais de livraison</value></data>
+  <data name="GrandTotal" xml:space="preserve"><value>Total général</value></data>
+  <data name="SelectPaymentMethod" xml:space="preserve"><value>Choisir le mode de paiement</value></data>
+  <data name="CreditDebitCard" xml:space="preserve"><value>Carte de crédit/débit</value></data>
+  <data name="BankTransfer" xml:space="preserve"><value>Virement bancaire</value></data>
+  <data name="UsePoints" xml:space="preserve"><value>Utiliser les points</value></data>
+  <data name="CardHolder" xml:space="preserve"><value>Titulaire de la carte</value></data>
+  <data name="ExpiryDate" xml:space="preserve"><value>Date d'expiration</value></data>
+  <data name="CardNumber" xml:space="preserve"><value>Numéro de carte</value></data>
+  <data name="MonthInfo" xml:space="preserve"><value>Mois</value></data>
+  <data name="SelectMonth" xml:space="preserve"><value>Choisir le mois</value></data>
+  <data name="YearInfo" xml:space="preserve"><value>Année</value></data>
+  <data name="SelectYear" xml:space="preserve"><value>Choisir l'année</value></data>
+  <data name="CompletePayment" xml:space="preserve"><value>Finaliser le paiement</value></data>
+  <data name="ECommerce" xml:space="preserve"><value>E-commerce</value></data>
+  <data name="LoginForm" xml:space="preserve"><value>Formulaire de connexion</value></data>
+  <data name="RegisterForm" xml:space="preserve"><value>Formulaire d'inscription</value></data>
+  <data name="Username" xml:space="preserve"><value>Nom d'utilisateur</value></data>
+  <data name="Password" xml:space="preserve"><value>Mot de passe</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Confirmer le mot de passe</value></data>
+  <data name="FullName" xml:space="preserve"><value>Nom complet</value></data>
+  <data name="MessageSubject" xml:space="preserve"><value>Objet du message</value></data>
+  <data name="YourMessage" xml:space="preserve"><value>Votre message</value></data>
+  <data name="SendMessage" xml:space="preserve"><value>Envoyer le message</value></data>
+  <data name="FieldRequired" xml:space="preserve"><value>Veuillez ne pas laisser vide</value></data>
+  <data name="LoginIntro1" xml:space="preserve"><value>Connectez-vous dès maintenant pour effectuer des transactions e-commerce via notre projet MultiShop et rester informé des produits en promotion et des offres.</value></data>
+  <data name="LoginIntro2" xml:space="preserve"><value>Vous devez vous connecter pour finaliser vos achats, ajouter des produits à votre panier et voir la liste des produits. Si vous n'avez pas de compte, vous pouvez vous inscrire ci-dessous.</value></data>
+  <data name="RegisterIntro1" xml:space="preserve"><value>Inscrivez-vous en 1 minute pour effectuer des transactions e-commerce via notre projet MultiShop et rester informé des produits en promotion et des offres.</value></data>
+  <data name="RegisterIntro2" xml:space="preserve"><value>Si vous avez déjà un compte, vous pouvez accéder directement à la page de connexion via le lien ci-dessous sans vous inscrire.</value></data>
+  <data name="OrderHistory" xml:space="preserve"><value>Mon historique de commandes</value></data>
+  <data name="OrderHistorySub" xml:space="preserve"><value>Liste de vos commandes terminées et passées.</value></data>
+  <data name="TotalPriceCol" xml:space="preserve"><value>Prix total</value></data>
+  <data name="OrderDate" xml:space="preserve"><value>Date de commande</value></data>
+  <data name="PaymentStatus" xml:space="preserve"><value>Statut de paiement</value></data>
+  <data name="Paid" xml:space="preserve"><value>Payé</value></data>
+  <data name="Unpaid" xml:space="preserve"><value>En attente</value></data>
+  <data name="OrderDetails" xml:space="preserve"><value>Détails de la commande</value></data>
+  <data name="Details" xml:space="preserve"><value>Détails</value></data>
+  <data name="IncomingMessages" xml:space="preserve"><value>Messages reçus</value></data>
+  <data name="IncomingMessagesSub" xml:space="preserve"><value>Liste des messages qui vous ont été envoyés.</value></data>
+  <data name="IncomingMessageList" xml:space="preserve"><value>Liste des messages reçus</value></data>
+  <data name="Sender" xml:space="preserve"><value>Expéditeur</value></data>
+  <data name="Subject" xml:space="preserve"><value>Objet</value></data>
+  <data name="Date" xml:space="preserve"><value>Date</value></data>
+  <data name="Status" xml:space="preserve"><value>Statut</value></data>
+  <data name="Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Read" xml:space="preserve"><value>Lu</value></data>
+  <data name="Unread" xml:space="preserve"><value>Non lu</value></data>
+  <data name="Open" xml:space="preserve"><value>Ouvrir</value></data>
+  <data name="Delete" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="SentMessages" xml:space="preserve"><value>Messages envoyés</value></data>
+  <data name="SentMessagesSub" xml:space="preserve"><value>Liste des messages que vous avez envoyés.</value></data>
+  <data name="SentMessageList" xml:space="preserve"><value>Liste des messages envoyés</value></data>
+  <data name="Recipient" xml:space="preserve"><value>Destinataire</value></data>
+  <data name="WelcomeBack" xml:space="preserve"><value>Bon retour</value></data>
+  <data name="SearchWords" xml:space="preserve"><value>Mots à rechercher...</value></data>
+  <data name="Menus" xml:space="preserve"><value>Menus</value></data>
+  <data name="ActiveOrders" xml:space="preserve"><value>Mes commandes actives</value></data>
+  <data name="PastOrders" xml:space="preserve"><value>Mes commandes passées</value></data>
+  <data name="MyCargos" xml:space="preserve"><value>Mes livraisons</value></data>
+  <data name="MyMessages" xml:space="preserve"><value>Mes messages</value></data>
+  <data name="MyRequests" xml:space="preserve"><value>Mes demandes</value></data>
+  <data name="Logout" xml:space="preserve"><value>Déconnexion</value></data>
+  <data name="PrivacyPolicy" xml:space="preserve"><value>Politique de confidentialité</value></data>
+  <data name="Help" xml:space="preserve"><value>Aide</value></data>
+  <data name="Online" xml:space="preserve"><value>En ligne</value></data>
+  <data name="Menu" xml:space="preserve"><value>Menu</value></data>
+  <data name="GoToSite" xml:space="preserve"><value>Aller au site</value></data>
+  <data name="SpecialOffers" xml:space="preserve"><value>Offres spéciales</value></data>
+  <data name="SliderPanel" xml:space="preserve"><value>Panneau du curseur</value></data>
+  <data name="FeaturePanel" xml:space="preserve"><value>Panneau des zones en vedette</value></data>
+  <data name="DiscountOffers" xml:space="preserve"><value>Offres de réduction</value></data>
+  <data name="Brands" xml:space="preserve"><value>Marques</value></data>
+  <data name="About" xml:space="preserve"><value>À propos</value></data>
+  <data name="Comments" xml:space="preserve"><value>Commentaires</value></data>
+  <data name="UserList" xml:space="preserve"><value>Liste des utilisateurs</value></data>
+  <data name="OrderList" xml:space="preserve"><value>Liste des commandes</value></data>
+  <data name="CashInfo" xml:space="preserve"><value>Informations de caisse</value></data>
+  <data name="Statistics" xml:space="preserve"><value>Statistiques</value></data>
+  <data name="Cargo" xml:space="preserve"><value>Livraison</value></data>
+  <data name="Images" xml:space="preserve"><value>Images</value></data>
+  <data name="Messages" xml:space="preserve"><value>Messages</value></data>
+  <data name="Settings" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Update" xml:space="preserve"><value>Mettre à jour</value></data>
+  <data name="BrandName" xml:space="preserve"><value>Nom de la marque</value></data>
+  <data name="BrandImage" xml:space="preserve"><value>Image de la marque</value></data>
+  <data name="BrandAddPage" xml:space="preserve"><value>Ajouter une marque</value></data>
+  <data name="BrandUpdatePage" xml:space="preserve"><value>Mettre à jour la marque</value></data>
+  <data name="AddBrandBtn" xml:space="preserve"><value>Ajouter la marque</value></data>
+  <data name="UpdateBrandBtn" xml:space="preserve"><value>Mettre à jour la marque</value></data>
+  <data name="NewBrandEntry" xml:space="preserve"><value>Nouvelle marque</value></data>
+  <data name="CategoryName" xml:space="preserve"><value>Nom de la catégorie</value></data>
+  <data name="CategoryImage" xml:space="preserve"><value>Image de la catégorie</value></data>
+  <data name="CategoryAddPage" xml:space="preserve"><value>Ajouter une catégorie</value></data>
+  <data name="CategoryUpdatePage" xml:space="preserve"><value>Mettre à jour la catégorie</value></data>
+  <data name="AddCategoryBtn" xml:space="preserve"><value>Ajouter la catégorie</value></data>
+  <data name="UpdateCategoryBtn" xml:space="preserve"><value>Mettre à jour la catégorie</value></data>
+  <data name="NewCategoryEntry" xml:space="preserve"><value>Nouvelle catégorie</value></data>
+  <data name="ProductName" xml:space="preserve"><value>Nom du produit</value></data>
+  <data name="ProductPrice" xml:space="preserve"><value>Prix du produit</value></data>
+  <data name="ProductImageLabel" xml:space="preserve"><value>Image du produit</value></data>
+  <data name="ProductCategory" xml:space="preserve"><value>Catégorie du produit</value></data>
+  <data name="ProductDescription" xml:space="preserve"><value>Description du produit</value></data>
+  <data name="ProductAddPage" xml:space="preserve"><value>Ajouter un produit</value></data>
+  <data name="ProductUpdatePage" xml:space="preserve"><value>Mettre à jour le produit</value></data>
+  <data name="AddProductBtn" xml:space="preserve"><value>Ajouter le produit</value></data>
+  <data name="UpdateProductBtn" xml:space="preserve"><value>Mettre à jour le produit</value></data>
+  <data name="NewProductEntry" xml:space="preserve"><value>Nouveau produit</value></data>
+  <data name="ProductImages" xml:space="preserve"><value>Images du produit</value></data>
+  <data name="DescriptionAndInfo" xml:space="preserve"><value>Description et info</value></data>
+  <data name="ProductMarket" xml:space="preserve"><value>Marché des Produits</value></data>
+</root>

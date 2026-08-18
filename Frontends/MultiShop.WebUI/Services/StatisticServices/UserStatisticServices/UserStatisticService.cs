@@ -1,0 +1,20 @@
+﻿
+namespace MultiShop.WebUI.Services.StatisticServices.UserStatisticServices
+{
+    public class UserStatisticService : IUserStatisticService
+    {
+        private readonly HttpClient _httpClient;
+
+        public UserStatisticService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<int> GetUserCountAsync()
+        {
+            var response = await _httpClient.GetAsync("api/Statistics/GetUserCount");
+            var values = await response.Content.ReadFromJsonAsync<int>();
+            return values;
+        }
+    }
+}

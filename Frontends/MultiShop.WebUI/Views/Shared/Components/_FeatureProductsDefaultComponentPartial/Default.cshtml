@@ -1,0 +1,68 @@
+@model List<ResultProductDto>
+@{
+    var sellerNames = ViewBag.SellerNames as Dictionary<string, string>;
+    var ratings = ViewBag.Ratings as Dictionary<string, ProductRatingSummary>;
+}
+
+<section class="max-w-container-max mx-auto px-gutter mb-section-padding">
+    <div class="flex items-center gap-4 mb-8">
+        <h2 class="text-headline-lg font-headline-lg text-on-surface bg-surface-container-low px-4 py-2 inline-block uppercase">@Shared["FeaturedProducts"]</h2>
+        <div class="flex-1 h-px border-b border-dashed border-outline-variant"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach (var item in Model.Take(4))
+        {
+            decimal oldPrice = ((item.ProductPrice / 100) * 15) + item.ProductPrice;
+            ProductRatingSummary rating = null;
+            if (ratings != null && item.ProductId != null)
+            {
+                ratings.TryGetValue(item.ProductId, out rating);
+            }
+            int fullStars = rating == null ? 0 : (int)Math.Floor(rating.Average);
+            bool halfStar = rating != null && (rating.Average - fullStars) >= 0.5;
+
+            <div class="bg-surface-container-lowest border border-surface-variant rounded-xl overflow-hidden hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 group flex flex-col">
+                <div class="relative aspect-square bg-surface-container-low overflow-hidden">
+                    <img class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="@item.ProductImageUrl" alt="@item.ProductName" />
+                    <div class="absolute inset-0 bg-surface/40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/ShoppingCart/AddBasketItem/@item.ProductId"><span class="material-symbols-outlined text-[20px]">shopping_cart</span></a>
+                        <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/User/MyOrder/MyOrderList"><span class="material-symbols-outlined text-[20px]">favorite</span></a>
+                        <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/ProductList/ProductDetail/@item.ProductId"><span class="material-symbols-outlined text-[20px]">sync</span></a>
+                        <a class="bg-surface-container-lowest text-on-surface p-2 rounded hover:bg-primary-container hover:text-on-primary-fixed transition-colors shadow-sm" href="/ProductList/ProductDetail/@item.ProductId"><span class="material-symbols-outlined text-[20px]">search</span></a>
+                    </div>
+                </div>
+                <div class="p-4 flex flex-col items-center text-center flex-1">
+                    <a class="font-label-md text-on-surface mb-1 group-hover:text-primary transition-colors text-truncate-2" href="/ProductList/ProductDetail/@item.ProductId">@item.ProductName</a>
+                    @if (!string.IsNullOrEmpty(item.SellerId) && sellerNames != null && sellerNames.TryGetValue(item.SellerId, out var sellerName))
+                    {
+                        <a class="text-label-sm text-secondary mb-3 hover:text-primary transition-colors" href="/Store/Index/@item.SellerId">@Shared["Seller"]: @sellerName</a>
+                    }
+                    <div class="mt-auto">
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <span class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">@item.ProductPrice.ToString("N2") ₺</span>
+                            <span class="text-body-md text-secondary line-through">@oldPrice.ToString("N2") ₺</span>
+                        </div>
+                        <div class="flex items-center justify-center text-primary-container text-[14px]">
+                            @for (int s = 0; s < 5; s++)
+                            {
+                                if (s < fullStars)
+                                {
+                                    <span class="material-symbols-outlined fill-current">star</span>
+                                }
+                                else if (s == fullStars && halfStar)
+                                {
+                                    <span class="material-symbols-outlined fill-current">star_half</span>
+                                }
+                                else
+                                {
+                                    <span class="material-symbols-outlined text-outline-variant">star</span>
+                                }
+                            }
+                            <span class="text-label-sm text-secondary ml-1">(@(rating == null ? 0 : rating.Count))</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
